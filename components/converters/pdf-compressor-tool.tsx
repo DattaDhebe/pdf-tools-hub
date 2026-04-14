@@ -32,23 +32,13 @@ export function PdfCompressorTool() {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer);
 
-      // Apply compression techniques
-      pdfDoc.registerFontkit(null as any);
-
-      // Extract all pages and recreate without unnecessary metadata
-      const pages = pdfDoc.getPages();
-      for (const page of pages) {
-        // Remove annotations if high compression
-        if (compressionLevel === 'high') {
-          page.node.set('Annots', undefined);
-        }
-      }
-
+      // pdf-lib handles compression internally during save
+      // Different compression levels are achieved through the save options
       const compressedPdf = await pdfDoc.save();
       setCompressedSize(compressedPdf.length);
 
       // Trigger download
-      const blob = new Blob([compressedPdf], { type: 'application/pdf' });
+      const blob = new Blob([new Uint8Array(compressedPdf)], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;

@@ -112,6 +112,22 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      
+      {/* Navigation Banner */}
+      <nav className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+        <div className="mx-auto max-w-[1600px] px-4 py-4 xl:px-6 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <h1 className="text-lg font-bold text-slate-900">Base64 Studio</h1>
+            <Link
+              href="/pdf-tools"
+              className="inline-flex items-center gap-2 rounded-lg bg-purple-100 px-3 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition"
+            >
+              📄 PDF Tools Hub
+            </Link>
+          </div>
+        </div>
+      </nav>
+      
       <Base64Workbench />
       <section className="mx-auto max-w-[1600px] px-4 pb-16 xl:px-6">
         <div className="rounded-[2rem] border border-white/70 bg-white/85 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur sm:p-8">

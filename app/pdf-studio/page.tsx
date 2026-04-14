@@ -95,16 +95,16 @@ export default function PdfStudioPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <nav className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+      <nav className="sticky top-0 z-50 border-b theme-card border-[var(--app-card-border)] theme-panel backdrop-blur">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="text-lg font-bold text-slate-900 hover:text-orange-600 transition"
+              className="text-lg font-bold theme-title hover:text-orange-600 transition"
             >
               ← DHEBE Studios
             </Link>
-            <h1 className="text-lg font-bold text-slate-900">PDF Studio</h1>
+            <h1 className="text-lg font-bold theme-title">PDF Studio</h1>
             <Link
               href="/base64-studio"
               className="inline-flex items-center gap-2 rounded-lg bg-orange-100 px-3 py-2 text-sm font-semibold text-orange-700 hover:bg-orange-200 transition"

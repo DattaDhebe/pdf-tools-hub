@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useTheme } from '@/lib/hooks/useTheme';
 import { Base64ToAudioDecoder } from '@/components/converters/base64-to-audio-decoder';
 import { Base64ToCssDecoder } from '@/components/converters/base64-to-css-decoder';
 import { Base64ToFileDecoder } from '@/components/converters/base64-to-file-decoder';
@@ -57,7 +58,7 @@ interface Base64WorkbenchProps {
 }
 
 export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const { theme, toggleTheme } = useTheme('base64-studio-theme');
   const [activeTool, setActiveTool] = useState<ActiveTool>(
     initialTool ?? {
       kind: 'converter',
@@ -82,22 +83,6 @@ export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
     : implementedConverters[activeTool.id as keyof typeof implementedConverters] ?? null;
 
   const activeOption = isDecoderView ? activeDecoder : activeConverter;
-
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem('base64-studio-theme');
-    const preferredTheme =
-      storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
-
-    setTheme(preferredTheme);
-    document.documentElement.dataset.theme = preferredTheme;
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem('base64-studio-theme', nextTheme);
-  };
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(249,115,22,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.16),_transparent_32%),linear-gradient(180deg,_#fffaf5_0%,_#fff7ed_38%,_#fffdf8_100%)] text-[var(--app-text)] transition-colors duration-200">

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useTheme } from '@/lib/hooks/useTheme';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
 import { PdfMergerTool } from '@/components/converters/pdf-merger-tool';
 import { PdfSplitterTool } from '@/components/converters/pdf-splitter-tool';
@@ -9,26 +10,10 @@ import { pdfTools } from '@/lib/pdf-tools';
 type ActiveTool = 'compress' | 'merge' | 'split';
 
 export function PdfToolsWorkbench() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const { theme, toggleTheme } = useTheme('pdf-tools-theme');
   const [activeTool, setActiveTool] = useState<ActiveTool>('compress');
 
   const activeToolData = pdfTools.find((tool) => tool.id === activeTool);
-
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem('pdf-tools-theme');
-    const preferredTheme =
-      storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
-
-    setTheme(preferredTheme);
-    document.documentElement.dataset.theme = preferredTheme;
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem('pdf-tools-theme', nextTheme);
-  };
 
   const ActiveComponent = {
     compress: PdfCompressorTool,
@@ -45,10 +30,10 @@ export function PdfToolsWorkbench() {
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
                 PDF Tools
               </p>
-              <h1 className="text-4xl font-bold tracking-tight text-slate-900 mt-2 sm:text-5xl">
+              <h1 className="text-4xl font-bold tracking-tight theme-title mt-2 sm:text-5xl">
                 Powerful PDF Utilities
               </h1>
-              <p className="text-base text-slate-600 mt-3 max-w-lg">
+              <p className="text-base theme-muted mt-3 max-w-lg">
                 100% client-side PDF processing. Compress, merge, and split PDFs directly in your browser without uploading to any server.
               </p>
             </div>
@@ -66,7 +51,7 @@ export function PdfToolsWorkbench() {
         </header>
 
         {/* Privacy Banner */}
-        <div className="theme-privacy mb-8 rounded-[1.75rem] border p-5 bg-gradient-to-r from-purple-50 to-green-50">
+        <div className="theme-privacy mb-8 rounded-[1.75rem] border p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-2xl">
               <p className="theme-privacy-muted text-xs font-semibold uppercase tracking-[0.28em]">
@@ -88,21 +73,21 @@ export function PdfToolsWorkbench() {
             <button
               key={tool.id}
               onClick={() => setActiveTool(tool.id as ActiveTool)}
-              className={`rounded-xl border-2 p-4 text-left transition ${
+              className={`rounded-xl border-2 theme-card p-4 text-left transition ${
                 activeTool === tool.id
-                  ? 'border-purple-500 bg-purple-50'
-                  : 'border-slate-200 bg-white hover:border-purple-200 hover:bg-purple-50'
+                  ? 'border-purple-500 theme-card-soft'
+                  : 'border-[var(--app-card-border)] hover:border-purple-200/50'
               }`}
             >
-              <p className="font-semibold text-slate-900">{tool.label}</p>
-              <p className="text-sm text-slate-600 mt-1">{tool.description}</p>
+              <p className="font-semibold theme-title">{tool.label}</p>
+              <p className="text-sm theme-muted mt-1">{tool.description}</p>
             </button>
           ))}
         </div>
 
         {/* Active Tool Section */}
         <section className="theme-panel rounded-[2rem] border p-6 sm:p-8 mb-8">
-          <div className="mb-8 border-b border-slate-200/80 pb-6">
+          <div className="mb-8 border-b border-[var(--app-card-border)] pb-6">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
               {activeTool === 'compress' && 'Compressor'}
               {activeTool === 'merge' && 'Merger'}

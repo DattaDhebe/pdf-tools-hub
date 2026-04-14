@@ -128,16 +128,16 @@ export default function Base64StudioPage() {
       />
       
       {/* Navigation Banner */}
-      <nav className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+      <nav className="sticky top-0 z-50 border-b theme-card border-[var(--app-card-border)] theme-panel backdrop-blur">
         <div className="mx-auto max-w-[1600px] px-4 py-4 xl:px-6 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="text-lg font-bold text-slate-900 hover:text-orange-600 transition"
+              className="text-lg font-bold theme-title hover:text-orange-600 transition"
             >
               ← DHEBE Studios
             </Link>
-            <h1 className="text-lg font-bold text-slate-900">Base64 Studio</h1>
+            <h1 className="text-lg font-bold theme-title">Base64 Studio</h1>
             <Link
               href="/pdf-studio"
               className="inline-flex items-center gap-2 rounded-lg bg-purple-100 px-3 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition"
@@ -150,14 +150,14 @@ export default function Base64StudioPage() {
       
       <Base64Workbench />
       <section className="mx-auto max-w-[1600px] px-4 pb-16 xl:px-6">
-        <div className="rounded-[2rem] border border-white/70 bg-white/85 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur sm:p-8">
+        <div className="theme-panel rounded-[2rem] border p-6 sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-orange-600">
             Tool Directory
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
             Dedicated Pages for Every Tool
           </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 sm:text-base">
+          <p className="mt-3 max-w-3xl text-sm leading-7 theme-muted sm:text-base">
             Browse a dedicated landing page for each Base64 encoder and decoder tool. These static pages help users find the exact utility they need and make the site easier for search engines to crawl.
           </p>
 
@@ -194,10 +194,10 @@ function ToolLinkGroup({ title, accentClass, tools }: ToolLinkGroupProps) {
           <Link
             key={tool.slug}
             href={`/tools/${tool.slug}`}
-            className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 transition hover:border-slate-300 hover:bg-white"
+            className="theme-card-soft rounded-[1.5rem] border px-4 py-4 transition hover:border-[var(--app-card-border)]"
           >
-            <p className="text-sm font-semibold text-slate-950">{tool.label}</p>
-            <p className="mt-1 text-sm leading-6 text-slate-600">{tool.description}</p>
+            <p className="text-sm font-semibold theme-title">{tool.label}</p>
+            <p className="mt-1 text-sm leading-6 theme-muted">{tool.description}</p>
           </Link>
         ))}
       </div>

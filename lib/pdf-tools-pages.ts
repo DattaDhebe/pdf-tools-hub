@@ -134,22 +134,6 @@ export const pdfToolPages: PdfToolPageEntry[] = [
       'Fill PDF forms with your personal information. Save time by auto-filling common fields like name, email, and address across form documents for faster submission.',
   },
   {
-    slug: 'pdf-to-word',
-    id: 'pdf-to-word',
-    label: 'PDF to Word',
-    description: 'Convert PDF files to editable Word documents online.',
-    longDescription:
-      'Turn PDF files into editable Word documents for quick text updates and reuse. PDF to Word is one of the most common conversion tasks across document processing tools.',
-  },
-  {
-    slug: 'edit-pdf',
-    id: 'edit',
-    label: 'Edit PDF',
-    description: 'Edit PDF files online with text and markup.',
-    longDescription:
-      'Edit PDF content online with support for text updates and document changes. PDF editing is a high-demand workflow for making quick modifications to documents.',
-  },
-  {
     slug: 'sign-pdf',
     id: 'sign',
     label: 'Sign PDF',

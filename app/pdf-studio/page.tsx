@@ -124,33 +124,37 @@ export default function PdfStudioPage() {
       />
       <PdfToolsWorkbench />
 
-      <section className="mx-auto max-w-[1600px] px-4 pb-16 xl:px-6">
+      <section className="mx-auto max-w-[1600px] px-4 pb-16 xl:px-6 pt-8">
         <div className="theme-panel rounded-[2rem] border p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-600">
-            Tool Directory
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
-            Dedicated Pages for Every PDF Workflow
-          </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 theme-muted sm:text-base">
-            Browse a dedicated landing page for each PDF tool. These static pages mirror Base64 Studio&apos;s SEO structure so users can discover the exact PDF workflow they need through search or direct links.
-          </p>
+          <div className="grid gap-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-600">
+                Tool Directory
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
+                Dedicated Pages for Every PDF Workflow
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 theme-muted sm:text-base">
+                Browse a dedicated landing page for each PDF tool. These static pages mirror Base64 Studio&apos;s SEO structure so users can discover the exact PDF workflow they need through search or direct links.
+              </p>
+            </div>
 
-          <div className="mt-8 grid gap-8 lg:grid-cols-2">
-            <PdfToolLinkGroup
-              title="Ready Now"
-              tools={pdfToolPages.filter((tool) =>
-                ['compress', 'merge', 'split', 'rotate', 'remove-pages'].includes(tool.id),
-              )}
-              accentClass="text-purple-600"
-            />
-            <PdfToolLinkGroup
-              title="Popular Next"
-              tools={pdfToolPages.filter((tool) =>
-                ['pdf-to-word', 'edit', 'sign', 'protect', 'organize', 'ocr'].includes(tool.id),
-              )}
-              accentClass="text-cyan-600"
-            />
+            <div className="grid gap-8 lg:grid-cols-2">
+              <PdfToolLinkGroup
+                title="Ready Now"
+                tools={pdfToolPages.filter((tool) =>
+                  ['compress', 'merge', 'split', 'rotate', 'remove-pages'].includes(tool.id),
+                )}
+                accentClass="text-purple-600"
+              />
+              <PdfToolLinkGroup
+                title="Popular Next"
+                tools={pdfToolPages.filter((tool) =>
+                  ['pdf-to-word', 'edit', 'sign', 'protect', 'organize', 'ocr'].includes(tool.id),
+                )}
+                accentClass="text-cyan-600"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -170,15 +174,15 @@ function PdfToolLinkGroup({ title, accentClass, tools }: PdfToolLinkGroupProps) 
       <h3 className={`text-sm font-semibold uppercase tracking-[0.22em] ${accentClass}`}>
         {title}
       </h3>
-      <div className="mt-4 grid gap-3">
+      <div className="mt-4 space-y-3">
         {tools.map((tool) => (
           <Link
             key={tool.slug}
             href={`/pdf-tools/${tool.slug}`}
-            className="theme-card-soft rounded-[1.5rem] border px-4 py-4 transition hover:border-[var(--app-card-border)]"
+            className="theme-card-soft rounded-[1.5rem] border px-4 py-4 transition hover:border-[var(--app-card-border)] block"
           >
-            <p className="text-sm font-semibold theme-title">{tool.label}</p>
-            <p className="mt-1 text-sm leading-6 theme-muted">{tool.description}</p>
+            <p className="text-sm font-semibold theme-title break-words">{tool.label}</p>
+            <p className="mt-1 text-xs sm:text-sm leading-6 theme-muted break-words">{tool.description}</p>
           </Link>
         ))}
       </div>

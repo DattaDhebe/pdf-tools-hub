@@ -127,26 +127,6 @@ export default function Base64StudioPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      {/* Navigation Banner */}
-      <nav className="sticky top-0 z-50 border-b theme-card border-[var(--app-card-border)] theme-panel backdrop-blur">
-        <div className="mx-auto max-w-[1600px] px-4 py-4 xl:px-6 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-lg font-bold theme-title hover:text-orange-600 transition"
-            >
-              ← DHEBE Studios
-            </Link>
-            <h1 className="text-lg font-bold theme-title">Base64 Studio</h1>
-            <Link
-              href="/pdf-studio"
-              className="inline-flex items-center gap-2 rounded-lg bg-purple-100 px-3 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition"
-            >
-              📄 PDF Studio
-            </Link>
-          </div>
-        </div>
-      </nav>
       
       <Base64Workbench />
       <section className="mx-auto max-w-[1600px] px-4 pb-16 xl:px-6">

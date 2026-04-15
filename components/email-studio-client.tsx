@@ -16,15 +16,6 @@ export function EmailStudioClient({ structuredData }: EmailStudioClientProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(6,182,212,0.16),_transparent_32%),linear-gradient(180deg,_#f0fdf4_0%,_#f0fdfa_38%,_#fdf8fc_100%)] text-[var(--app-text)] transition-colors duration-200">
-        <nav className="sticky top-0 z-50 border-b theme-card theme-panel border-[var(--app-card-border)] backdrop-blur">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <Link href="/" className="text-lg font-bold theme-title transition hover:text-orange-600">
-              Back to DHEBE Studios
-            </Link>
-            <h1 className="text-lg font-bold theme-title">Email Template Studio</h1>
-          </div>
-        </nav>
-
         <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-5xl font-bold tracking-tight theme-title sm:text-6xl">

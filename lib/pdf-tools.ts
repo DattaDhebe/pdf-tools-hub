@@ -37,23 +37,31 @@ export const pdfTools: PdfTool[] = [
     description: 'Convert PDFs into editable Word documents.',
     longDescription:
       'Turn a PDF into an editable Word document for quick text updates, copy changes, and content reuse. This is one of the most common PDF workflows across major online PDF suites.',
-    status: 'soon',
+    status: 'ready',
   },
   {
-    id: 'edit',
-    label: 'Edit PDF',
-    description: 'Add text, notes, shapes, and basic edits.',
+    id: 'watermark',
+    label: 'PDF Watermarker',
+    description: 'Add watermarks to PDF pages.',
     longDescription:
-      'Edit PDF content with common markup and document-updating actions such as adding text, notes, shapes, or visual changes. This is one of the most requested online PDF workflows.',
-    status: 'soon',
+      'Add text watermarks to PDF pages with customizable opacity and positioning. Perfect for marking documents as drafts, confidential, or branded materials.',
+    status: 'ready',
   },
   {
-    id: 'sign',
-    label: 'Sign PDF',
-    description: 'Add your signature and complete PDF forms.',
+    id: 'annotate',
+    label: 'PDF Annotation',
+    description: 'Add notes and annotations to PDFs.',
     longDescription:
-      'Sign PDF documents online, complete form fields, and prepare files for approvals or document exchange. Signing is one of the most-used PDF tasks on major web platforms.',
-    status: 'soon',
+      'Add text annotations and notes to specific pages of your PDF. Highlight important information and add comments directly to documents.',
+    status: 'ready',
+  },
+  {
+    id: 'form-fill',
+    label: 'PDF Form Filler',
+    description: 'Auto-fill PDF forms with your information.',
+    longDescription:
+      'Fill PDF forms with your personal information. Save time by auto-filling common fields like name, email, and address across form documents.',
+    status: 'ready',
   },
   {
     id: 'protect',
@@ -61,7 +69,23 @@ export const pdfTools: PdfTool[] = [
     description: 'Add a password and basic document protection.',
     longDescription:
       'Protect sensitive PDFs with a password and security settings before sharing them. PDF protection is a standard online workflow for contracts, statements, and personal documents.',
-    status: 'soon',
+    status: 'ready',
+  },
+  {
+    id: 'sign',
+    label: 'Sign PDF',
+    description: 'Add your signature and complete PDF forms.',
+    longDescription:
+      'Sign PDF documents online, complete form fields, and prepare files for approvals or document exchange. Signing is one of the most-used PDF tasks on major web platforms.',
+    status: 'ready',
+  },
+  {
+    id: 'edit',
+    label: 'Edit PDF',
+    description: 'Add text, notes, shapes, and basic edits.',
+    longDescription:
+      'Edit PDF content with common markup and document-updating actions such as adding text, notes, shapes, or visual changes. This is one of the most requested online PDF workflows.',
+    status: 'ready',
   },
   {
     id: 'rotate',
@@ -77,7 +101,7 @@ export const pdfTools: PdfTool[] = [
     description: 'Reorder, insert, and manage PDF pages.',
     longDescription:
       'Organize PDF pages by rearranging, inserting, or restructuring the document. Page organization shows up repeatedly as a core PDF workflow across major PDF tools.',
-    status: 'soon',
+    status: 'ready',
   },
   {
     id: 'remove-pages',
@@ -93,7 +117,7 @@ export const pdfTools: PdfTool[] = [
     description: 'Make scanned PDFs searchable and selectable.',
     longDescription:
       'Use OCR to recognize text from scanned PDF files so the content becomes searchable, selectable, and easier to reuse. OCR consistently appears among the most-used PDF features online.',
-    status: 'soon',
+    status: 'ready',
   },
 ];
 

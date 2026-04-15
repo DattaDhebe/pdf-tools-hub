@@ -11,7 +11,10 @@ export interface PdfToolPageEntry {
     | 'rotate'
     | 'organize'
     | 'remove-pages'
-    | 'ocr';
+    | 'ocr'
+    | 'watermark'
+    | 'annotate'
+    | 'form-fill';
   label: string;
   description: string;
   longDescription: string;
@@ -105,6 +108,70 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     description: 'Make scanned PDFs searchable and selectable with OCR-style workflows.',
     longDescription:
       'Use OCR PDF workflows to make scanned documents searchable, selectable, and easier to reuse. OCR remains one of the most requested PDF capabilities for archive and scan-heavy use cases.',
+  },
+  {
+    slug: 'watermark-pdf',
+    id: 'watermark',
+    label: 'Watermark PDF',
+    description: 'Add text watermarks to PDF pages online for branding or marking documents.',
+    longDescription:
+      'Add text watermarks to PDF pages with customizable opacity and positioning. Perfect for marking documents as drafts, confidential, or branded materials before sharing.',
+  },
+  {
+    slug: 'annotate-pdf',
+    id: 'annotate',
+    label: 'Annotate PDF',
+    description: 'Add notes and annotations to PDF pages online.',
+    longDescription:
+      'Add text annotations and notes to specific pages of your PDF. Highlight important information and add comments directly to documents for better collaboration and documentation.',
+  },
+  {
+    slug: 'fill-pdf-forms',
+    id: 'form-fill',
+    label: 'Fill PDF Forms',
+    description: 'Auto-fill PDF forms with your personal information online.',
+    longDescription:
+      'Fill PDF forms with your personal information. Save time by auto-filling common fields like name, email, and address across form documents for faster submission.',
+  },
+  {
+    slug: 'pdf-to-word',
+    id: 'pdf-to-word',
+    label: 'PDF to Word',
+    description: 'Convert PDF files to editable Word documents online.',
+    longDescription:
+      'Turn PDF files into editable Word documents for quick text updates and reuse. PDF to Word is one of the most common conversion tasks across document processing tools.',
+  },
+  {
+    slug: 'edit-pdf',
+    id: 'edit',
+    label: 'Edit PDF',
+    description: 'Edit PDF files online with text and markup.',
+    longDescription:
+      'Edit PDF content online with support for text updates and document changes. PDF editing is a high-demand workflow for making quick modifications to documents.',
+  },
+  {
+    slug: 'sign-pdf',
+    id: 'sign',
+    label: 'Sign PDF',
+    description: 'Sign PDF documents online quickly.',
+    longDescription:
+      'Add signatures to PDF files and complete document signing workflows online. Signing supports approvals, contracts, and everyday document exchange.',
+  },
+  {
+    slug: 'organize-pdf',
+    id: 'organize',
+    label: 'Organize PDF',
+    description: 'Organize PDF pages by reordering and restructuring.',
+    longDescription:
+      'Organize PDF pages by rearranging and restructuring document order. Page organization is essential for preparing polished final documents from multiple sources.',
+  },
+  {
+    slug: 'ocr-pdf',
+    id: 'ocr',
+    label: 'OCR PDF',
+    description: 'Make scanned PDFs searchable and selectable with OCR.',
+    longDescription:
+      'Use OCR to recognize text from scanned PDF files so content becomes searchable and easier to reuse. OCR is popular for archiving and scan-heavy workflows.',
   },
 ];
 

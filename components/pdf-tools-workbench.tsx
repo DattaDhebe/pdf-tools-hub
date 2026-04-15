@@ -10,6 +10,15 @@ import { PdfMergerTool } from '@/components/converters/pdf-merger-tool';
 import { PdfRemovePagesTool } from '@/components/converters/pdf-remove-pages-tool';
 import { PdfRotateTool } from '@/components/converters/pdf-rotate-tool';
 import { PdfSplitterTool } from '@/components/converters/pdf-splitter-tool';
+import { PdfWatermarkTool } from '@/components/converters/pdf-watermark-tool';
+import { PdfAnnotationTool } from '@/components/converters/pdf-annotation-tool';
+import { PdfFormFillerTool } from '@/components/converters/pdf-form-filler-tool';
+import { PdfEncryptTool } from '@/components/converters/pdf-encrypt-tool';
+import { PdfToWordTool } from '@/components/converters/pdf-to-word-tool';
+import { PdfEditTool } from '@/components/converters/pdf-edit-tool';
+import { PdfSignTool } from '@/components/converters/pdf-sign-tool';
+import { PdfOrganizeTool } from '@/components/converters/pdf-organize-tool';
+import { PdfOcrTool } from '@/components/converters/pdf-ocr-tool';
 import { pdfTools } from '@/lib/pdf-tools';
 import { pdfToolPages } from '@/lib/pdf-tools-pages';
 
@@ -24,7 +33,10 @@ type ActiveTool =
   | 'rotate'
   | 'organize'
   | 'remove-pages'
-  | 'ocr';
+  | 'ocr'
+  | 'watermark'
+  | 'annotate'
+  | 'form-fill';
 
 interface PdfToolsWorkbenchProps {
   initialTool?: ActiveTool;
@@ -55,7 +67,16 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
     split: PdfSplitterTool,
     rotate: PdfRotateTool,
     'remove-pages': PdfRemovePagesTool,
-  }[activeTool as 'compress' | 'merge' | 'split' | 'rotate' | 'remove-pages'];
+    watermark: PdfWatermarkTool,
+    annotate: PdfAnnotationTool,
+    'form-fill': PdfFormFillerTool,
+    protect: PdfEncryptTool,
+    'pdf-to-word': PdfToWordTool,
+    edit: PdfEditTool,
+    sign: PdfSignTool,
+    organize: PdfOrganizeTool,
+    ocr: PdfOcrTool,
+  }[activeTool as 'compress' | 'merge' | 'split' | 'rotate' | 'remove-pages' | 'watermark' | 'annotate' | 'form-fill' | 'protect' | 'pdf-to-word' | 'edit' | 'sign' | 'organize' | 'ocr'];
 
   const handleToolSelect = (toolId: ActiveTool) => {
     const targetPage = pdfToolPages.find((tool) => tool.id === toolId);

@@ -1,17 +1,23 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useTheme } from '@/lib/hooks/useTheme';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
 import { PdfMergerTool } from '@/components/converters/pdf-merger-tool';
 import { PdfSplitterTool } from '@/components/converters/pdf-splitter-tool';
 import { pdfTools } from '@/lib/pdf-tools';
+import { pdfToolPages } from '@/lib/pdf-tools-pages';
 
 type ActiveTool = 'compress' | 'merge' | 'split';
 
-export function PdfToolsWorkbench() {
+interface PdfToolsWorkbenchProps {
+  initialTool?: ActiveTool;
+}
+
+export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenchProps) {
   const { theme, toggleTheme } = useTheme('pdf-tools-theme');
-  const [activeTool, setActiveTool] = useState<ActiveTool>('compress');
+  const [activeTool, setActiveTool] = useState<ActiveTool>(initialTool);
 
   const activeToolData = pdfTools.find((tool) => tool.id === activeTool);
 
@@ -69,36 +75,58 @@ export function PdfToolsWorkbench() {
 
         {/* Tools Navigation */}
         <div className="mb-8 grid gap-3 sm:grid-cols-3">
-          {pdfTools.map((tool) => (
-            <button
-              key={tool.id}
-              onClick={() => setActiveTool(tool.id as ActiveTool)}
-              className={`rounded-xl border-2 theme-card p-4 text-left transition ${
-                activeTool === tool.id
-                  ? 'border-purple-500 theme-card-soft'
-                  : 'border-[var(--app-card-border)] hover:border-purple-200/50'
-              }`}
-            >
-              <p className="font-semibold theme-title">{tool.label}</p>
-              <p className="text-sm theme-muted mt-1">{tool.description}</p>
-            </button>
-          ))}
+          {pdfTools.map((tool) => {
+            const toolPage = pdfToolPages.find((p) => p.id === tool.id);
+            return (
+              <Link
+                key={tool.id}
+                href={toolPage ? `/pdf-tools/${toolPage.slug}` : '#'}
+                onClick={(e) => !toolPage && e.preventDefault()}
+              >
+                <button
+                  onClick={() => setActiveTool(tool.id as ActiveTool)}
+                  className={`w-full rounded-xl border-2 theme-card p-4 text-left transition ${
+                    activeTool === tool.id
+                      ? 'border-purple-500 theme-card-soft'
+                      : 'border-[var(--app-card-border)] hover:border-purple-200/50'
+                  }`}
+                >
+                  <p className="font-semibold theme-title">{tool.label}</p>
+                  <p className="text-sm theme-muted mt-1">{tool.description}</p>
+                </button>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Active Tool Section */}
         <section className="theme-panel rounded-[2rem] border p-6 sm:p-8 mb-8">
           <div className="mb-8 border-b border-[var(--app-card-border)] pb-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
-              {activeTool === 'compress' && 'Compressor'}
-              {activeTool === 'merge' && 'Merger'}
-              {activeTool === 'split' && 'Splitter'}
-            </p>
-            <h2 className="theme-title mt-3 text-3xl font-semibold tracking-tight">
-              {activeToolData?.label}
-            </h2>
-            <p className="theme-muted mt-3 text-sm leading-6 max-w-2xl">
-              {activeToolData?.longDescription}
-            </p>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
+                  {activeTool === 'compress' && 'Compressor'}
+                  {activeTool === 'merge' && 'Merger'}
+                  {activeTool === 'split' && 'Splitter'}
+                </p>
+                <h2 className="theme-title mt-3 text-3xl font-semibold tracking-tight">
+                  {activeToolData?.label}
+                </h2>
+                <p className="theme-muted mt-3 text-sm leading-6 max-w-2xl">
+                  {activeToolData?.longDescription}
+                </p>
+              </div>
+              {(() => {
+                const toolPage = pdfToolPages.find((p) => p.id === activeTool);
+                return toolPage ? (
+                  <Link href={`/pdf-tools/${toolPage.slug}`}>
+                    <button className="whitespace-nowrap rounded-lg bg-purple-100 px-4 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition">
+                      View Page →
+                    </button>
+                  </Link>
+                ) : null;
+              })()}
+            </div>
           </div>
 
           <ActiveComponent />

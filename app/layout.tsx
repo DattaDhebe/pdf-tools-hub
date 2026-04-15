@@ -23,6 +23,15 @@ export const metadata: Metadata = {
     'free tools',
     'dhebe studios',
   ],
+  icons: {
+    icon: [
+      {
+        url: '/logo.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/logo.svg',
+  },
   alternates: {
     canonical: 'https://dhebe.com',
   },

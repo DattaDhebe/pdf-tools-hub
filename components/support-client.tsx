@@ -1,6 +1,5 @@
 'use client';
 
-import { ThemeToggle } from '@/components/theme-toggle';
 import Link from 'next/link';
 import Script from 'next/script';
 
@@ -16,7 +15,6 @@ export function SupportClient({ structuredData }: SupportClientProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <ThemeToggle />
       <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(249,115,22,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.16),_transparent_32%),linear-gradient(180deg,_#fffaf5_0%,_#fff7ed_38%,_#fffdf8_100%)] px-4 py-6 text-[var(--app-text)] transition-colors duration-200 xl:px-6">
         <div className="mx-auto max-w-6xl space-y-6">
           <section className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">

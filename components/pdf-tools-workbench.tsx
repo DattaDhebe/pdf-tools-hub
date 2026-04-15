@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
 import { PdfComingSoonTool } from '@/components/converters/pdf-coming-soon-tool';
 import { PdfMergerTool } from '@/components/converters/pdf-merger-tool';
@@ -91,7 +90,6 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
 
   return (
     <main className="theme-page-pdf min-h-screen text-[var(--app-text)] transition-colors duration-200">
-      <ThemeToggle />
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col gap-6 px-4 py-6 xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:items-start xl:px-6">
         <PdfRail
           title="Popular PDF Tools"

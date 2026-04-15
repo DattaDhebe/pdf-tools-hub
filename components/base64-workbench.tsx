@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { Base64ToAudioDecoder } from '@/components/converters/base64-to-audio-decoder';
 import { Base64ToCssDecoder } from '@/components/converters/base64-to-css-decoder';
 import { Base64ToFileDecoder } from '@/components/converters/base64-to-file-decoder';
@@ -85,7 +84,6 @@ export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(249,115,22,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.16),_transparent_32%),linear-gradient(180deg,_#fffaf5_0%,_#fff7ed_38%,_#fffdf8_100%)] text-[var(--app-text)] transition-colors duration-200">
-      <ThemeToggle />
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col gap-6 px-4 py-6 xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:items-start xl:px-6">
         <WorkbenchRail
           title="Encoder Workbench"

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export function StudiosHub() {
   const studios = [
@@ -36,7 +35,6 @@ export function StudiosHub() {
 
   return (
     <main className="theme-page-home min-h-screen text-[var(--app-text)] transition-colors duration-200">
-      <ThemeToggle />
       <header className="sticky top-0 z-50 border-b theme-card theme-panel border-[var(--app-card-border)]/50 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <h1 className="bg-gradient-to-r from-orange-600 via-purple-600 to-cyan-600 bg-clip-text text-2xl font-bold text-transparent">

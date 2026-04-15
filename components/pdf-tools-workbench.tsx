@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
 import { PdfMergerTool } from '@/components/converters/pdf-merger-tool';
@@ -19,8 +20,11 @@ interface PdfToolsWorkbenchProps {
 
 export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenchProps) {
   const [activeTool, setActiveTool] = useState<ActiveTool>(initialTool);
+  const pathname = usePathname();
 
   const activeToolData = pdfTools.find((tool) => tool.id === activeTool);
+  const activeToolPage = pdfToolPages.find((tool) => tool.id === activeTool);
+  const isDedicatedToolPage = activeToolPage ? pathname === `/pdf-tools/${activeToolPage.slug}` : false;
 
   const ActiveComponent = {
     compress: PdfCompressorTool,
@@ -35,13 +39,13 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
       <ThemeToggle />
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
         <header className="mb-8">
-          <div className="mb-6">
+          <div className="mb-6 pr-24 sm:pr-32">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">PDF Tools</p>
             <h1 className="mt-2 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
               Powerful PDF Utilities
             </h1>
             <p className="mt-3 max-w-lg text-base theme-muted">
-              100% client-side PDF processing. Compress, merge, and split PDFs directly in your browser without uploading to any server.
+              100% client-side PDF processing. Compress, merge, split, rotate, and clean up PDFs directly in your browser without uploading to any server.
             </p>
           </div>
         </header>
@@ -62,25 +66,39 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
           </div>
         </div>
 
-        <div className="mb-8 grid gap-3 sm:grid-cols-3">
+        <div className="mb-8 grid auto-rows-fr gap-3 sm:grid-cols-3">
           {pdfTools.map((tool) => {
-            const toolPage = pdfToolPages.find((p) => p.id === tool.id);
+            const toolPage = pdfToolPages.find((page) => page.id === tool.id);
+            const isActive = activeTool === tool.id;
+
             return (
               <Link
                 key={tool.id}
                 href={toolPage ? `/pdf-tools/${toolPage.slug}` : '#'}
                 onClick={(e) => !toolPage && e.preventDefault()}
+                className="block h-full"
               >
                 <button
+                  type="button"
                   onClick={() => setActiveTool(tool.id as ActiveTool)}
-                  className={`w-full rounded-xl border-2 p-4 text-left transition theme-card ${
-                    activeTool === tool.id
-                      ? 'border-purple-500 theme-card-soft'
-                      : 'border-[var(--app-card-border)] hover:border-purple-200/50'
+                  aria-pressed={isActive}
+                  className={`flex h-full w-full flex-col rounded-xl border-2 p-4 text-left transition ${
+                    isActive
+                      ? 'theme-card-soft border-purple-500 shadow-[0_18px_44px_rgba(88,28,135,0.22)] ring-1 ring-purple-400/50'
+                      : 'theme-card border-[var(--app-card-border)] hover:border-purple-300/60 hover:shadow-md'
                   }`}
                 >
-                  <p className="font-semibold theme-title">{tool.label}</p>
-                  <p className="mt-1 text-sm theme-muted">{tool.description}</p>
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <p className={`font-semibold ${isActive ? 'text-purple-600' : 'theme-title'}`}>{tool.label}</p>
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                        isActive ? 'bg-purple-600 text-white' : 'theme-card-soft theme-muted-2'
+                      }`}
+                    >
+                      {isActive ? 'Selected' : 'Tool'}
+                    </span>
+                  </div>
+                  <p className="mt-auto text-sm theme-muted">{tool.description}</p>
                 </button>
               </Link>
             );
@@ -95,6 +113,8 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
                   {activeTool === 'compress' && 'Compressor'}
                   {activeTool === 'merge' && 'Merger'}
                   {activeTool === 'split' && 'Splitter'}
+                  {activeTool === 'rotate' && 'Rotator'}
+                  {activeTool === 'remove-pages' && 'Page Remover'}
                 </p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
                   {activeToolData?.label}
@@ -103,16 +123,21 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
                   {activeToolData?.longDescription}
                 </p>
               </div>
-              {(() => {
-                const toolPage = pdfToolPages.find((p) => p.id === activeTool);
-                return toolPage ? (
-                  <Link href={`/pdf-tools/${toolPage.slug}`}>
+              {activeToolPage ? (
+                isDedicatedToolPage ? (
+                  <Link href="/pdf-studio">
                     <button className="theme-accent-chip-purple whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition hover:brightness-105">
-                      View Page
+                      Back to Studio
                     </button>
                   </Link>
-                ) : null;
-              })()}
+                ) : (
+                  <Link href={`/pdf-tools/${activeToolPage.slug}`}>
+                    <button className="theme-accent-chip-purple whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition hover:brightness-105">
+                      Open Dedicated Page
+                    </button>
+                  </Link>
+                )
+              ) : null}
             </div>
           </div>
 

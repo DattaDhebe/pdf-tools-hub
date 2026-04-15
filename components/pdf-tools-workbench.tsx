@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -14,31 +14,40 @@ import { pdfTools } from '@/lib/pdf-tools';
 import { pdfToolPages } from '@/lib/pdf-tools-pages';
 
 type ActiveTool =
-  | 'pdf-to-word'
   | 'compress'
   | 'merge'
+  | 'split'
+  | 'pdf-to-word'
   | 'edit'
   | 'sign'
-  | 'split'
-  | 'organize'
   | 'protect'
-  | 'ocr'
   | 'rotate'
-  | 'remove-pages';
+  | 'organize'
+  | 'remove-pages'
+  | 'ocr';
 
 interface PdfToolsWorkbenchProps {
   initialTool?: ActiveTool;
 }
 
 export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenchProps) {
-  const [activeTool, setActiveTool] = useState<ActiveTool>(initialTool);
   const pathname = usePathname();
   const router = useRouter();
+  const [activeTool, setActiveTool] = useState<ActiveTool>(initialTool);
 
-  const activeToolData = pdfTools.find((tool) => tool.id === activeTool);
-  const activeToolPage = pdfToolPages.find((tool) => tool.id === activeTool);
-  const isDedicatedToolPage = activeToolPage ? pathname === `/pdf-tools/${activeToolPage.slug}` : false;
-  const readyCount = pdfTools.filter((tool) => tool.status === 'ready').length;
+  const activeOption = useMemo(
+    () => pdfTools.find((tool) => tool.id === activeTool) ?? pdfTools[0],
+    [activeTool],
+  );
+
+  const activeToolPage = pdfToolPages.find((tool) => tool.id === activeTool) ?? null;
+  const isDedicatedToolPage = activeToolPage
+    ? pathname === `/pdf-tools/${activeToolPage.slug}`
+    : false;
+
+  const readyIds = new Set(
+    pdfTools.filter((tool) => tool.status === 'ready').map((tool) => tool.id),
+  );
 
   const ActiveComponent = {
     compress: PdfCompressorTool,
@@ -49,10 +58,10 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
   }[activeTool as 'compress' | 'merge' | 'split' | 'rotate' | 'remove-pages'];
 
   const handleToolSelect = (toolId: ActiveTool) => {
-    const nextPage = pdfToolPages.find((tool) => tool.id === toolId);
+    const targetPage = pdfToolPages.find((tool) => tool.id === toolId);
 
-    if (isDedicatedToolPage && nextPage) {
-      router.push(`/pdf-tools/${nextPage.slug}`);
+    if (isDedicatedToolPage && targetPage) {
+      router.push(`/pdf-tools/${targetPage.slug}`);
       return;
     }
 
@@ -62,176 +71,320 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
   return (
     <main className="theme-page-pdf min-h-screen text-[var(--app-text)] transition-colors duration-200">
       <ThemeToggle />
-      <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
-        <header className="mb-8">
-          <div className="mb-6 pr-24 sm:pr-32">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">PDF Tools</p>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
-              Powerful PDF Utilities
-            </h1>
-            <p className="mt-3 max-w-2xl text-base theme-muted">
-              Compress, merge, split, rotate, and clean up PDFs now, with the most-used online PDF workflows surfaced first so PDF Studio stays aligned with what people use most.
-            </p>
-          </div>
-        </header>
+      <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col gap-6 px-4 py-6 xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:items-start xl:px-6">
+        <PdfRail
+          title="Popular PDF Tools"
+          badgeLabel={`${readyIds.size}/${pdfTools.length} ready`}
+          sectionLabel="Tool List"
+          description="Most-used PDF workflows are pinned near the top based on recurring tool catalogs across Adobe Acrobat, Smallpdf, and iLovePDF."
+          options={pdfTools}
+          activeId={activeTool}
+          readyIds={readyIds}
+          accentClasses={{
+            eyebrow: 'text-purple-600',
+            badge: 'bg-purple-100 text-purple-700',
+            hover: 'hover:border-purple-300 hover:bg-purple-50',
+          }}
+          footerText="Select a tool to work in the center panel, or open its dedicated landing page from the SEO rail."
+          onSelect={(id) => handleToolSelect(id as ActiveTool)}
+        />
 
-        <section className="mb-8 rounded-[2rem] border p-5 theme-panel sm:p-6">
-          <div className="border-b border-[var(--app-card-border)] pb-5">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-purple-600">
-                  Most Used PDF Tools
-                </p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
-                  Pick a workflow
-                </h2>
-                <p className="mt-3 max-w-2xl text-sm leading-6 theme-muted">
-                  Based on recurring tool lists from Adobe Acrobat, Smallpdf, and iLovePDF, these are the PDF tasks users reach for most often online.
-                </p>
-              </div>
-              <span className="rounded-full bg-purple-100 px-3 py-1 text-[11px] font-semibold text-purple-700">
-                {readyCount}/{pdfTools.length} ready
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <div className="theme-rail overflow-hidden rounded-[1.6rem] border p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
-              <nav className="max-h-[32rem] space-y-2 overflow-y-auto pr-1">
-                {pdfTools.map((tool) => {
-                  const isActive = tool.id === activeTool;
-                  const isReady = tool.status === 'ready';
-
-                  return (
-                    <button
-                      key={tool.id}
-                      type="button"
-                      onClick={() => handleToolSelect(tool.id as ActiveTool)}
-                      aria-pressed={isActive}
-                      className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
-                        isActive
-                          ? 'border-slate-950 bg-slate-950 text-white shadow-[0_18px_44px_rgba(15,23,42,0.18)]'
-                          : 'border-slate-200 bg-white text-slate-700 hover:border-purple-300 hover:bg-purple-50'
-                      } ${!isReady ? 'opacity-90' : ''}`}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-sm font-semibold leading-5">{tool.label}</p>
-                          <p
-                            className={`mt-1 text-xs leading-5 ${
-                              isActive ? 'text-slate-200' : 'text-slate-500'
-                            }`}
-                          >
-                            {tool.description}
-                          </p>
-                        </div>
-                        <span
-                          className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
-                            isReady
-                              ? isActive
-                                ? 'bg-white/15 text-white'
-                                : 'bg-emerald-100 text-emerald-700'
-                              : isActive
-                                ? 'bg-white/15 text-white'
-                                : 'bg-amber-100 text-amber-700'
-                          }`}
-                        >
-                          {isReady ? 'Ready' : 'Soon'}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </nav>
-            </div>
-          </div>
-        </section>
-
-        <div className="mb-8 rounded-[1.75rem] border p-5 theme-privacy">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] theme-privacy-muted">
-                Privacy Guaranteed
+        <section className="theme-panel min-w-0 rounded-[2rem] border p-6 backdrop-blur sm:p-8">
+          <div className="mb-8 flex flex-col gap-4 border-b border-slate-200/80 pb-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
+                {activeOption.status === 'ready' ? 'Active Tool' : 'Planned Tool'}
               </p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight theme-privacy-title">
-                Your PDFs never leave your device.
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title sm:text-4xl">
+                {activeOption.label}
               </h2>
-              <p className="mt-3 text-sm leading-7 theme-privacy-text sm:text-base">
-                All processing happens entirely in your browser using JavaScript. We never upload, store, or see your PDF files, so your data remains completely private and under your control.
+              <p className="mt-3 max-w-2xl text-sm leading-6 theme-muted sm:text-base">
+                {activeOption.longDescription}
               </p>
             </div>
-          </div>
-        </div>
 
-        <section className="mb-8 rounded-[2rem] border p-6 theme-panel sm:p-8">
-          <div className="mb-8 border-b border-[var(--app-card-border)] pb-6">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
-                  {activeToolData?.status === 'ready' ? 'Ready Tool' : 'Planned Tool'}
+            <div className="flex flex-col gap-3 sm:items-end">
+              <div className="theme-card-soft grid gap-2 rounded-2xl border p-4 text-sm theme-muted sm:grid-cols-2">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">
+                    Processing
+                  </p>
+                  <p className="mt-1 font-medium theme-title">Fully client-side</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">
+                    Status
+                  </p>
+                  <p className="mt-1 font-medium theme-title">
+                    {activeOption.status === 'ready' ? 'Available now' : 'SEO page live'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="theme-privacy mb-8 rounded-[1.75rem] border p-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] theme-privacy-muted">
+                  Privacy First
                 </p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
-                  {activeToolData?.label}
-                </h2>
-                <p className="mt-3 max-w-2xl text-sm leading-6 theme-muted">
-                  {activeToolData?.longDescription}
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight theme-privacy-title">
+                  Your PDFs stay on your device.
+                </h3>
+                <p className="mt-3 text-sm leading-7 theme-privacy-text sm:text-base">
+                  PDF Studio is designed around browser-based workflows. Compress, merge, split, rotate, and clean up files locally so the main workbench stays private and fast.
                 </p>
               </div>
-              {activeToolPage ? (
-                isDedicatedToolPage ? (
-                  <Link href="/pdf-studio">
-                    <button className="theme-accent-chip-purple whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition hover:brightness-105">
-                      Back to Studio
-                    </button>
-                  </Link>
-                ) : (
-                  <Link href={`/pdf-tools/${activeToolPage.slug}`}>
-                    <button className="theme-accent-chip-purple whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition hover:brightness-105">
-                      Open Dedicated Page
-                    </button>
-                  </Link>
-                )
-              ) : (
-                <span className="rounded-lg border px-4 py-2 text-sm font-semibold theme-card-soft theme-muted-2">
-                  Coming Soon
-                </span>
-              )}
+
+              <div className="theme-privacy-inner grid min-w-[12rem] gap-2 rounded-2xl border p-4 text-sm">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-privacy-muted">
+                    Uploads
+                  </p>
+                  <p className="mt-1 font-medium theme-privacy-title">No server transfer</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-privacy-muted">
+                    Workflow
+                  </p>
+                  <p className="mt-1 font-medium theme-privacy-title">Drag, process, download</p>
+                </div>
+              </div>
             </div>
           </div>
 
           {ActiveComponent ? (
             <ActiveComponent />
-          ) : activeToolData ? (
+          ) : (
             <PdfComingSoonTool
-              label={activeToolData.label}
-              description={activeToolData.longDescription}
+              label={activeOption.label}
+              description={activeOption.longDescription}
             />
-          ) : null}
+          )}
         </section>
 
-        <section className="mt-12 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border p-6 theme-card">
-            <h3 className="font-semibold theme-title">Lightning Fast</h3>
-            <p className="mt-2 text-sm theme-muted">
-              All processing happens instantly in your browser without any server requests.
-            </p>
-          </div>
-
-          <div className="rounded-xl border p-6 theme-card">
-            <h3 className="font-semibold theme-title">Completely Private</h3>
-            <p className="mt-2 text-sm theme-muted">
-              Your PDF files never leave your device. No uploads, no cloud storage, no tracking.
-            </p>
-          </div>
-
-          <div className="rounded-xl border p-6 theme-card">
-            <h3 className="font-semibold theme-title">Growing Toolkit</h3>
-            <p className="mt-2 text-sm theme-muted">
-              New high-demand PDF workflows are being added while keeping the current tools lightweight and browser-based.
-            </p>
-          </div>
-        </section>
+        <PdfPagesRail
+          title="SEO Tool Pages"
+          badgeLabel={`${pdfToolPages.length} pages`}
+          sectionLabel="Dedicated Links"
+          description="Every listed PDF workflow has a dedicated static page so search engines and users can land directly on the exact tool intent."
+          pages={pdfToolPages}
+          activeSlug={activeToolPage?.slug ?? null}
+          readyIds={readyIds}
+        />
       </div>
     </main>
+  );
+}
+
+interface PdfRailProps {
+  title: string;
+  badgeLabel: string;
+  sectionLabel: string;
+  description: string;
+  options: typeof pdfTools;
+  activeId: string | null;
+  readyIds: Set<string>;
+  accentClasses: {
+    eyebrow: string;
+    badge: string;
+    hover: string;
+  };
+  footerText: string;
+  onSelect: (id: string) => void;
+}
+
+function PdfRail({
+  title,
+  badgeLabel,
+  sectionLabel,
+  description,
+  options,
+  activeId,
+  readyIds,
+  accentClasses,
+  footerText,
+  onSelect,
+}: PdfRailProps) {
+  return (
+    <aside className="theme-panel w-full overflow-hidden rounded-[2rem] border p-5 backdrop-blur xl:sticky xl:top-6 xl:flex xl:h-[calc(100vh-3rem)] xl:w-full xl:flex-col">
+      <div className="border-b border-slate-200/80 pb-5">
+        <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${accentClasses.eyebrow}`}>
+          PDF Studio
+        </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">{title}</h2>
+        <p className="mt-3 text-sm leading-6 theme-muted">{description}</p>
+      </div>
+
+      <div className="mt-6 flex min-h-0 flex-1 flex-col">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.28em] theme-muted-2">
+            {sectionLabel}
+          </h3>
+          <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${accentClasses.badge}`}>
+            {badgeLabel}
+          </span>
+        </div>
+
+        <div className="theme-rail min-h-0 overflow-hidden rounded-[1.6rem] border p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <nav className="max-h-[29rem] space-y-2 overflow-y-auto pr-1 xl:h-full xl:max-h-none">
+            {options.map((option) => {
+              const isActive = option.id === activeId;
+              const isImplemented = readyIds.has(option.id);
+
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={() => onSelect(option.id)}
+                  className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
+                    isActive
+                      ? 'border-slate-950 bg-slate-950 text-white shadow-[0_18px_44px_rgba(15,23,42,0.18)]'
+                      : `border-slate-200 bg-white text-slate-700 ${accentClasses.hover}`
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold leading-5">{option.label}</p>
+                      <p
+                        className={`mt-1 text-xs leading-5 ${
+                          isActive ? 'text-slate-200' : 'text-slate-500'
+                        }`}
+                      >
+                        {option.description}
+                      </p>
+                    </div>
+                    <span
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                        isImplemented
+                          ? isActive
+                            ? 'bg-white/15 text-white'
+                            : 'bg-emerald-100 text-emerald-700'
+                          : isActive
+                            ? 'bg-white/15 text-white'
+                            : 'bg-amber-100 text-amber-700'
+                      }`}
+                    >
+                      {isImplemented ? 'Ready' : 'Soon'}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+
+        <p className="mt-3 text-xs leading-5 theme-muted-2">{footerText}</p>
+        <Link
+          href="/pdf-tools"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
+        >
+          Browse all PDF pages
+          <span aria-hidden="true">-&gt;</span>
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
+interface PdfPagesRailProps {
+  title: string;
+  badgeLabel: string;
+  sectionLabel: string;
+  description: string;
+  pages: typeof pdfToolPages;
+  activeSlug: string | null;
+  readyIds: Set<string>;
+}
+
+function PdfPagesRail({
+  title,
+  badgeLabel,
+  sectionLabel,
+  description,
+  pages,
+  activeSlug,
+  readyIds,
+}: PdfPagesRailProps) {
+  return (
+    <aside className="theme-panel w-full overflow-hidden rounded-[2rem] border p-5 backdrop-blur xl:sticky xl:top-6 xl:flex xl:h-[calc(100vh-3rem)] xl:w-full xl:flex-col">
+      <div className="border-b border-slate-200/80 pb-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-cyan-600">
+          PDF Studio
+        </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">{title}</h2>
+        <p className="mt-3 text-sm leading-6 theme-muted">{description}</p>
+      </div>
+
+      <div className="mt-6 flex min-h-0 flex-1 flex-col">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.28em] theme-muted-2">
+            {sectionLabel}
+          </h3>
+          <span className="rounded-full bg-cyan-100 px-3 py-1 text-[11px] font-semibold text-cyan-700">
+            {badgeLabel}
+          </span>
+        </div>
+
+        <div className="theme-rail min-h-0 overflow-hidden rounded-[1.6rem] border p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <nav className="max-h-[29rem] space-y-2 overflow-y-auto pr-1 xl:h-full xl:max-h-none">
+            {pages.map((page) => {
+              const isActive = page.slug === activeSlug;
+              const isImplemented = readyIds.has(page.id);
+
+              return (
+                <Link
+                  key={page.slug}
+                  href={`/pdf-tools/${page.slug}`}
+                  className={`block rounded-2xl border px-4 py-3 transition ${
+                    isActive
+                      ? 'border-slate-950 bg-slate-950 text-white shadow-[0_18px_44px_rgba(15,23,42,0.18)]'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 hover:bg-cyan-50'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold leading-5">{page.label}</p>
+                      <p
+                        className={`mt-1 text-xs leading-5 ${
+                          isActive ? 'text-slate-200' : 'text-slate-500'
+                        }`}
+                      >
+                        {page.description}
+                      </p>
+                    </div>
+                    <span
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                        isImplemented
+                          ? isActive
+                            ? 'bg-white/15 text-white'
+                            : 'bg-emerald-100 text-emerald-700'
+                          : isActive
+                            ? 'bg-white/15 text-white'
+                            : 'bg-amber-100 text-amber-700'
+                      }`}
+                    >
+                      {isImplemented ? 'Live' : 'Soon'}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        <p className="mt-3 text-xs leading-5 theme-muted-2">
+          These dedicated pages mirror Base64 Studio&apos;s SEO structure so users can discover specific PDF workflows directly from search.
+        </p>
+        <Link
+          href="/support"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
+        >
+          Support and help center
+          <span aria-hidden="true">-&gt;</span>
+        </Link>
+      </div>
+    </aside>
   );
 }

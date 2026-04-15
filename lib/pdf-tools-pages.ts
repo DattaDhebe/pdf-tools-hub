@@ -1,6 +1,17 @@
 export interface PdfToolPageEntry {
   slug: string;
-  id: 'compress' | 'merge' | 'split' | 'rotate' | 'remove-pages';
+  id:
+    | 'compress'
+    | 'merge'
+    | 'split'
+    | 'pdf-to-word'
+    | 'edit'
+    | 'sign'
+    | 'protect'
+    | 'rotate'
+    | 'organize'
+    | 'remove-pages'
+    | 'ocr';
   label: string;
   description: string;
   longDescription: string;
@@ -10,42 +21,90 @@ export const pdfToolPages: PdfToolPageEntry[] = [
   {
     slug: 'compress-pdf',
     id: 'compress',
-    label: 'PDF Compressor',
-    description: 'Compress PDF files online to reduce size while maintaining quality. Fast, free, and 100% client-side processing.',
+    label: 'Compress PDF',
+    description: 'Compress PDF files online to reduce size while maintaining quality. Fast, free, and 100% client-side.',
     longDescription:
-      'Easily compress PDF files online with three preset compression levels. Choose between Low, Medium, or High compression to find the perfect balance between file size and quality. All processing happens directly in your browser with no file uploads required.',
+      'Compress PDF files online with browser-based processing and simple compression presets. This workflow is one of the most common PDF tasks on major online PDF platforms.',
   },
   {
     slug: 'merge-pdf',
     id: 'merge',
-    label: 'PDF Merger',
-    description: 'Merge multiple PDF files into one. Reorder pages, combine documents, and create single PDFs online effortlessly.',
+    label: 'Merge PDF',
+    description: 'Merge multiple PDF files into one document online with drag-and-drop ordering.',
     longDescription:
-      'Combine multiple PDF files into a single document with easy drag-and-drop reordering. Select your PDFs, arrange them in the desired order, and merge them instantly. Perfect for combining invoices, contracts, or any PDF documents.',
+      'Combine multiple PDF files into one polished document with a drag-and-drop merge workflow. Merging is one of the most repeated features across online PDF suites.',
   },
   {
     slug: 'split-pdf',
     id: 'split',
-    label: 'PDF Splitter',
-    description: 'Extract specific pages from PDF files. Split PDFs by page range or extract individual pages online.',
+    label: 'Split PDF',
+    description: 'Split PDFs by range or extract selected pages online without uploading files.',
     longDescription:
-      'Easily extract specific pages from your PDF files. Define a page range or list individual pages you want to extract and create a new PDF with just those pages. Perfect for removing unwanted pages or isolating specific content.',
+      'Split PDFs into smaller documents or extract just the pages you need. Splitting consistently appears as a top PDF workflow because it makes large documents easier to share and reuse.',
+  },
+  {
+    slug: 'pdf-to-word',
+    id: 'pdf-to-word',
+    label: 'PDF to Word',
+    description: 'Convert PDF files to editable Word documents online.',
+    longDescription:
+      'Turn PDF files into editable Word documents for quick updates and reuse. PDF to Word shows up as one of the most common conversion tasks across Adobe Acrobat, Smallpdf, and iLovePDF.',
+  },
+  {
+    slug: 'edit-pdf',
+    id: 'edit',
+    label: 'Edit PDF',
+    description: 'Edit PDF files online with text, markup, and document update workflows.',
+    longDescription:
+      'Edit PDF content online with support for text updates, notes, shapes, or markup-style changes. PDF editing is a high-demand workflow on major online PDF platforms.',
+  },
+  {
+    slug: 'sign-pdf',
+    id: 'sign',
+    label: 'Sign PDF',
+    description: 'Sign PDF documents online and complete forms faster.',
+    longDescription:
+      'Add signatures to PDF files and complete form-ready document workflows online. Signing is a recurring top PDF task because it supports approvals, contracts, and everyday document exchange.',
+  },
+  {
+    slug: 'protect-pdf',
+    id: 'protect',
+    label: 'Protect PDF',
+    description: 'Protect PDF files with password-based security online.',
+    longDescription:
+      'Protect PDF files with password access and simple document security controls. PDF protection is a frequent online workflow for contracts, statements, and shared business files.',
   },
   {
     slug: 'rotate-pdf',
     id: 'rotate',
-    label: 'PDF Rotator',
-    description: 'Rotate PDF pages online. Fix sideways scans, rotate selected pages, and save a corrected PDF instantly.',
+    label: 'Rotate PDF',
+    description: 'Rotate PDF pages online to fix scans, sideways exports, and mixed orientation files.',
     longDescription:
-      'Rotate specific PDF pages by 90, 180, or 270 degrees directly in your browser. Select individual pages or ranges, correct document orientation, and download the updated PDF without any uploads.',
+      'Rotate PDF pages by 90, 180, or 270 degrees directly in your browser. Rotation is a common cleanup workflow for scanned PDFs and imported documents.',
+  },
+  {
+    slug: 'organize-pdf',
+    id: 'organize',
+    label: 'Organize PDF',
+    description: 'Organize PDF pages by reordering, inserting, and managing page structure online.',
+    longDescription:
+      'Organize PDF pages by rearranging and restructuring document order. Page organization appears repeatedly across leading PDF platforms because it helps users prepare polished final documents.',
   },
   {
     slug: 'remove-pdf-pages',
     id: 'remove-pages',
-    label: 'PDF Page Remover',
-    description: 'Remove unwanted pages from a PDF online. Delete single pages or ranges and download a cleaned PDF instantly.',
+    label: 'Remove PDF Pages',
+    description: 'Delete unwanted PDF pages online and download a cleaned-up file instantly.',
     longDescription:
-      'Delete specific pages from your PDF with simple page-range controls. Remove cover pages, blank pages, or unnecessary sections directly in your browser and save the updated PDF privately.',
+      'Remove blank pages, cover pages, or unwanted sections from a PDF directly in your browser. Page deletion is a practical cleanup task that often follows scanning, merging, or splitting.',
+  },
+  {
+    slug: 'ocr-pdf',
+    id: 'ocr',
+    label: 'OCR PDF',
+    description: 'Make scanned PDFs searchable and selectable with OCR-style workflows.',
+    longDescription:
+      'Use OCR PDF workflows to make scanned documents searchable, selectable, and easier to reuse. OCR remains one of the most requested PDF capabilities for archive and scan-heavy use cases.',
   },
 ];
 

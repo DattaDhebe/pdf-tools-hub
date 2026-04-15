@@ -8,14 +8,6 @@ export interface PdfTool {
 
 export const pdfTools: PdfTool[] = [
   {
-    id: 'pdf-to-word',
-    label: 'PDF to Word',
-    description: 'Convert PDFs into editable Word documents.',
-    longDescription:
-      'Turn a PDF into an editable Word document for quick text updates, copy changes, and content reuse. This is one of the most common PDF workflows across major online PDF suites.',
-    status: 'soon',
-  },
-  {
     id: 'compress',
     label: 'PDF Compressor',
     description: 'Reduce PDF file size while maintaining quality.',
@@ -30,6 +22,22 @@ export const pdfTools: PdfTool[] = [
     longDescription:
       'Merge multiple PDF files into a single document. Drag and drop or select files, arrange them in the desired order, and download the combined result.',
     status: 'ready',
+  },
+  {
+    id: 'split',
+    label: 'PDF Splitter',
+    description: 'Extract pages and split PDF documents.',
+    longDescription:
+      'Split PDF files by extracting specific page ranges or individual pages into separate documents. Perfect for breaking apart large PDFs or isolating sections.',
+    status: 'ready',
+  },
+  {
+    id: 'pdf-to-word',
+    label: 'PDF to Word',
+    description: 'Convert PDFs into editable Word documents.',
+    longDescription:
+      'Turn a PDF into an editable Word document for quick text updates, copy changes, and content reuse. This is one of the most common PDF workflows across major online PDF suites.',
+    status: 'soon',
   },
   {
     id: 'edit',
@@ -48,35 +56,11 @@ export const pdfTools: PdfTool[] = [
     status: 'soon',
   },
   {
-    id: 'split',
-    label: 'PDF Splitter',
-    description: 'Extract pages and split PDF documents.',
-    longDescription:
-      'Split PDF files by extracting specific page ranges or individual pages into separate documents. Perfect for breaking apart large PDFs or isolating sections.',
-    status: 'ready',
-  },
-  {
-    id: 'organize',
-    label: 'Organize PDF',
-    description: 'Reorder, insert, and manage PDF pages.',
-    longDescription:
-      'Organize PDF pages by rearranging, inserting, or restructuring the document. Page organization shows up repeatedly as a core PDF workflow across major PDF tools.',
-    status: 'soon',
-  },
-  {
     id: 'protect',
     label: 'Protect PDF',
     description: 'Add a password and basic document protection.',
     longDescription:
       'Protect sensitive PDFs with a password and security settings before sharing them. PDF protection is a standard online workflow for contracts, statements, and personal documents.',
-    status: 'soon',
-  },
-  {
-    id: 'ocr',
-    label: 'OCR PDF',
-    description: 'Make scanned PDFs searchable and selectable.',
-    longDescription:
-      'Use OCR to recognize text from scanned PDF files so the content becomes searchable, selectable, and easier to reuse. OCR consistently appears among the most-used PDF features online.',
     status: 'soon',
   },
   {
@@ -88,12 +72,28 @@ export const pdfTools: PdfTool[] = [
     status: 'ready',
   },
   {
+    id: 'organize',
+    label: 'Organize PDF',
+    description: 'Reorder, insert, and manage PDF pages.',
+    longDescription:
+      'Organize PDF pages by rearranging, inserting, or restructuring the document. Page organization shows up repeatedly as a core PDF workflow across major PDF tools.',
+    status: 'soon',
+  },
+  {
     id: 'remove-pages',
     label: 'PDF Page Remover',
     description: 'Delete unwanted pages from a PDF.',
     longDescription:
       'Remove selected pages from a PDF without uploading your file anywhere. Keep the pages you need, delete the rest, and download a cleaned-up document instantly.',
     status: 'ready',
+  },
+  {
+    id: 'ocr',
+    label: 'OCR PDF',
+    description: 'Make scanned PDFs searchable and selectable.',
+    longDescription:
+      'Use OCR to recognize text from scanned PDF files so the content becomes searchable, selectable, and easier to reuse. OCR consistently appears among the most-used PDF features online.',
+    status: 'soon',
   },
 ];
 

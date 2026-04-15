@@ -3,23 +3,23 @@ import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'PDF Tools - Compress, Merge, Split, Rotate & Edit PDFs Online',
+  title: 'PDF Tools - Dedicated SEO Pages for Popular PDF Workflows',
   description:
-    'Free online PDF tools for compression, merging, splitting, rotation, and page removal. Process your PDFs directly in your browser with 100% privacy and no file uploads.',
+    'Dedicated static pages for popular PDF workflows including merge, split, compress, PDF to Word, sign, protect, OCR, rotate, organize, and page cleanup.',
   alternates: {
     canonical: 'https://dhebe.com/pdf-tools',
   },
   openGraph: {
-    title: 'PDF Tools - Compress, Merge, Split, Rotate & Edit PDFs Online | DHEBE',
+    title: 'PDF Tools - Dedicated SEO Pages for Popular PDF Workflows | DHEBE',
     description:
-      'Free online PDF tools for compression, merging, splitting, rotation, and page removal. Process your PDFs directly in your browser with 100% privacy.',
+      'Discover dedicated static pages for high-intent PDF workflows including merge, split, convert, sign, protect, OCR, and page management.',
     url: 'https://dhebe.com/pdf-tools',
     type: 'website',
   },
   twitter: {
-    title: 'PDF Tools - Compress, Merge, Split, Rotate & Edit PDFs Online',
+    title: 'PDF Tools - Dedicated SEO Pages for Popular PDF Workflows',
     description:
-      'Free online PDF tools for compression, merging, splitting, rotation, and page cleanup. Process PDFs in your browser.',
+      'Dedicated search-friendly pages for popular PDF workflows and browser-based PDF utilities.',
   },
 };
 
@@ -34,7 +34,7 @@ export default function PdfToolsPage() {
         operatingSystem: 'Web',
         url: 'https://dhebe.com/pdf-tools',
         description:
-          'Free online PDF tools including compressor, merger, splitter, rotator, and page remover. 100% client-side processing.',
+          'Dedicated static pages for popular PDF workflows including merge, split, compress, convert, protect, sign, OCR, rotate, and page cleanup.',
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -44,6 +44,12 @@ export default function PdfToolsPage() {
           'PDF Compressor',
           'PDF Merger',
           'PDF Splitter',
+          'PDF to Word',
+          'Edit PDF',
+          'Sign PDF',
+          'Protect PDF',
+          'OCR PDF',
+          'Organize PDF',
           'PDF Rotator',
           'PDF Page Remover',
           'No file uploads required',

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dhebe.com'),
@@ -78,7 +80,23 @@ export default function RootLayout({
             gtag('config', 'G-D9BJ344ZDV');
           `}
         </Script>
-        {children}
+
+        <Script id="site-structured-data" type="application/ld+json">
+          {`{
+            "@context":"https://schema.org",
+            "@type":"Organization",
+            "name":"DHEBE Studios",
+            "url":"https://dhebe.com",
+            "logo":"https://dhebe.com/logo.png",
+            "sameAs":["https://twitter.com/dhebestudios"]
+          }`}
+        </Script>
+
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

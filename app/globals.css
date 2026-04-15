@@ -188,3 +188,22 @@ pre {
 [data-theme='dark'] iframe {
   color-scheme: dark;
 }
+
+/* Header & Footer styling */
+.site-header {
+  background: var(--app-panel);
+  border-bottom: 1px solid var(--app-panel-border);
+}
+
+.site-footer {
+  background: var(--app-panel);
+  border-top: 1px solid var(--app-panel-border);
+}
+
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}

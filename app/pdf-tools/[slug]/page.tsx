@@ -33,6 +33,8 @@ export async function generateMetadata({ params }: PdfToolPageProps): Promise<Me
       'pdf compressor',
       'pdf merger',
       'pdf splitter',
+      'rotate pdf',
+      'remove pdf pages',
       'compress pdf',
       'merge pdf',
       'split pdf',

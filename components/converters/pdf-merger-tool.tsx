@@ -86,8 +86,8 @@ export function PdfMergerTool() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-slate-200/80 p-6 theme-card-soft">
-        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-slate-300 py-12 hover:border-slate-400 hover:bg-slate-50">
+      <div className="rounded-2xl border p-6 theme-card-soft">
+        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-[var(--app-card-border)] py-12 transition hover:brightness-95">
           <input
             ref={fileInputRef}
             type="file"
@@ -97,39 +97,39 @@ export function PdfMergerTool() {
             className="hidden"
           />
           <div className="text-center">
-            <p className="text-xl font-semibold text-slate-900">Drop PDFs here</p>
-            <p className="text-sm text-slate-600">or click to browse (select multiple files)</p>
+            <p className="text-xl font-semibold theme-title">Drop PDFs here</p>
+            <p className="text-sm theme-muted">or click to browse (select multiple files)</p>
           </div>
         </label>
       </div>
 
       {files.length > 0 && (
-        <div className="rounded-2xl border border-slate-200/80 p-6 space-y-4">
+        <div className="theme-card rounded-2xl border p-6 space-y-4">
           <div>
-            <p className="text-sm font-semibold text-slate-900 mb-4">
+            <p className="mb-4 text-sm font-semibold theme-title">
               Selected Files ({files.length})
             </p>
             <div className="space-y-2">
               {files.map((item, index) => (
-                <div key={item.order} className="flex items-center justify-between bg-slate-50 p-3 rounded-lg">
+                <div key={item.order} className="theme-card-soft flex items-center justify-between rounded-lg p-3">
                   <div className="flex items-center gap-3 flex-1">
-                    <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded text-slate-700">
+                    <span className="theme-card rounded px-2 py-1 text-xs font-bold theme-title">
                       {index + 1}
                     </span>
-                    <span className="text-sm text-slate-700 flex-1 truncate">{item.file.name}</span>
+                    <span className="flex-1 truncate text-sm theme-muted">{item.file.name}</span>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleReorder(item.order, 'up')}
                       disabled={index === 0}
-                      className="px-2 py-1 text-xs rounded bg-slate-200 hover:bg-slate-300 disabled:opacity-50"
+                      className="theme-card rounded px-2 py-1 text-xs transition hover:brightness-95 disabled:opacity-50"
                     >
                       ↑
                     </button>
                     <button
                       onClick={() => handleReorder(item.order, 'down')}
                       disabled={index === files.length - 1}
-                      className="px-2 py-1 text-xs rounded bg-slate-200 hover:bg-slate-300 disabled:opacity-50"
+                      className="theme-card rounded px-2 py-1 text-xs transition hover:brightness-95 disabled:opacity-50"
                     >
                       ↓
                     </button>
@@ -155,7 +155,7 @@ export function PdfMergerTool() {
             </button>
             <button
               onClick={() => setFiles([])}
-              className="rounded-lg bg-slate-200 px-4 py-3 font-semibold text-slate-700 hover:bg-slate-300"
+              className="theme-card rounded-lg px-4 py-3 font-semibold theme-title transition hover:brightness-95"
             >
               Clear
             </button>

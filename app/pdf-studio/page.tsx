@@ -4,13 +4,15 @@ import Link from 'next/link';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'PDF Studio - Free Online PDF Compressor, Merger & Splitter',
+  title: 'PDF Studio - Free Online PDF Compressor, Merger, Splitter & More',
   description:
-    'Free online PDF tools for compression, merging, and page extraction. Process your PDF files directly in your browser with 100% privacy and no file uploads required.',
+    'Free online PDF tools for compression, merging, splitting, rotating, and page removal. Process your PDF files directly in your browser with 100% privacy and no file uploads required.',
   keywords: [
     'pdf compressor',
     'pdf merger',
     'pdf splitter',
+    'rotate pdf',
+    'remove pdf pages',
     'compress pdf',
     'merge pdf',
     'split pdf',
@@ -22,9 +24,9 @@ export const metadata: Metadata = {
     canonical: 'https://dhebe.com/pdf-studio',
   },
   openGraph: {
-    title: 'PDF Studio - Free Online PDF Compress, Merge & Split | DHEBE',
+    title: 'PDF Studio - Free Online PDF Tools | DHEBE',
     description:
-      'Fast and secure PDF tools for compression, merging, and splitting. Client-side processing with 100% privacy.',
+      'Fast and secure PDF tools for compression, merging, splitting, rotation, and page cleanup. Client-side processing with 100% privacy.',
     url: 'https://dhebe.com/pdf-studio',
     type: 'website',
     siteName: 'DHEBE Studios',
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'PDF Studio - Free Online PDF Tools',
-    description: 'Compress, merge, and split PDFs with no file uploads. 100% private processing.',
+    description: 'Compress, merge, split, rotate, and clean up PDFs with no file uploads. 100% private processing.',
   },
 };
 
@@ -47,7 +49,7 @@ export default function PdfStudioPage() {
         operatingSystem: 'Web',
         url: 'https://dhebe.com/pdf-studio',
         description:
-          'Free online PDF tools including compressor, merger, and splitter. 100% client-side processing.',
+          'Free online PDF tools including compressor, merger, splitter, rotator, and page remover. 100% client-side processing.',
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -57,6 +59,8 @@ export default function PdfStudioPage() {
           'PDF Compressor',
           'PDF Merger',
           'PDF Splitter',
+          'PDF Rotator',
+          'PDF Page Remover',
           'No file uploads required',
           'Client-side processing',
           'Privacy guaranteed',
@@ -107,7 +111,7 @@ export default function PdfStudioPage() {
             <h1 className="text-lg font-bold theme-title">PDF Studio</h1>
             <Link
               href="/base64-studio"
-              className="inline-flex items-center gap-2 rounded-lg bg-orange-100 px-3 py-2 text-sm font-semibold text-orange-700 hover:bg-orange-200 transition"
+              className="theme-accent-chip-orange inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition hover:brightness-105"
             >
               🔤 Base64 Studio
             </Link>

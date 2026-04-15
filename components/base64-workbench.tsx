@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useTheme } from '@/lib/hooks/useTheme';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Base64ToAudioDecoder } from '@/components/converters/base64-to-audio-decoder';
 import { Base64ToCssDecoder } from '@/components/converters/base64-to-css-decoder';
 import { Base64ToFileDecoder } from '@/components/converters/base64-to-file-decoder';
@@ -58,7 +58,6 @@ interface Base64WorkbenchProps {
 }
 
 export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
-  const { theme, toggleTheme } = useTheme('base64-studio-theme');
   const [activeTool, setActiveTool] = useState<ActiveTool>(
     initialTool ?? {
       kind: 'converter',
@@ -86,6 +85,7 @@ export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(249,115,22,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.16),_transparent_32%),linear-gradient(180deg,_#fffaf5_0%,_#fff7ed_38%,_#fffdf8_100%)] text-[var(--app-text)] transition-colors duration-200">
+      <ThemeToggle />
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col gap-6 px-4 py-6 xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:items-start xl:px-6">
         <WorkbenchRail
           title="Encoder Workbench"
@@ -114,41 +114,30 @@ export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
               >
                 {isDecoderView ? 'Active Decoder' : 'Active Converter'}
               </p>
-              <h2 className="theme-title mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title sm:text-4xl">
                 {activeOption.label}
               </h2>
-              <p className="theme-muted mt-3 max-w-2xl text-sm leading-6 sm:text-base">
+              <p className="mt-3 max-w-2xl text-sm leading-6 theme-muted sm:text-base">
                 {activeOption.longDescription}
               </p>
             </div>
 
             <div className="flex flex-col gap-3 sm:items-end">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="theme-card inline-flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
-              >
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,_rgba(249,115,22,0.2),_rgba(56,189,248,0.2))] text-base">
-                  {theme === 'dark' ? '☀' : '☾'}
-                </span>
-                <span>{theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}</span>
-              </button>
-
               <div className="theme-card-soft grid gap-2 rounded-2xl border p-4 text-sm theme-muted sm:grid-cols-2">
-              <div>
-                <p className="theme-muted-2 text-xs font-semibold uppercase tracking-[0.22em]">
-                  Processing
-                </p>
-                <p className="theme-title mt-1 font-medium">Fully client-side</p>
-              </div>
-              <div>
-                <p className="theme-muted-2 text-xs font-semibold uppercase tracking-[0.22em]">
-                  Output
-                </p>
-                <p className="theme-title mt-1 font-medium">
-                  {isDecoderView ? 'Preview, copy, or recover data' : 'Copy or download instantly'}
-                </p>
-              </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">
+                    Processing
+                  </p>
+                  <p className="mt-1 font-medium theme-title">Fully client-side</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">
+                    Output
+                  </p>
+                  <p className="mt-1 font-medium theme-title">
+                    {isDecoderView ? 'Preview, copy, or recover data' : 'Copy or download instantly'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -156,29 +145,29 @@ export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
           <div className="theme-privacy mb-8 rounded-[1.75rem] border p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="max-w-3xl">
-                <p className="theme-privacy-muted text-xs font-semibold uppercase tracking-[0.28em]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] theme-privacy-muted">
                   Privacy First
                 </p>
-                <h3 className="theme-privacy-title mt-3 text-2xl font-semibold tracking-tight">
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight theme-privacy-title">
                   Your data stays with you.
                 </h3>
-                <p className="theme-privacy-text mt-3 text-sm leading-7 sm:text-base">
+                <p className="mt-3 text-sm leading-7 theme-privacy-text sm:text-base">
                   Base64 Studio runs entirely in your browser. We do not upload, store, or retain your files, text, or decoded content on our servers, so your conversions remain private and under your control.
                 </p>
               </div>
 
               <div className="theme-privacy-inner grid min-w-[12rem] gap-2 rounded-2xl border p-4 text-sm">
                 <div>
-                  <p className="theme-privacy-muted text-xs font-semibold uppercase tracking-[0.22em]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-privacy-muted">
                     Processing
                   </p>
-                  <p className="theme-privacy-title mt-1 font-medium">100% client-side</p>
+                  <p className="mt-1 font-medium theme-privacy-title">100% client-side</p>
                 </div>
                 <div>
-                  <p className="theme-privacy-muted text-xs font-semibold uppercase tracking-[0.22em]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-privacy-muted">
                     Storage
                   </p>
-                  <p className="theme-privacy-title mt-1 font-medium">No server-side retention</p>
+                  <p className="mt-1 font-medium theme-privacy-title">No server-side retention</p>
                 </div>
               </div>
             </div>
@@ -245,7 +234,7 @@ function WorkbenchRail({
   activeId,
   readyIds,
   accentClasses,
-    footerText,
+  footerText,
   onSelect,
 }: WorkbenchRailProps) {
   return (
@@ -254,13 +243,13 @@ function WorkbenchRail({
         <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${accentClasses.eyebrow}`}>
           Base64 Studio
         </p>
-        <h2 className="theme-title mt-3 text-3xl font-semibold tracking-tight">{title}</h2>
-        <p className="theme-muted mt-3 text-sm leading-6">{description}</p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">{title}</h2>
+        <p className="mt-3 text-sm leading-6 theme-muted">{description}</p>
       </div>
 
       <div className="mt-6 flex min-h-0 flex-1 flex-col">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="theme-muted-2 text-xs font-semibold uppercase tracking-[0.28em]">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.28em] theme-muted-2">
             {sectionLabel}
           </h3>
           <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${accentClasses.badge}`}>
@@ -314,13 +303,13 @@ function WorkbenchRail({
           </nav>
         </div>
 
-        <p className="theme-muted-2 mt-3 text-xs leading-5">{footerText}</p>
+        <p className="mt-3 text-xs leading-5 theme-muted-2">{footerText}</p>
         <Link
           href="/support"
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
         >
           Support and help center
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true">-&gt;</span>
         </Link>
       </div>
     </aside>

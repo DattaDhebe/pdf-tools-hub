@@ -2,21 +2,22 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useTheme } from '@/lib/hooks/useTheme';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
 import { PdfMergerTool } from '@/components/converters/pdf-merger-tool';
+import { PdfRemovePagesTool } from '@/components/converters/pdf-remove-pages-tool';
+import { PdfRotateTool } from '@/components/converters/pdf-rotate-tool';
 import { PdfSplitterTool } from '@/components/converters/pdf-splitter-tool';
 import { pdfTools } from '@/lib/pdf-tools';
 import { pdfToolPages } from '@/lib/pdf-tools-pages';
 
-type ActiveTool = 'compress' | 'merge' | 'split';
+type ActiveTool = 'compress' | 'merge' | 'split' | 'rotate' | 'remove-pages';
 
 interface PdfToolsWorkbenchProps {
   initialTool?: ActiveTool;
 }
 
 export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenchProps) {
-  const { theme, toggleTheme } = useTheme('pdf-tools-theme');
   const [activeTool, setActiveTool] = useState<ActiveTool>(initialTool);
 
   const activeToolData = pdfTools.find((tool) => tool.id === activeTool);
@@ -25,55 +26,42 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
     compress: PdfCompressorTool,
     merge: PdfMergerTool,
     split: PdfSplitterTool,
+    rotate: PdfRotateTool,
+    'remove-pages': PdfRemovePagesTool,
   }[activeTool];
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(168,85,247,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(34,197,94,0.16),_transparent_32%),linear-gradient(180deg,_#faf5ff_0%,_#f5fdf8_38%,_#fdf8ff_100%)] text-[var(--app-text)] transition-colors duration-200">
+    <main className="theme-page-pdf min-h-screen text-[var(--app-text)] transition-colors duration-200">
+      <ThemeToggle />
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
         <header className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">
-                PDF Tools
-              </p>
-              <h1 className="text-4xl font-bold tracking-tight theme-title mt-2 sm:text-5xl">
-                Powerful PDF Utilities
-              </h1>
-              <p className="text-base theme-muted mt-3 max-w-lg">
-                100% client-side PDF processing. Compress, merge, and split PDFs directly in your browser without uploading to any server.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="theme-card inline-flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
-            >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,_rgba(168,85,247,0.2),_rgba(34,197,94,0.2))] text-base">
-                {theme === 'dark' ? '☀' : '☾'}
-              </span>
-              <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
-            </button>
+          <div className="mb-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600">PDF Tools</p>
+            <h1 className="mt-2 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
+              Powerful PDF Utilities
+            </h1>
+            <p className="mt-3 max-w-lg text-base theme-muted">
+              100% client-side PDF processing. Compress, merge, and split PDFs directly in your browser without uploading to any server.
+            </p>
           </div>
         </header>
 
-        {/* Privacy Banner */}
-        <div className="theme-privacy mb-8 rounded-[1.75rem] border p-5">
+        <div className="mb-8 rounded-[1.75rem] border p-5 theme-privacy">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-2xl">
-              <p className="theme-privacy-muted text-xs font-semibold uppercase tracking-[0.28em]">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] theme-privacy-muted">
                 Privacy Guaranteed
               </p>
-              <h2 className="theme-privacy-title mt-3 text-2xl font-semibold tracking-tight">
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight theme-privacy-title">
                 Your PDFs never leave your device.
               </h2>
-              <p className="theme-privacy-text mt-3 text-sm leading-7 sm:text-base">
+              <p className="mt-3 text-sm leading-7 theme-privacy-text sm:text-base">
                 All processing happens entirely in your browser using JavaScript. We never upload, store, or see your PDF files, so your data remains completely private and under your control.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Tools Navigation */}
         <div className="mb-8 grid gap-3 sm:grid-cols-3">
           {pdfTools.map((tool) => {
             const toolPage = pdfToolPages.find((p) => p.id === tool.id);
@@ -85,22 +73,21 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
               >
                 <button
                   onClick={() => setActiveTool(tool.id as ActiveTool)}
-                  className={`w-full rounded-xl border-2 theme-card p-4 text-left transition ${
+                  className={`w-full rounded-xl border-2 p-4 text-left transition theme-card ${
                     activeTool === tool.id
                       ? 'border-purple-500 theme-card-soft'
                       : 'border-[var(--app-card-border)] hover:border-purple-200/50'
                   }`}
                 >
                   <p className="font-semibold theme-title">{tool.label}</p>
-                  <p className="text-sm theme-muted mt-1">{tool.description}</p>
+                  <p className="mt-1 text-sm theme-muted">{tool.description}</p>
                 </button>
               </Link>
             );
           })}
         </div>
 
-        {/* Active Tool Section */}
-        <section className="theme-panel rounded-[2rem] border p-6 sm:p-8 mb-8">
+        <section className="mb-8 rounded-[2rem] border p-6 theme-panel sm:p-8">
           <div className="mb-8 border-b border-[var(--app-card-border)] pb-6">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -109,10 +96,10 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
                   {activeTool === 'merge' && 'Merger'}
                   {activeTool === 'split' && 'Splitter'}
                 </p>
-                <h2 className="theme-title mt-3 text-3xl font-semibold tracking-tight">
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">
                   {activeToolData?.label}
                 </h2>
-                <p className="theme-muted mt-3 text-sm leading-6 max-w-2xl">
+                <p className="mt-3 max-w-2xl text-sm leading-6 theme-muted">
                   {activeToolData?.longDescription}
                 </p>
               </div>
@@ -120,8 +107,8 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
                 const toolPage = pdfToolPages.find((p) => p.id === activeTool);
                 return toolPage ? (
                   <Link href={`/pdf-tools/${toolPage.slug}`}>
-                    <button className="whitespace-nowrap rounded-lg bg-purple-100 px-4 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition">
-                      View Page →
+                    <button className="theme-accent-chip-purple whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition hover:brightness-105">
+                      View Page
                     </button>
                   </Link>
                 ) : null;
@@ -132,28 +119,24 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
           <ActiveComponent />
         </section>
 
-        {/* Features Grid */}
-        <section className="grid gap-4 sm:grid-cols-3 mt-12">
-          <div className="rounded-xl border border-slate-200/80 p-6">
-            <div className="text-2xl mb-3">🚀</div>
-            <h3 className="font-semibold text-slate-900">Lightning Fast</h3>
-            <p className="text-sm text-slate-600 mt-2">
+        <section className="mt-12 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border p-6 theme-card">
+            <h3 className="font-semibold theme-title">Lightning Fast</h3>
+            <p className="mt-2 text-sm theme-muted">
               All processing happens instantly in your browser without any server requests.
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200/80 p-6">
-            <div className="text-2xl mb-3">🔒</div>
-            <h3 className="font-semibold text-slate-900">Completely Private</h3>
-            <p className="text-sm text-slate-600 mt-2">
+          <div className="rounded-xl border p-6 theme-card">
+            <h3 className="font-semibold theme-title">Completely Private</h3>
+            <p className="mt-2 text-sm theme-muted">
               Your PDF files never leave your device. No uploads, no cloud storage, no tracking.
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200/80 p-6">
-            <div className="text-2xl mb-3">∞</div>
-            <h3 className="font-semibold text-slate-900">No Limitations</h3>
-            <p className="text-sm text-slate-600 mt-2">
+          <div className="rounded-xl border p-6 theme-card">
+            <h3 className="font-semibold theme-title">No Limitations</h3>
+            <p className="mt-2 text-sm theme-muted">
               Process as many files as you need, without limits on file size or number of operations.
             </p>
           </div>

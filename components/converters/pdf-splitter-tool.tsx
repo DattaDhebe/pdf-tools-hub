@@ -79,8 +79,8 @@ export function PdfSplitterTool() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-slate-200/80 p-6 theme-card-soft">
-        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-slate-300 py-12 hover:border-slate-400 hover:bg-slate-50">
+      <div className="rounded-2xl border p-6 theme-card-soft">
+        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-[var(--app-card-border)] py-12 transition hover:brightness-95">
           <input
             ref={fileInputRef}
             type="file"
@@ -89,23 +89,23 @@ export function PdfSplitterTool() {
             className="hidden"
           />
           <div className="text-center">
-            <p className="text-xl font-semibold text-slate-900">Drop your PDF here</p>
-            <p className="text-sm text-slate-600">or click to browse</p>
+            <p className="text-xl font-semibold theme-title">Drop your PDF here</p>
+            <p className="text-sm theme-muted">or click to browse</p>
           </div>
         </label>
       </div>
 
       {file && totalPages > 0 && (
-        <div className="rounded-2xl border border-slate-200/80 p-6 space-y-4">
+        <div className="theme-card rounded-2xl border p-6 space-y-4">
           <div>
-            <p className="text-sm font-semibold text-slate-900">Selected File</p>
-            <p className="text-base text-slate-700 mt-2">{file.name}</p>
-            <p className="text-sm text-slate-600 mt-1">Total Pages: {totalPages}</p>
+            <p className="text-sm font-semibold theme-title">Selected File</p>
+            <p className="mt-2 text-base theme-muted">{file.name}</p>
+            <p className="mt-1 text-sm theme-muted">Total Pages: {totalPages}</p>
           </div>
 
           <div className="border-t pt-4 space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-slate-900 mb-2">
+              <label className="mb-2 block text-sm font-semibold theme-title">
                 Start Page (1 - {totalPages})
               </label>
               <input
@@ -114,12 +114,12 @@ export function PdfSplitterTool() {
                 max={totalPages}
                 value={startPage}
                 onChange={(e) => setStartPage(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="theme-card w-full rounded-lg border px-4 py-2 theme-title focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-900 mb-2">
+              <label className="mb-2 block text-sm font-semibold theme-title">
                 End Page (1 - {totalPages})
               </label>
               <input
@@ -128,7 +128,7 @@ export function PdfSplitterTool() {
                 max={totalPages}
                 value={endPage}
                 onChange={(e) => setEndPage(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="theme-card w-full rounded-lg border px-4 py-2 theme-title focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -146,7 +146,7 @@ export function PdfSplitterTool() {
                 setFile(null);
                 setTotalPages(0);
               }}
-              className="rounded-lg bg-slate-200 px-4 py-3 font-semibold text-slate-700 hover:bg-slate-300"
+              className="theme-card rounded-lg px-4 py-3 font-semibold theme-title transition hover:brightness-95"
             >
               Clear
             </button>

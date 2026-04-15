@@ -3,23 +3,23 @@ import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'PDF Tools - Compress, Merge & Split PDFs Online',
+  title: 'PDF Tools - Compress, Merge, Split, Rotate & Edit PDFs Online',
   description:
-    'Free online PDF tools for compression, merging, and splitting. Process your PDFs directly in your browser with 100% privacy and no file uploads.',
+    'Free online PDF tools for compression, merging, splitting, rotation, and page removal. Process your PDFs directly in your browser with 100% privacy and no file uploads.',
   alternates: {
     canonical: 'https://dhebe.com/pdf-tools',
   },
   openGraph: {
-    title: 'PDF Tools - Compress, Merge & Split PDFs Online | DHEBE',
+    title: 'PDF Tools - Compress, Merge, Split, Rotate & Edit PDFs Online | DHEBE',
     description:
-      'Free online PDF tools for compression, merging, and splitting. Process your PDFs directly in your browser with 100% privacy.',
+      'Free online PDF tools for compression, merging, splitting, rotation, and page removal. Process your PDFs directly in your browser with 100% privacy.',
     url: 'https://dhebe.com/pdf-tools',
     type: 'website',
   },
   twitter: {
-    title: 'PDF Tools - Compress, Merge & Split PDFs Online',
+    title: 'PDF Tools - Compress, Merge, Split, Rotate & Edit PDFs Online',
     description:
-      'Free online PDF tools for compression, merging, and splitting. Process PDFs in your browser.',
+      'Free online PDF tools for compression, merging, splitting, rotation, and page cleanup. Process PDFs in your browser.',
   },
 };
 
@@ -34,7 +34,7 @@ export default function PdfToolsPage() {
         operatingSystem: 'Web',
         url: 'https://dhebe.com/pdf-tools',
         description:
-          'Free online PDF tools including compressor, merger, and splitter. 100% client-side processing.',
+          'Free online PDF tools including compressor, merger, splitter, rotator, and page remover. 100% client-side processing.',
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -44,6 +44,8 @@ export default function PdfToolsPage() {
           'PDF Compressor',
           'PDF Merger',
           'PDF Splitter',
+          'PDF Rotator',
+          'PDF Page Remover',
           'No file uploads required',
           'Client-side processing',
           'Privacy guaranteed',

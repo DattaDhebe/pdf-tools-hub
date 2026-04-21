@@ -35,16 +35,7 @@ export function StudiosHub() {
 
   return (
     <main className="theme-page-home min-h-screen text-[var(--app-text)] transition-colors duration-200">
-      <header className="sticky top-0 z-50 border-b theme-card theme-panel border-[var(--app-card-border)]/50 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <h1 className="bg-gradient-to-r from-orange-600 via-purple-600 to-cyan-600 bg-clip-text text-2xl font-bold text-transparent">
-            DHEBE Studios
-          </h1>
-          <p className="mt-1 text-xs theme-muted">Professional Tools Suite</p>
-        </div>
-      </header>
-
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-5xl font-bold tracking-tight theme-title sm:text-6xl">
             All Your Tools

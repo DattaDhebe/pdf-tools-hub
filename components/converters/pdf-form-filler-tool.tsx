@@ -1,23 +1,43 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
+
+interface FormFieldModel {
+  name: string;
+  type: string;
+}
 
 export function PdfFormFillerTool() {
   const [file, setFile] = useState<File | null>(null);
   const [formError, setFormError] = useState<string>('');
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [fields, setFields] = useState<FormFieldModel[]>([]);
   const [filling, setFilling] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (selectedFile: File) => {
+  const handleFileSelect = async (selectedFile: File) => {
     if (selectedFile.type !== 'application/pdf') {
-      setFormError('Please select a valid PDF file');
+      setFormError('Please select a valid PDF file.');
       return;
     }
-    setFile(selectedFile);
-    setFormError('');
-    setFormData({});
+
+    try {
+      const arrayBuffer = await selectedFile.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(arrayBuffer);
+      const form = pdfDoc.getForm();
+      const detectedFields = form.getFields().map((field) => ({
+        name: field.getName(),
+        type: field.constructor.name,
+      }));
+
+      setFile(selectedFile);
+      setFields(detectedFields);
+      setFormData({});
+      setFormError('');
+    } catch {
+      setFormError('Failed to read PDF form fields.');
+    }
   };
 
   const handleFormFieldChange = (fieldName: string, value: string) => {
@@ -29,12 +49,12 @@ export function PdfFormFillerTool() {
 
   const handleFillForm = async () => {
     if (!file) {
-      setFormError('Please select a PDF file');
+      setFormError('Please select a PDF file.');
       return;
     }
 
-    if (Object.keys(formData).length === 0) {
-      setFormError('Please fill in at least one field');
+    if (fields.length === 0) {
+      setFormError('No editable form fields were detected in this PDF.');
       return;
     }
 
@@ -44,9 +64,31 @@ export function PdfFormFillerTool() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer);
+      const form = pdfDoc.getForm();
 
-      // Note: pdf-lib has limited form field support. This is a basic implementation.
-      // For full form field support, more advanced PDF manipulation libraries would be needed.
+      for (const field of form.getFields()) {
+        const name = field.getName();
+        const value = formData[name];
+        if (!value) continue;
+
+        const type = field.constructor.name;
+        if (type === 'PDFTextField') {
+          form.getTextField(name).setText(value);
+        } else if (type === 'PDFCheckBox') {
+          const normalized = value.toLowerCase();
+          if (['true', 'yes', '1', 'checked'].includes(normalized)) {
+            form.getCheckBox(name).check();
+          } else {
+            form.getCheckBox(name).uncheck();
+          }
+        } else if (type === 'PDFRadioGroup') {
+          form.getRadioGroup(name).select(value);
+        } else if (type === 'PDFDropdown') {
+          form.getDropdown(name).select(value);
+        } else if (type === 'PDFOptionList') {
+          form.getOptionList(name).select(value);
+        }
+      }
 
       const filledPdf = await pdfDoc.save();
       const blob = new Blob([new Uint8Array(filledPdf)], { type: 'application/pdf' });
@@ -59,7 +101,7 @@ export function PdfFormFillerTool() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Form filling failed');
+      setFormError(err instanceof Error ? err.message : 'Form filling failed.');
     } finally {
       setFilling(false);
     }
@@ -88,51 +130,47 @@ export function PdfFormFillerTool() {
           <div>
             <p className="text-sm font-semibold theme-title">Selected File</p>
             <p className="mt-2 text-base theme-muted">{file.name}</p>
-            <p className="mt-1 text-sm theme-muted">Size: {(file.size / 1024).toFixed(2)} KB</p>
+            <p className="mt-1 text-sm theme-muted">Detected fields: {fields.length}</p>
           </div>
 
-          <div className="border-t pt-4 space-y-4">
-            <div>
-              <label className="mb-2 block text-sm font-semibold theme-title">
-                Form Fields
-              </label>
-              <p className="text-xs theme-muted mb-3">
-                Enter form field values (for custom fields, create your own labels below)
-              </p>
-
-              <div className="space-y-3">
-                {['Full Name', 'Email', 'Phone', 'Address', 'Notes'].map((field) => (
+          {fields.length > 0 ? (
+            <div className="border-t pt-4 space-y-3">
+              {fields.map((field) => (
+                <div key={field.name}>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] theme-muted-2">
+                    {field.name} ({field.type.replace('PDF', '')})
+                  </label>
                   <input
-                    key={field}
                     type="text"
-                    value={formData[field] || ''}
-                    onChange={(e) => handleFormFieldChange(field, e.target.value)}
-                    placeholder={field}
+                    value={formData[field.name] || ''}
+                    onChange={(e) => handleFormFieldChange(field.name, e.target.value)}
+                    placeholder={`Enter value for ${field.name}`}
                     className="theme-card w-full rounded-lg border px-4 py-2 theme-title focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-
-            <div className="rounded-lg bg-amber-50 border border-amber-200 p-4">
+          ) : (
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
               <p className="text-sm text-amber-900">
-                <strong>⚠️ Note:</strong> Full form field detection requires form-aware PDF libraries. This tool provides basic field filling capability.
+                No AcroForm fields were detected in this PDF. Upload an interactive form PDF to auto-fill fields.
               </p>
             </div>
-          </div>
+          )}
 
           <div className="flex gap-3 border-t pt-4">
             <button
               onClick={handleFillForm}
-              disabled={filling}
+              disabled={filling || fields.length === 0}
               className="flex-1 rounded-lg bg-teal-600 px-4 py-3 font-semibold text-white hover:bg-teal-700 disabled:opacity-50"
             >
-              {filling ? 'Filling Form...' : 'Fill Form'}
+              {filling ? 'Filling Form...' : 'Fill and Download PDF'}
             </button>
             <button
               onClick={() => {
                 setFile(null);
                 setFormData({});
+                setFields([]);
               }}
               className="theme-card rounded-lg px-4 py-3 font-semibold theme-title transition hover:brightness-95"
             >
@@ -143,7 +181,7 @@ export function PdfFormFillerTool() {
       )}
 
       {formError && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
           <p className="text-sm font-semibold text-red-900">{formError}</p>
         </div>
       )}

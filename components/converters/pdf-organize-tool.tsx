@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
 
 interface PageOrder {
@@ -29,15 +29,14 @@ export function PdfOrganizeTool() {
 
       setFile(selectedFile);
       setTotalPages(pages);
-      
-      // Initialize page order array
+
       const order: PageOrder[] = [];
-      for (let i = 0; i < pages; i++) {
+      for (let i = 0; i < pages; i += 1) {
         order.push({ originalIndex: i, displayIndex: i + 1 });
       }
       setPageOrder(order);
       setError('');
-    } catch (err) {
+    } catch {
       setError('Failed to load PDF file');
     }
   };
@@ -65,13 +64,9 @@ export function PdfOrganizeTool() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer);
-      const pages = pdfDoc.getPages();
-
-      // Create new PDF with reordered pages
       const newPdf = await PDFDocument.create();
-      
+
       for (const item of pageOrder) {
-        const page = pages[item.originalIndex];
         const [copiedPage] = await newPdf.copyPages(pdfDoc, [item.originalIndex]);
         newPdf.addPage(copiedPage);
       }
@@ -121,9 +116,12 @@ export function PdfOrganizeTool() {
 
           <div className="border-t pt-4">
             <p className="mb-3 text-sm font-semibold theme-title">Reorder Pages</p>
-            <div className="space-y-2 max-h-[400px] overflow-y-auto">
+            <div className="max-h-[400px] space-y-2 overflow-y-auto">
               {pageOrder.map((item, index) => (
-                <div key={index} className="theme-card-soft flex items-center justify-between rounded-lg p-3">
+                <div
+                  key={`${item.originalIndex}-${index}`}
+                  className="theme-card-soft flex items-center justify-between rounded-lg p-3"
+                >
                   <span className="theme-card rounded px-2 py-1 text-xs font-bold theme-title">
                     Page {item.displayIndex}
                   </span>
@@ -133,14 +131,14 @@ export function PdfOrganizeTool() {
                       disabled={index === 0}
                       className="theme-card rounded px-2 py-1 text-xs transition hover:brightness-95 disabled:opacity-50"
                     >
-                      ↑
+                      Up
                     </button>
                     <button
                       onClick={() => handleMoveDown(index)}
                       disabled={index === pageOrder.length - 1}
                       className="theme-card rounded px-2 py-1 text-xs transition hover:brightness-95 disabled:opacity-50"
                     >
-                      ↓
+                      Down
                     </button>
                   </div>
                 </div>
@@ -171,7 +169,7 @@ export function PdfOrganizeTool() {
       )}
 
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
           <p className="text-sm font-semibold text-red-900">{error}</p>
         </div>
       )}

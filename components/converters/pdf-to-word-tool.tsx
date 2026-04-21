@@ -1,59 +1,94 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { PDFDocument } from 'pdf-lib';
+import { useRef, useState } from 'react';
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 export function PdfToWordTool() {
   const [file, setFile] = useState<File | null>(null);
-  const [extracting, setExtracting] = useState(false);
+  const [converting, setConverting] = useState(false);
   const [error, setError] = useState<string>('');
+  const [pageCount, setPageCount] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (selectedFile: File) => {
+  const handleFileSelect = async (selectedFile: File) => {
     if (selectedFile.type !== 'application/pdf') {
-      setError('Please select a valid PDF file');
+      setError('Please select a valid PDF file.');
       return;
     }
-    setFile(selectedFile);
-    setError('');
+
+    try {
+      const buffer = await selectedFile.arrayBuffer();
+      const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
+      const loadingTask = getDocument({ data: buffer, disableWorker: true } as never);
+      const pdf = await loadingTask.promise;
+      setPageCount(pdf.numPages);
+      setFile(selectedFile);
+      setError('');
+    } catch {
+      setError('Failed to read PDF. The file may be corrupted or password-protected.');
+    }
   };
 
   const handleConvert = async () => {
     if (!file) return;
 
-    setExtracting(true);
+    setConverting(true);
     setError('');
 
     try {
-      const arrayBuffer = await file.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(arrayBuffer);
-      
-      // Extract text from all pages
-      const pages = pdfDoc.getPages();
-      let extractedText = '';
-      
-      pages.forEach((page, index) => {
-        extractedText += `--- Page ${index + 1} ---\n`;
-        // Note: pdf-lib doesn't support direct text extraction
-        // In a real implementation, you'd use a library like pdfjs-dist for text extraction
-        extractedText += '[Text extraction requires additional library]\n\n';
-      });
+      const buffer = await file.arrayBuffer();
+      const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
+      const loadingTask = getDocument({ data: buffer, disableWorker: true } as never);
+      const pdf = await loadingTask.promise;
 
-      // Create a simple text file that can be opened in Word
-      const textContent = `PDF Conversion: ${file.name}\nConverted on: ${new Date().toLocaleString()}\n\n${extractedText}`;
-      const blob = new Blob([textContent], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${file.name.replace('.pdf', '')}-converted.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const pages: string[] = [];
+      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+        const page = await pdf.getPage(pageNumber);
+        const textContent = await page.getTextContent();
+        const text = textContent.items
+          .map((item) => ('str' in item ? item.str : ''))
+          .join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        pages.push(`<h2>Page ${pageNumber}</h2><p>${text || '[No selectable text found on this page]'}</p>`);
+      }
+
+      const htmlDoc = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>${file.name}</title>
+  <style>
+    body { font-family: Calibri, Arial, sans-serif; margin: 24px; line-height: 1.5; }
+    h1 { font-size: 20px; margin-bottom: 12px; }
+    h2 { font-size: 15px; margin-top: 20px; margin-bottom: 8px; }
+    p { margin: 0 0 12px 0; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Converted from PDF: ${file.name}</h1>
+  ${pages.join('\n')}
+</body>
+</html>`;
+
+      const outName = `${file.name.replace(/\.pdf$/i, '')}.doc`;
+      const blob = new Blob([htmlDoc], { type: 'application/msword' });
+      downloadBlob(blob, outName);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Conversion failed');
+      setError(err instanceof Error ? err.message : 'Conversion failed.');
     } finally {
-      setExtracting(false);
+      setConverting(false);
     }
   };
 
@@ -80,25 +115,28 @@ export function PdfToWordTool() {
           <div>
             <p className="text-sm font-semibold theme-title">Selected File</p>
             <p className="mt-2 text-base theme-muted">{file.name}</p>
-            <p className="mt-1 text-sm theme-muted">Size: {(file.size / 1024).toFixed(2)} KB</p>
+            <p className="mt-1 text-sm theme-muted">Pages: {pageCount}</p>
           </div>
 
-          <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
             <p className="text-sm text-blue-900">
-              <strong>ℹ️ Note:</strong> Converts PDF content to editable text format. For full Word document conversion with formatting, use specialized PDF converters.
+              Exports selectable PDF text into a Word-readable <strong>.doc</strong> file. Scanned-image PDFs may contain little or no text unless OCR is run first.
             </p>
           </div>
 
           <div className="flex gap-3 border-t pt-4">
             <button
               onClick={handleConvert}
-              disabled={extracting}
+              disabled={converting}
               className="flex-1 rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
             >
-              {extracting ? 'Converting...' : 'Convert to Word'}
+              {converting ? 'Converting...' : 'Convert to Word (.doc)'}
             </button>
             <button
-              onClick={() => setFile(null)}
+              onClick={() => {
+                setFile(null);
+                setPageCount(0);
+              }}
               className="theme-card rounded-lg px-4 py-3 font-semibold theme-title transition hover:brightness-95"
             >
               Clear
@@ -108,7 +146,7 @@ export function PdfToWordTool() {
       )}
 
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
           <p className="text-sm font-semibold text-red-900">{error}</p>
         </div>
       )}

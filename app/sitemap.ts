@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { toolPages } from '@/lib/tool-pages';
+import { pdfToolPages } from '@/lib/pdf-tools-pages';
 
 export const dynamic = 'force-static';
 
@@ -17,6 +18,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: 'https://dhebe.com/base64-studio',
+      lastModified: new Date('2026-04-21'),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://dhebe.com/pdf-studio',
+      lastModified: new Date('2026-04-21'),
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: 'https://dhebe.com/email-studio',
+      lastModified: new Date('2026-04-21'),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: 'https://dhebe.com/pdf-tools',
+      lastModified: new Date('2026-04-21'),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    ...pdfToolPages.map((tool) => ({
+      url: `https://dhebe.com/pdf-tools/${tool.slug}`,
+      lastModified: new Date('2026-04-21'),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    })),
     ...toolPages.map((tool) => ({
       url: `https://dhebe.com/tools/${tool.slug}`,
       lastModified: new Date('2026-04-14'),

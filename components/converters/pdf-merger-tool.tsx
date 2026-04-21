@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
+import { PdfDropZone } from '@/components/converters/pdf-drop-zone';
 
 interface SelectedFile {
   file: File;
@@ -86,33 +87,22 @@ export function PdfMergerTool() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border p-6 theme-card-soft">
-        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-[var(--app-card-border)] py-12 transition hover:brightness-95">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="application/pdf"
-            multiple
-            onChange={(e) => e.target.files && handleFileSelect(e.target.files)}
-            className="hidden"
-          />
-          <div className="text-center">
-            <p className="text-xl font-semibold theme-title">Drop PDFs here</p>
-            <p className="text-sm theme-muted">or click to browse (select multiple files)</p>
-          </div>
-        </label>
-      </div>
+      <PdfDropZone
+        inputRef={fileInputRef}
+        onSelect={(selected) => selected instanceof FileList && handleFileSelect(selected)}
+        title="Drop PDFs here"
+        helperText="or click to browse (select multiple files)"
+        multiple
+      />
 
       {files.length > 0 && (
         <div className="theme-card rounded-2xl border p-6 space-y-4">
           <div>
-            <p className="mb-4 text-sm font-semibold theme-title">
-              Selected Files ({files.length})
-            </p>
+            <p className="mb-4 text-sm font-semibold theme-title">Selected Files ({files.length})</p>
             <div className="space-y-2">
               {files.map((item, index) => (
                 <div key={item.order} className="theme-card-soft flex items-center justify-between rounded-lg p-3">
-                  <div className="flex items-center gap-3 flex-1">
+                  <div className="flex flex-1 items-center gap-3">
                     <span className="theme-card rounded px-2 py-1 text-xs font-bold theme-title">
                       {index + 1}
                     </span>
@@ -124,20 +114,20 @@ export function PdfMergerTool() {
                       disabled={index === 0}
                       className="theme-card rounded px-2 py-1 text-xs transition hover:brightness-95 disabled:opacity-50"
                     >
-                      ↑
+                      Up
                     </button>
                     <button
                       onClick={() => handleReorder(item.order, 'down')}
                       disabled={index === files.length - 1}
                       className="theme-card rounded px-2 py-1 text-xs transition hover:brightness-95 disabled:opacity-50"
                     >
-                      ↓
+                      Down
                     </button>
                     <button
                       onClick={() => handleRemoveFile(item.order)}
-                      className="px-2 py-1 text-xs rounded bg-red-100 hover:bg-red-200 text-red-700"
+                      className="rounded bg-red-100 px-2 py-1 text-xs text-red-700 hover:bg-red-200"
                     >
-                      ✕
+                      Remove
                     </button>
                   </div>
                 </div>
@@ -164,7 +154,7 @@ export function PdfMergerTool() {
       )}
 
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
           <p className="text-sm font-semibold text-red-900">{error}</p>
         </div>
       )}

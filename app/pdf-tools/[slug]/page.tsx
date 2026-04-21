@@ -25,16 +25,22 @@ export async function generateMetadata({ params }: PdfToolPageProps): Promise<Me
   }
 
   const title = `${tool.label} Online`;
+  const baseKeyword = tool.label.toLowerCase();
+  const normalized = baseKeyword.replace(/\s+/g, ' ').trim();
+  const onlineVariant = normalized.includes('online') ? normalized : `${normalized} online`;
+  const converterVariant = normalized.includes('to') ? `${normalized} converter` : `${normalized} tool`;
 
   return {
     title,
     description: tool.description,
     keywords: [
-      tool.label.toLowerCase(),
-      `${tool.label.toLowerCase()} online`,
+      normalized,
+      onlineVariant,
+      converterVariant,
+      'online pdf converter',
       'pdf tools',
       'online pdf tools',
-      'free tools',
+      'free pdf tools',
     ],
     alternates: {
       canonical: `https://dhebe.com/pdf-tools/${tool.slug}`,

@@ -21,11 +21,11 @@ export function SupportClient({ structuredData }: SupportClientProps) {
             <div className="mb-4">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-600">Support</p>
               <h1 className="mt-3 text-4xl font-semibold tracking-tight theme-title">
-                Help, privacy, and Base64 guidance
+                Help and usage guidance for all DHEBE tools
               </h1>
             </div>
-            <p className="mt-4 max-w-3xl text-sm leading-7 theme-muted sm:text-base">
-              Base64 Studio is designed to be simple, fast, and privacy-first. This page brings together the most important support information for using the encoder and decoder tools, understanding how your data is handled, and learning when Base64 is useful.
+            <p className="mt-4 max-w-4xl text-sm leading-7 theme-muted sm:text-base">
+              This support page covers Base64 Studio, PDF Studio, and Email Studio. Use it to understand what each tool is for, how to choose the right workflow, and how privacy-first browser processing works across the platform.
             </p>
 
             <div className="mt-6 rounded-[1.5rem] border p-5 theme-card-soft">
@@ -38,29 +38,29 @@ export function SupportClient({ structuredData }: SupportClientProps) {
                 support@dhebe.com
               </a>
               <p className="mt-2 text-sm leading-6 theme-muted">
-                Use this address for website support, deployment questions, and tool-related help.
+                Use this address for tool help, feature requests, and deployment or compatibility questions.
               </p>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/"
+                href="/base64-studio"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
               >
-                Open workbench
+                Open Base64 Studio
               </Link>
               <Link
-                href="/tools/text-to-base64"
+                href="/pdf-studio"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
               >
-                Open a tool page
+                Open PDF Studio
               </Link>
-              <a
-                href="mailto:support@dhebe.com"
+              <Link
+                href="/email-studio"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
               >
-                Email support
-              </a>
+                Open Email Studio
+              </Link>
             </div>
           </section>
 
@@ -69,10 +69,10 @@ export function SupportClient({ structuredData }: SupportClientProps) {
               Privacy First
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-privacy-title">
-              Your data stays with you.
+              Your files stay in your browser session.
             </h2>
             <p className="mt-4 max-w-4xl text-sm leading-7 theme-privacy-text sm:text-base">
-              Base64 Studio runs entirely in your browser. We do not upload, store, or retain your files, text, or decoded content on our servers, so your conversions remain private and under your control.
+              DHEBE tools are designed for browser-based processing. For most workflows, data is handled locally on your device without server-side file retention.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -80,64 +80,71 @@ export function SupportClient({ structuredData }: SupportClientProps) {
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-privacy-muted">
                   Processing
                 </p>
-                <p className="mt-2 text-lg font-semibold theme-privacy-title">100% client-side</p>
+                <p className="mt-2 text-lg font-semibold theme-privacy-title">Client-side by design</p>
                 <p className="mt-2 text-sm leading-6 theme-privacy-text">
-                  Conversion logic runs locally in the browser for speed, privacy, and reliability.
+                  Base64, PDF, and preview-heavy workflows run in browser memory for speed and privacy.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border p-5 theme-privacy-inner">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-privacy-muted">
                   Storage
                 </p>
-                <p className="mt-2 text-lg font-semibold theme-privacy-title">No server-side retention</p>
+                <p className="mt-2 text-lg font-semibold theme-privacy-title">No upload retention</p>
                 <p className="mt-2 text-sm leading-6 theme-privacy-text">
-                  Your files and text are not stored on our servers as part of the conversion flow.
+                  Files are not stored as part of standard conversion and editing flows.
                 </p>
               </div>
             </div>
           </section>
 
-          <section className="grid gap-6 lg:grid-cols-2">
+          <section className="grid gap-6 lg:grid-cols-3">
             <div className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
-              <h2 className="text-2xl font-semibold tracking-tight theme-title">Using the tools</h2>
+              <h2 className="text-2xl font-semibold tracking-tight theme-title">Base64 Studio</h2>
               <ul className="mt-4 space-y-3 text-sm leading-7 theme-muted sm:text-base">
-                <li>Paste text or Base64 directly into the relevant tool when working with strings.</li>
-                <li>Upload local files when using image, PDF, audio, or generic file conversion flows.</li>
-                <li>If a preview does not render, download the recovered file locally and open it in the appropriate app.</li>
-                <li>Use dedicated `/tools/...` pages when you want a direct link to a specific converter or decoder.</li>
+                <li>Use for encoding files/text into Base64 for APIs, email payloads, and data URLs.</li>
+                <li>Use decoders when you need to recover original files from Base64 strings.</li>
+                <li>Best for quick transforms between text-safe and binary formats.</li>
               </ul>
             </div>
 
             <div className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
-              <h2 className="text-2xl font-semibold tracking-tight theme-title">Why Base64 is used</h2>
+              <h2 className="text-2xl font-semibold tracking-tight theme-title">PDF Studio</h2>
               <ul className="mt-4 space-y-3 text-sm leading-7 theme-muted sm:text-base">
-                <li>Base64 turns binary data into text so it can move safely through systems that expect strings.</li>
-                <li>It is often used in APIs, JSON payloads, email formats, and inline browser data URIs.</li>
-                <li>It helps when you need a portable text representation of images, files, PDFs, audio, or raw bytes.</li>
-                <li>It is useful for testing, debugging, temporary embedding, and inspecting encoded content.</li>
+                <li>Use compressor, merger, splitter, rotate, and page tools for document workflows.</li>
+                <li>Use edit/sign/annotate utilities to modify documents before download.</li>
+                <li>Use OCR and conversion tools when you need searchable or portable output.</li>
+              </ul>
+            </div>
+
+            <div className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
+              <h2 className="text-2xl font-semibold tracking-tight theme-title">Email Studio</h2>
+              <ul className="mt-4 space-y-3 text-sm leading-7 theme-muted sm:text-base">
+                <li>Use for template-oriented content workflows and responsive email layouts.</li>
+                <li>Helpful when preparing reusable sections for campaigns and product updates.</li>
+                <li>Best paired with Base64 tools when embedding small assets into email content.</li>
               </ul>
             </div>
           </section>
 
           <section className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
-            <h2 className="text-2xl font-semibold tracking-tight theme-title">Common Base64 use cases</h2>
+            <h2 className="text-2xl font-semibold tracking-tight theme-title">Common support notes</h2>
             <div className="mt-5 grid gap-4 md:grid-cols-3">
               <div className="rounded-[1.5rem] border p-5 theme-card-soft">
-                <p className="text-sm font-semibold text-cyan-700">Web development</p>
+                <p className="text-sm font-semibold text-cyan-700">Preview limitations</p>
                 <p className="mt-2 text-sm leading-6 theme-muted">
-                  Embed small images, icons, or fonts directly into HTML and CSS with data URLs.
+                  If preview fails for a format/browser combination, download and open in a dedicated app.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border p-5 theme-card-soft">
-                <p className="text-sm font-semibold text-cyan-700">APIs and integrations</p>
+                <p className="text-sm font-semibold text-cyan-700">Large files</p>
                 <p className="mt-2 text-sm leading-6 theme-muted">
-                  Send files and binary content through JSON or text-based request bodies.
+                  Very large PDFs and media may need more memory; close other tabs for better performance.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border p-5 theme-card-soft">
-                <p className="text-sm font-semibold text-cyan-700">Debugging and analysis</p>
+                <p className="text-sm font-semibold text-cyan-700">Direct tool pages</p>
                 <p className="mt-2 text-sm leading-6 theme-muted">
-                  Inspect encoded payloads, recover original content, and verify transformations quickly.
+                  Use dedicated tool routes for focused workflows and easier sharing/bookmarking.
                 </p>
               </div>
             </div>

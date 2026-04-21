@@ -1,162 +1,39 @@
 export interface PdfToolPageEntry {
   slug: string;
-  id:
-    | 'compress'
-    | 'merge'
-    | 'split'
-    | 'pdf-to-word'
-    | 'edit'
-    | 'sign'
-    | 'protect'
-    | 'rotate'
-    | 'organize'
-    | 'remove-pages'
-    | 'ocr'
-    | 'watermark'
-    | 'annotate'
-    | 'form-fill';
+  id: string;
   label: string;
   description: string;
   longDescription: string;
 }
 
 export const pdfToolPages: PdfToolPageEntry[] = [
-  {
-    slug: 'compress-pdf',
-    id: 'compress',
-    label: 'Compress PDF',
-    description: 'Compress PDF files online to reduce size while maintaining quality. Fast, free, and 100% client-side.',
-    longDescription:
-      'Compress PDF files online with browser-based processing and simple compression presets. This workflow is one of the most common PDF tasks on major online PDF platforms.',
-  },
-  {
-    slug: 'merge-pdf',
-    id: 'merge',
-    label: 'Merge PDF',
-    description: 'Merge multiple PDF files into one document online with drag-and-drop ordering.',
-    longDescription:
-      'Combine multiple PDF files into one polished document with a drag-and-drop merge workflow. Merging is one of the most repeated features across online PDF suites.',
-  },
-  {
-    slug: 'split-pdf',
-    id: 'split',
-    label: 'Split PDF',
-    description: 'Split PDFs by range or extract selected pages online without uploading files.',
-    longDescription:
-      'Split PDFs into smaller documents or extract just the pages you need. Splitting consistently appears as a top PDF workflow because it makes large documents easier to share and reuse.',
-  },
-  {
-    slug: 'pdf-to-word',
-    id: 'pdf-to-word',
-    label: 'PDF to Word',
-    description: 'Convert PDF files to editable Word documents online.',
-    longDescription:
-      'Turn PDF files into editable Word documents for quick updates and reuse. PDF to Word shows up as one of the most common conversion tasks across Adobe Acrobat, Smallpdf, and iLovePDF.',
-  },
-  {
-    slug: 'edit-pdf',
-    id: 'edit',
-    label: 'Edit PDF',
-    description: 'Edit PDF files online with text, markup, and document update workflows.',
-    longDescription:
-      'Edit PDF content online with support for text updates, notes, shapes, or markup-style changes. PDF editing is a high-demand workflow on major online PDF platforms.',
-  },
-  {
-    slug: 'sign-pdf',
-    id: 'sign',
-    label: 'Sign PDF',
-    description: 'Sign PDF documents online and complete forms faster.',
-    longDescription:
-      'Add signatures to PDF files and complete form-ready document workflows online. Signing is a recurring top PDF task because it supports approvals, contracts, and everyday document exchange.',
-  },
-  {
-    slug: 'protect-pdf',
-    id: 'protect',
-    label: 'Protect PDF',
-    description: 'Protect PDF files with password-based security online.',
-    longDescription:
-      'Protect PDF files with password access and simple document security controls. PDF protection is a frequent online workflow for contracts, statements, and shared business files.',
-  },
-  {
-    slug: 'rotate-pdf',
-    id: 'rotate',
-    label: 'Rotate PDF',
-    description: 'Rotate PDF pages online to fix scans, sideways exports, and mixed orientation files.',
-    longDescription:
-      'Rotate PDF pages by 90, 180, or 270 degrees directly in your browser. Rotation is a common cleanup workflow for scanned PDFs and imported documents.',
-  },
-  {
-    slug: 'organize-pdf',
-    id: 'organize',
-    label: 'Organize PDF',
-    description: 'Organize PDF pages by reordering, inserting, and managing page structure online.',
-    longDescription:
-      'Organize PDF pages by rearranging and restructuring document order. Page organization appears repeatedly across leading PDF platforms because it helps users prepare polished final documents.',
-  },
-  {
-    slug: 'remove-pdf-pages',
-    id: 'remove-pages',
-    label: 'Remove PDF Pages',
-    description: 'Delete unwanted PDF pages online and download a cleaned-up file instantly.',
-    longDescription:
-      'Remove blank pages, cover pages, or unwanted sections from a PDF directly in your browser. Page deletion is a practical cleanup task that often follows scanning, merging, or splitting.',
-  },
-  {
-    slug: 'ocr-pdf',
-    id: 'ocr',
-    label: 'OCR PDF',
-    description: 'Make scanned PDFs searchable and selectable with OCR-style workflows.',
-    longDescription:
-      'Use OCR PDF workflows to make scanned documents searchable, selectable, and easier to reuse. OCR remains one of the most requested PDF capabilities for archive and scan-heavy use cases.',
-  },
-  {
-    slug: 'watermark-pdf',
-    id: 'watermark',
-    label: 'Watermark PDF',
-    description: 'Add text watermarks to PDF pages online for branding or marking documents.',
-    longDescription:
-      'Add text watermarks to PDF pages with customizable opacity and positioning. Perfect for marking documents as drafts, confidential, or branded materials before sharing.',
-  },
-  {
-    slug: 'annotate-pdf',
-    id: 'annotate',
-    label: 'Annotate PDF',
-    description: 'Add notes and annotations to PDF pages online.',
-    longDescription:
-      'Add text annotations and notes to specific pages of your PDF. Highlight important information and add comments directly to documents for better collaboration and documentation.',
-  },
-  {
-    slug: 'fill-pdf-forms',
-    id: 'form-fill',
-    label: 'Fill PDF Forms',
-    description: 'Auto-fill PDF forms with your personal information online.',
-    longDescription:
-      'Fill PDF forms with your personal information. Save time by auto-filling common fields like name, email, and address across form documents for faster submission.',
-  },
-  {
-    slug: 'sign-pdf',
-    id: 'sign',
-    label: 'Sign PDF',
-    description: 'Sign PDF documents online quickly.',
-    longDescription:
-      'Add signatures to PDF files and complete document signing workflows online. Signing supports approvals, contracts, and everyday document exchange.',
-  },
-  {
-    slug: 'organize-pdf',
-    id: 'organize',
-    label: 'Organize PDF',
-    description: 'Organize PDF pages by reordering and restructuring.',
-    longDescription:
-      'Organize PDF pages by rearranging and restructuring document order. Page organization is essential for preparing polished final documents from multiple sources.',
-  },
-  {
-    slug: 'ocr-pdf',
-    id: 'ocr',
-    label: 'OCR PDF',
-    description: 'Make scanned PDFs searchable and selectable with OCR.',
-    longDescription:
-      'Use OCR to recognize text from scanned PDF files so content becomes searchable and easier to reuse. OCR is popular for archiving and scan-heavy workflows.',
-  },
+  { slug: 'organize-pdf', id: 'organize', label: 'Organize PDF', description: 'Reorder and structure PDF pages online.', longDescription: 'Organize page order and flow for polished documents.' },
+  { slug: 'merge-pdf', id: 'merge', label: 'Merge PDF', description: 'Combine multiple PDFs into one.', longDescription: 'Merge files in order and export a single document.' },
+  { slug: 'split-pdf', id: 'split', label: 'Split PDF', description: 'Split by page range and export.', longDescription: 'Create smaller PDFs from larger source files.' },
+  { slug: 'remove-pdf-pages', id: 'remove-pages', label: 'Remove Pages', description: 'Delete unwanted pages from PDF.', longDescription: 'Remove selected pages and keep the rest.' },
+  { slug: 'extract-pdf-pages', id: 'extract-pages', label: 'Extract Pages', description: 'Extract specific pages into a PDF.', longDescription: 'Pick exact pages and export them as a new file.' },
+  { slug: 'scan-to-pdf', id: 'scan-to-pdf', label: 'Scan to PDF', description: 'Convert scans/images into PDF.', longDescription: 'Build PDF files from scanned pages and images.' },
+  { slug: 'optimize-pdf', id: 'optimize', label: 'Optimize PDF', description: 'Optimize files for sharing and speed.', longDescription: 'Tune PDFs for better performance and delivery.' },
+  { slug: 'compress-pdf', id: 'compress', label: 'Compress PDF', description: 'Reduce PDF file size online.', longDescription: 'Compress documents using browser-side processing.' },
+  { slug: 'repair-pdf', id: 'repair', label: 'Repair PDF', description: 'Repair damaged PDF files.', longDescription: 'Attempt PDF recovery and output a readable file.' },
+  { slug: 'ocr-pdf', id: 'ocr', label: 'OCR PDF', description: 'Make scanned PDFs searchable.', longDescription: 'Run OCR to extract selectable text from scans.' },
+  { slug: 'convert-to-pdf', id: 'convert-to-pdf', label: 'Convert to PDF', description: 'Convert various formats to PDF.', longDescription: 'Create PDFs from source document formats.' },
+  { slug: 'jpg-to-pdf', id: 'jpg-to-pdf', label: 'JPG to PDF', description: 'Convert JPG images into PDF.', longDescription: 'Combine one or more JPG files into a PDF.' },
+  { slug: 'word-to-pdf', id: 'word-to-pdf', label: 'WORD to PDF', description: 'Convert Word content to PDF.', longDescription: 'Generate PDF documents from Word-style inputs.' },
+  { slug: 'powerpoint-to-pdf', id: 'powerpoint-to-pdf', label: 'POWERPOINT to PDF', description: 'Convert presentations to PDF.', longDescription: 'Export slide content into PDF format.' },
+  { slug: 'excel-to-pdf', id: 'excel-to-pdf', label: 'EXCEL to PDF', description: 'Convert spreadsheets to PDF.', longDescription: 'Create PDFs from sheet-style data and layouts.' },
+  { slug: 'html-to-pdf', id: 'html-to-pdf', label: 'HTML to PDF', description: 'Convert HTML into PDF output.', longDescription: 'Generate print-friendly PDF from HTML content.' },
+  { slug: 'convert-from-pdf', id: 'convert-from-pdf', label: 'Convert from PDF', description: 'Convert PDF into other formats.', longDescription: 'Transform PDF files into editable/export formats.' },
+  { slug: 'pdf-to-jpg', id: 'pdf-to-jpg', label: 'PDF to JPG', description: 'Convert PDF pages to JPG.', longDescription: 'Export each page as an image file.' },
+  { slug: 'pdf-to-word', id: 'pdf-to-word', label: 'PDF to WORD', description: 'Convert PDF to editable Word.', longDescription: 'Extract text and generate Word-readable output.' },
+  { slug: 'pdf-to-powerpoint', id: 'pdf-to-powerpoint', label: 'PDF to POWERPOINT', description: 'Convert PDF to slide format.', longDescription: 'Turn PDF content into presentation-style output.' },
+  { slug: 'pdf-to-excel', id: 'pdf-to-excel', label: 'PDF to EXCEL', description: 'Convert PDF tables to Excel.', longDescription: 'Extract table-like PDF data for spreadsheets.' },
+  { slug: 'pdf-to-pdfa', id: 'pdf-to-pdfa', label: 'PDF to PDF/A', description: 'Convert PDF into archival PDF/A.', longDescription: 'Prepare files for long-term archival compatibility.' },
+  { slug: 'edit-pdf', id: 'edit', label: 'Edit PDF', description: 'Edit content on PDF with live preview.', longDescription: 'Place text visually and export edited PDF output.' },
+  { slug: 'rotate-pdf', id: 'rotate', label: 'Rotate PDF', description: 'Rotate selected pages.', longDescription: 'Adjust page orientation for scans and exports.' },
+  { slug: 'add-page-numbers', id: 'add-page-numbers', label: 'Add Page Numbers', description: 'Insert page numbers in PDF.', longDescription: 'Apply consistent page numbering across documents.' },
+  { slug: 'add-watermark', id: 'watermark', label: 'Add Watermark', description: 'Apply text watermark to pages.', longDescription: 'Overlay watermark text for branding or draft marking.' },
+  { slug: 'crop-pdf', id: 'crop-pdf', label: 'Crop PDF', description: 'Crop margins and page area.', longDescription: 'Trim page boundaries for cleaner document framing.' },
 ];
 
 export function getPdfToolPageBySlug(slug: string): PdfToolPageEntry | undefined {

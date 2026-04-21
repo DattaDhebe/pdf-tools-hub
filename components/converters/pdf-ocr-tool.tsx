@@ -2,6 +2,8 @@
 
 import { useRef, useState } from 'react';
 import { createWorker } from 'tesseract.js';
+import { PdfDropZone } from '@/components/converters/pdf-drop-zone';
+import { getPdfJs } from '@/lib/pdfjs';
 
 function downloadText(text: string, filename: string) {
   const blob = new Blob([text], { type: 'text/plain' });
@@ -41,8 +43,8 @@ export function PdfOcrTool() {
     let worker: Awaited<ReturnType<typeof createWorker>> | null = null;
     try {
       const buffer = await file.arrayBuffer();
-      const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
-      const pdf = await getDocument({ data: buffer, disableWorker: true } as never).promise;
+      const { getDocument } = await getPdfJs();
+      const pdf = await getDocument({ data: buffer } as never).promise;
       const firstPage = await pdf.getPage(1);
       const viewport = firstPage.getViewport({ scale: 2 });
 
@@ -80,21 +82,12 @@ export function PdfOcrTool() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border p-6 theme-card-soft">
-        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-[var(--app-card-border)] py-12 transition hover:brightness-95">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
-            className="hidden"
-          />
-          <div className="text-center">
-            <p className="text-xl font-semibold theme-title">Drop your PDF here</p>
-            <p className="text-sm theme-muted">or click to browse (scanned PDFs work best)</p>
-          </div>
-        </label>
-      </div>
+      <PdfDropZone
+        inputRef={fileInputRef}
+        onSelect={(selected) => selected instanceof File && handleFileSelect(selected)}
+        title="Drop your PDF here"
+        helperText="or click to browse (scanned PDFs work best)"
+      />
 
       {file && (
         <div className="theme-card rounded-2xl border p-6 space-y-4">

@@ -10,17 +10,21 @@ export const metadata: Metadata = {
   description:
     'Free online PDF Studio with popular tools for merge, split, compress, PDF to Word, sign, protect, OCR, rotate, and page cleanup. 100% client-side and privacy-first.',
   keywords: [
+    'online pdf converter',
+    'pdf converter online',
     'pdf tools',
     'merge pdf',
     'split pdf',
     'compress pdf',
+    'pdf to jpg',
+    'jpg to pdf',
     'pdf to word',
-    'edit pdf',
-    'sign pdf',
-    'protect pdf',
-    'ocr pdf',
+    'edit pdf online',
     'rotate pdf',
     'remove pdf pages',
+    'add page numbers to pdf',
+    'extract pdf pages',
+    'ocr pdf online',
   ],
   alternates: {
     canonical: 'https://dhebe.com/pdf-studio',
@@ -143,7 +147,7 @@ export default function PdfStudioPage() {
               <PdfToolLinkGroup
                 title="Ready Now"
                 tools={pdfToolPages.filter((tool) =>
-                  ['compress', 'merge', 'split', 'rotate', 'remove-pages'].includes(tool.id),
+                  ['compress', 'merge', 'split', 'rotate', 'remove-pages', 'extract-pages', 'jpg-to-pdf', 'pdf-to-jpg', 'add-page-numbers'].includes(tool.id),
                 )}
                 accentClass="text-purple-600"
               />

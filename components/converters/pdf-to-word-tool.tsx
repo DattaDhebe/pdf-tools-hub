@@ -1,6 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { PdfDropZone } from '@/components/converters/pdf-drop-zone';
+import { getPdfJs } from '@/lib/pdfjs';
 
 function downloadBlob(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob);
@@ -28,8 +30,8 @@ export function PdfToWordTool() {
 
     try {
       const buffer = await selectedFile.arrayBuffer();
-      const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
-      const loadingTask = getDocument({ data: buffer, disableWorker: true } as never);
+      const { getDocument } = await getPdfJs();
+      const loadingTask = getDocument({ data: buffer } as never);
       const pdf = await loadingTask.promise;
       setPageCount(pdf.numPages);
       setFile(selectedFile);
@@ -47,8 +49,8 @@ export function PdfToWordTool() {
 
     try {
       const buffer = await file.arrayBuffer();
-      const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
-      const loadingTask = getDocument({ data: buffer, disableWorker: true } as never);
+      const { getDocument } = await getPdfJs();
+      const loadingTask = getDocument({ data: buffer } as never);
       const pdf = await loadingTask.promise;
 
       const pages: string[] = [];
@@ -94,21 +96,11 @@ export function PdfToWordTool() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border p-6 theme-card-soft">
-        <label className="flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-[var(--app-card-border)] py-12 transition hover:brightness-95">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
-            className="hidden"
-          />
-          <div className="text-center">
-            <p className="text-xl font-semibold theme-title">Drop your PDF here</p>
-            <p className="text-sm theme-muted">or click to browse</p>
-          </div>
-        </label>
-      </div>
+      <PdfDropZone
+        inputRef={fileInputRef}
+        onSelect={(selected) => selected instanceof File && handleFileSelect(selected)}
+        title="Drop your PDF here"
+      />
 
       {file && (
         <div className="theme-card rounded-2xl border p-6 space-y-4">

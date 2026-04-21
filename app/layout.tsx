@@ -26,11 +26,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/LOGO_Dhebe.png',
+        url: '/logo4.png',
         type: 'image/png',
       },
     ],
-    apple: '/LOGO_Dhebe.png',
+    apple: '/logo4.png',
   },
   alternates: {
     canonical: 'https://dhebe.com',
@@ -96,7 +96,7 @@ export default function RootLayout({
             "@type":"Organization",
             "name":"DHEBE Studios",
             "url":"https://dhebe.com",
-            "logo":"https://dhebe.com/LOGO_Dhebe.png",
+            "logo":"https://dhebe.com/logo4.png",
             "sameAs":["https://twitter.com/dhebestudios"]
           }`}
         </Script>

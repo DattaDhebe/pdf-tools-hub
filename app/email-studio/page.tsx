@@ -2,33 +2,31 @@ import type { Metadata } from 'next';
 import { EmailStudioClient } from '@/components/email-studio-client';
 
 export const metadata: Metadata = {
-  title: 'Email Template Studio - Coming Soon | DHEBE',
+  title: 'Email Template Studio - Build Responsive HTML Emails | DHEBE',
   description:
-    'Professional email template builder with drag-and-drop editor, responsive designs, and easy export. Coming soon to DHEBE Studios. Join our waitlist for early access.',
+    'Create responsive HTML email templates with live preview, CTA controls, color customization, and export-ready code.',
   keywords: [
-    'email templates',
-    'email builder',
-    'responsive emails',
-    'email designer',
-    'html email',
-    'email editor',
-    'coming soon',
+    'email template editor',
+    'html email builder',
+    'responsive email templates',
+    'email studio',
+    'email html export',
   ],
   alternates: {
     canonical: 'https://dhebe.com/email-studio',
   },
   openGraph: {
-    title: 'Email Template Studio - Coming Soon | DHEBE Studios',
+    title: 'Email Template Studio | DHEBE Studios',
     description:
-      'Professional drag-and-drop email template builder. Create responsive emails easily (coming soon).',
+      'Build responsive email templates with live preview and export-ready HTML.',
     url: 'https://dhebe.com/email-studio',
     type: 'website',
     siteName: 'DHEBE Studios',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Email Template Studio - Coming Soon',
-    description: 'Professional email template builder launching soon. Join our waitlist.',
+    title: 'Email Template Studio | DHEBE',
+    description: 'Create and export responsive HTML email templates.',
   },
 };
 
@@ -42,30 +40,14 @@ export default function EmailStudioPage() {
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
         url: 'https://dhebe.com/email-studio',
-        description: 'Professional email template builder coming soon to DHEBE Studios.',
-        status: 'Coming Soon',
+        description:
+          'Browser-based editor for creating responsive HTML email templates with live preview and export.',
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: 'https://dhebe.com',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Studios',
-            item: 'https://dhebe.com',
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: 'Email Template Studio',
-            item: 'https://dhebe.com/email-studio',
-          },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dhebe.com' },
+          { '@type': 'ListItem', position: 2, name: 'Email Studio', item: 'https://dhebe.com/email-studio' },
         ],
       },
     ],

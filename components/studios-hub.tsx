@@ -29,7 +29,7 @@ export function StudiosHub() {
       href: '/email-studio',
       color: 'from-cyan-500 to-cyan-600',
       features: ['Drag & Drop', 'Responsive Design', 'Templates', 'Preview', 'Export'],
-      status: 'coming-soon',
+      status: 'live',
     },
   ] as const;
 
@@ -66,32 +66,19 @@ export function StudiosHub() {
           {studios.map((studio) => (
             <Link
               key={studio.id}
-              href={studio.status === 'coming-soon' ? '#' : studio.href}
-              onClick={(e) => studio.status === 'coming-soon' && e.preventDefault()}
-              className={`group relative overflow-hidden rounded-2xl border theme-card px-8 py-8 transition-all duration-300 ${
-                studio.status === 'coming-soon'
-                  ? 'cursor-not-allowed opacity-60'
-                  : 'hover:-translate-y-1 hover:border-[var(--app-card-border)] hover:shadow-xl'
-              }`}
+              href={studio.href}
+              className="group relative overflow-hidden rounded-2xl border theme-card px-8 py-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--app-card-border)] hover:shadow-xl"
             >
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${studio.color} opacity-0 transition-opacity duration-300 ${
-                  studio.status !== 'coming-soon' ? 'group-hover:opacity-5' : ''
-                }`}
+                className={`absolute inset-0 bg-gradient-to-br ${studio.color} opacity-0 transition-opacity duration-300 group-hover:opacity-5`}
               />
 
               <div className="relative">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="text-sm font-semibold theme-muted-2">Studio</div>
-                  {studio.status === 'coming-soon' ? (
-                    <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">
-                      Coming Soon
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                      Live
-                    </span>
-                  )}
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
+                    Live
+                  </span>
                 </div>
 
                 <h3 className="mb-2 text-2xl font-bold theme-title">{studio.name}</h3>
@@ -106,20 +93,11 @@ export function StudiosHub() {
                   ))}
                 </div>
 
-                {studio.status === 'coming-soon' ? (
-                  <button
-                    disabled
-                    className="w-full cursor-not-allowed rounded-lg px-4 py-3 font-semibold theme-card-soft theme-muted-2"
-                  >
-                    Coming Soon
-                  </button>
-                ) : (
-                  <button
-                    className={`w-full rounded-lg bg-gradient-to-r ${studio.color} px-4 py-3 font-semibold text-white transition-all duration-300 group-hover:shadow-lg`}
-                  >
-                    Access Studio
-                  </button>
-                )}
+                <button
+                  className={`w-full rounded-lg bg-gradient-to-r ${studio.color} px-4 py-3 font-semibold text-white transition-all duration-300 group-hover:shadow-lg`}
+                >
+                  Access Studio
+                </button>
               </div>
             </Link>
           ))}
@@ -129,16 +107,25 @@ export function StudiosHub() {
           <h3 className="mb-8 text-center text-2xl font-bold theme-title">Why Choose DHEBE Studios?</h3>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="text-center">
+              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                <span className="text-lg">S</span>
+              </div>
               <h4 className="mb-2 font-semibold theme-title">100% Private</h4>
               <p className="text-sm theme-muted">
                 All processing happens in your browser. Your files never leave your device.
               </p>
             </div>
             <div className="text-center">
+              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 text-cyan-700">
+                <span className="text-lg">Z</span>
+              </div>
               <h4 className="mb-2 font-semibold theme-title">Lightning Fast</h4>
               <p className="text-sm theme-muted">No server delays. Process files instantly on your own device.</p>
             </div>
             <div className="text-center">
+              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+                <span className="text-lg">*</span>
+              </div>
               <h4 className="mb-2 font-semibold theme-title">Always Free</h4>
               <p className="text-sm theme-muted">
                 No subscriptions, no ads, no limits. Use all tools completely free.

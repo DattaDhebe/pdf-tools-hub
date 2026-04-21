@@ -4,14 +4,14 @@ import { SupportClient } from '@/components/support-client';
 export const metadata: Metadata = {
   title: 'Support',
   description:
-    'Get help using Base64 Studio, understand privacy and browser-based processing, and learn what Base64 is used for.',
+    'Get help for Base64 Studio, PDF Studio, and Email Studio. Learn tool usage, privacy-first processing, and common workflows across all DHEBE Studios tools.',
   alternates: {
     canonical: '/support',
   },
   openGraph: {
-    title: 'Support | Base64 Studio',
+    title: 'Support | DHEBE Studios',
     description:
-      'Support and help page for Base64 Studio, including privacy guidance, Base64 basics, and common usage help.',
+      'Support and help page for Base64, PDF, and Email tools, including usage guides, privacy, and contact information.',
     url: 'https://dhebe.com/support',
     type: 'website',
   },
@@ -23,13 +23,13 @@ export default function SupportPage() {
     '@graph': [
       {
         '@type': 'ContactPage',
-        name: 'Base64 Studio Support',
+        name: 'DHEBE Studios Support',
         url: 'https://dhebe.com/support',
         description:
-          'Support page for Base64 Studio with privacy guidance, Base64 basics, usage help, and contact information.',
+          'Support page for DHEBE Studios covering Base64, PDF, and Email tools with privacy and usage guidance.',
         mainEntity: {
           '@type': 'Organization',
-          name: 'Base64 Studio',
+          name: 'DHEBE Studios',
           email: 'support@dhebe.com',
           url: 'https://dhebe.com',
           contactPoint: {
@@ -46,26 +46,26 @@ export default function SupportPage() {
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Does Base64 Studio upload my files to a server?',
+            name: 'Do DHEBE tools upload files to a server?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'No. Base64 Studio runs entirely in your browser and does not upload, store, or retain your files or decoded content on our servers.',
+              text: 'Core conversion workflows are designed for browser-side processing and privacy-first handling. Files are processed locally in your session.',
             },
           },
           {
             '@type': 'Question',
-            name: 'Why is a file preview not showing?',
+            name: 'Which tools are available in DHEBE Studios?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Some previews depend on the browser recognizing the recovered MIME type. If a preview is unavailable, you can still download the decoded file locally.',
+              text: 'DHEBE Studios includes Base64 tools for encoding and decoding, PDF tools for compression and editing workflows, and Email Studio features for template and content workflows.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What is Base64 used for?',
+            name: 'What if preview is not available for a file?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Base64 is commonly used to safely represent binary data as text for APIs, data URIs, email transport, embedded assets, and testing workflows.',
+              text: 'Some formats and browsers have preview limitations. You can still download the generated file and open it in the appropriate desktop or mobile app.',
             },
           },
         ],

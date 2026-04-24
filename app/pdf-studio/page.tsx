@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'PDF Studio - Free Online PDF Tools',
     description:
-      'Popular online PDF workflows with privacy-first browser processing and dedicated SEO pages for each tool.',
+      'Popular online PDF workflows with privacy-first browser processing and dedicated pages for each tool.',
   },
 };
 
@@ -88,7 +88,7 @@ export default function PdfStudioPage() {
             name: 'Why does PDF Studio have dedicated tool pages?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Each tool page makes it easier for users and search engines to find a specific PDF workflow directly, similar to the Base64 Studio SEO structure.',
+              text: 'Each tool page gives users a direct link to a specific PDF workflow, making it faster to open the exact tool they need.',
             },
           },
         ],
@@ -139,7 +139,7 @@ export default function PdfStudioPage() {
                 Dedicated Pages for Every PDF Workflow
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 theme-muted sm:text-base">
-                Browse a dedicated landing page for each PDF tool. These static pages mirror Base64 Studio&apos;s SEO structure so users can discover the exact PDF workflow they need through search or direct links.
+                Browse a dedicated page for each PDF tool. These pages make it easy to open the exact workflow you need from direct links or the studio directory.
               </p>
             </div>
 

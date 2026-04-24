@@ -115,7 +115,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
             badge: 'bg-purple-100 text-purple-700',
             hover: 'hover:border-purple-300 hover:bg-purple-50',
           }}
-          footerText="Select a tool to work in the center panel, or open its dedicated landing page from the SEO rail."
+          footerText="Select a tool to work in the center panel, or open its dedicated page from the right rail."
           onSelect={(id) => handleToolSelect(id)}
           compactOnMobile
         />
@@ -147,7 +147,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
                     Status
                   </p>
                   <p className="mt-1 font-medium theme-title">
-                    {activeOption.status === 'ready' ? 'Available now' : 'SEO page live'}
+                    {activeOption.status === 'ready' ? 'Available now' : 'Dedicated page live'}
                   </p>
                 </div>
               </div>
@@ -196,10 +196,10 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
         </section>
 
         <PdfPagesRail
-          title="SEO Tool Pages"
+          title="Tool Pages"
           badgeLabel={`${pdfToolPages.length} pages`}
           sectionLabel="Dedicated Links"
-          description="Every listed PDF workflow has a dedicated static page so search engines and users can land directly on the exact tool intent."
+          description="Every listed PDF workflow has a dedicated page so users can land directly on the exact tool they need."
           pages={pdfToolPages}
           activeSlug={activeToolPage?.slug ?? null}
           readyIds={readyIds}
@@ -408,7 +408,7 @@ function PdfPagesRail({
         </div>
 
         <p className="mt-3 text-xs leading-5 theme-muted-2">
-          These dedicated pages mirror Base64 Studio&apos;s SEO structure so users can discover specific PDF workflows directly from search.
+          These dedicated pages make it easy to open specific PDF workflows directly from the studio.
         </p>
         <Link
           href="/support"

@@ -1,10 +1,15 @@
-const PDFJS_WORKER_CDN =
-  'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.296/legacy/build/pdf.worker.min.mjs';
+const PDFJS_WORKER_PATH = '/pdf.worker.min.mjs';
+
+function getPdfJsWorkerSrc() {
+  if (typeof window === 'undefined') {
+    return PDFJS_WORKER_PATH;
+  }
+
+  return new URL(PDFJS_WORKER_PATH, window.location.origin).toString();
+}
 
 export async function getPdfJs() {
   const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
-  if (!pdfjs.GlobalWorkerOptions.workerSrc) {
-    pdfjs.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_CDN;
-  }
+  pdfjs.GlobalWorkerOptions.workerSrc = getPdfJsWorkerSrc();
   return pdfjs;
 }

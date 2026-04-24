@@ -3,23 +3,23 @@ import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'PDF Tools - Dedicated SEO Pages for Popular PDF Workflows',
+  title: 'PDF Tools - Dedicated Pages for Popular PDF Workflows',
   description:
     'Dedicated static pages for popular PDF workflows including merge, split, compress, PDF to Word, sign, protect, OCR, rotate, organize, and page cleanup.',
   alternates: {
     canonical: 'https://dhebe.com/pdf-tools',
   },
   openGraph: {
-    title: 'PDF Tools - Dedicated SEO Pages for Popular PDF Workflows | DHEBE',
+    title: 'PDF Tools - Dedicated Pages for Popular PDF Workflows | DHEBE',
     description:
       'Discover dedicated static pages for high-intent PDF workflows including merge, split, convert, sign, protect, OCR, and page management.',
     url: 'https://dhebe.com/pdf-tools',
     type: 'website',
   },
   twitter: {
-    title: 'PDF Tools - Dedicated SEO Pages for Popular PDF Workflows',
+    title: 'PDF Tools - Dedicated Pages for Popular PDF Workflows',
     description:
-      'Dedicated search-friendly pages for popular PDF workflows and browser-based PDF utilities.',
+      'Dedicated pages for popular PDF workflows and browser-based PDF utilities.',
   },
 };
 

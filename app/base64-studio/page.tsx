@@ -138,7 +138,7 @@ export default function Base64StudioPage() {
             Dedicated Pages for Every Tool
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 theme-muted sm:text-base">
-            Browse a dedicated landing page for each Base64 encoder and decoder tool. These static pages help users find the exact utility they need and make the site easier for search engines to crawl.
+            Browse a dedicated page for each Base64 encoder and decoder tool. These pages make it easier to open the exact utility you need from the directory or a direct link.
           </p>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-2">

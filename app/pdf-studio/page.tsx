@@ -145,16 +145,16 @@ export default function PdfStudioPage() {
 
             <div className="grid gap-8 lg:grid-cols-2">
               <PdfToolLinkGroup
-                title="Ready Now"
+                title="Core Tools"
                 tools={pdfToolPages.filter((tool) =>
                   ['compress', 'merge', 'split', 'rotate', 'remove-pages', 'extract-pages', 'jpg-to-pdf', 'pdf-to-jpg', 'add-page-numbers'].includes(tool.id),
                 )}
                 accentClass="text-purple-600"
               />
               <PdfToolLinkGroup
-                title="Popular Next"
+                title="More Tools"
                 tools={pdfToolPages.filter((tool) =>
-                  ['pdf-to-word', 'edit', 'sign', 'protect', 'organize', 'ocr'].includes(tool.id),
+                  !['compress', 'merge', 'split', 'rotate', 'remove-pages', 'extract-pages', 'jpg-to-pdf', 'pdf-to-jpg', 'add-page-numbers'].includes(tool.id),
                 )}
                 accentClass="text-cyan-600"
               />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { type ComponentType, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
@@ -22,6 +22,9 @@ import { PdfExtractPagesTool } from '@/components/converters/pdf-extract-pages-t
 import { PdfAddPageNumbersTool } from '@/components/converters/pdf-add-page-numbers-tool';
 import { PdfToJpgTool } from '@/components/converters/pdf-to-jpg-tool';
 import { JpgToPdfTool } from '@/components/converters/jpg-to-pdf-tool';
+import { PdfBuilderTool } from '@/components/converters/pdf-builder-tool';
+import { PdfExporterTool } from '@/components/converters/pdf-exporter-tool';
+import { PdfCropTool } from '@/components/converters/pdf-crop-tool';
 import { pdfTools } from '@/lib/pdf-tools';
 import { pdfToolPages } from '@/lib/pdf-tools-pages';
 
@@ -48,7 +51,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
     pdfTools.filter((tool) => tool.status === 'ready').map((tool) => tool.id),
   );
 
-  const ActiveComponent = {
+  const toolComponents: Record<string, ComponentType> = {
     compress: PdfCompressorTool,
     merge: PdfMergerTool,
     split: PdfSplitterTool,
@@ -67,26 +70,22 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
     'add-page-numbers': PdfAddPageNumbersTool,
     'pdf-to-jpg': PdfToJpgTool,
     'jpg-to-pdf': JpgToPdfTool,
-  }[activeTool as keyof {
-    compress: typeof PdfCompressorTool;
-    merge: typeof PdfMergerTool;
-    split: typeof PdfSplitterTool;
-    rotate: typeof PdfRotateTool;
-    'remove-pages': typeof PdfRemovePagesTool;
-    watermark: typeof PdfWatermarkTool;
-    annotate: typeof PdfAnnotationTool;
-    'form-fill': typeof PdfFormFillerTool;
-    protect: typeof PdfEncryptTool;
-    'pdf-to-word': typeof PdfToWordTool;
-    edit: typeof PdfEditTool;
-    sign: typeof PdfSignTool;
-    organize: typeof PdfOrganizeTool;
-    ocr: typeof PdfOcrTool;
-    'extract-pages': typeof PdfExtractPagesTool;
-    'add-page-numbers': typeof PdfAddPageNumbersTool;
-    'pdf-to-jpg': typeof PdfToJpgTool;
-    'jpg-to-pdf': typeof JpgToPdfTool;
-  }];
+    'scan-to-pdf': () => <PdfBuilderTool mode="scan-to-pdf" />,
+    optimize: PdfCompressorTool,
+    repair: () => <PdfExporterTool mode="repair" />,
+    'convert-to-pdf': () => <PdfBuilderTool mode="convert-to-pdf" />,
+    'word-to-pdf': () => <PdfBuilderTool mode="word-to-pdf" />,
+    'powerpoint-to-pdf': () => <PdfBuilderTool mode="powerpoint-to-pdf" />,
+    'excel-to-pdf': () => <PdfBuilderTool mode="excel-to-pdf" />,
+    'html-to-pdf': () => <PdfBuilderTool mode="html-to-pdf" />,
+    'convert-from-pdf': () => <PdfExporterTool mode="convert-from-pdf" />,
+    'pdf-to-powerpoint': () => <PdfExporterTool mode="pdf-to-powerpoint" />,
+    'pdf-to-excel': () => <PdfExporterTool mode="pdf-to-excel" />,
+    'pdf-to-pdfa': () => <PdfExporterTool mode="pdf-to-pdfa" />,
+    'crop-pdf': PdfCropTool,
+  };
+
+  const ActiveComponent = toolComponents[activeTool];
 
   const handleToolSelect = (toolId: string) => {
     const targetPage = pdfToolPages.find((tool) => tool.id === toolId);

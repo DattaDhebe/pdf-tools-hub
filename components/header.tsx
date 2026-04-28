@@ -36,7 +36,7 @@ export function Header() {
               <Link href="/calculator-studio" className="hover:underline">Calculator Studio</Link>
             </li>
             <li>
-              <Link href="/email-studio" className="hover:underline">Email Studio</Link>
+              <Link href="/email-template-editor" className="hover:underline">Email Editor</Link>
             </li>
             <li>
               <Link href="/support" className="hover:underline">Support</Link>
@@ -67,7 +67,7 @@ export function Header() {
             </Link>
           </li>
           <li>
-            <Link href="/email-studio" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/email-template-editor" className="theme-card block rounded-full border px-3 py-1.5">
               Email
             </Link>
           </li>

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | DHEBE Studios',
   },
   description:
-    'Professional tools suite featuring Base64 Studio for encoding and decoding, PDF Studio for document workflows, Calculator Studio for high-demand web calculators, and Email Template Studio. 100% private, fast, and free.',
+    'Professional tools suite featuring Base64 Studio for encoding and decoding, PDF Studio for document workflows, Calculator Studio for high-demand web calculators, and a drag-and-drop Email Template Editor. 100% private, fast, and free.',
   applicationName: 'DHEBE Studios',
   keywords: [
     'base64 converter',

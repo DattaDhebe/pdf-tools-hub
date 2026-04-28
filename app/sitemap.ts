@@ -38,10 +38,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     {
-      url: 'https://dhebe.com/email-studio',
-      lastModified: new Date('2026-04-21'),
+      url: 'https://dhebe.com/email-template-editor',
+      lastModified: new Date('2026-04-28'),
       changeFrequency: 'weekly',
-      priority: 0.85,
+      priority: 0.88,
     },
     {
       url: 'https://dhebe.com/pdf-tools',

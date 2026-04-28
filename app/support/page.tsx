@@ -4,14 +4,14 @@ import { SupportClient } from '@/components/support-client';
 export const metadata: Metadata = {
   title: 'Support',
   description:
-    'Get help for Base64 Studio, PDF Studio, and Email Studio. Learn tool usage, privacy-first processing, and common workflows across all DHEBE Studios tools.',
+    'Get help for Base64 Studio, PDF Studio, Calculator Studio, and the Email Template Editor. Learn tool usage, privacy-first processing, and common workflows across all DHEBE Studios tools.',
   alternates: {
     canonical: '/support',
   },
   openGraph: {
     title: 'Support | DHEBE Studios',
     description:
-      'Support and help page for Base64, PDF, and Email tools, including usage guides, privacy, and contact information.',
+      'Support and help page for Base64, PDF, calculator, and email tools, including usage guides, privacy, and contact information.',
     url: 'https://dhebe.com/support',
     type: 'website',
   },
@@ -57,7 +57,7 @@ export default function SupportPage() {
             name: 'Which tools are available in DHEBE Studios?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'DHEBE Studios includes Base64 tools for encoding and decoding, PDF tools for compression and editing workflows, and Email Studio features for template and content workflows.',
+              text: 'DHEBE Studios includes Base64 tools for encoding and decoding, PDF tools for compression and editing workflows, calculator tools for high-demand utility pages, and an Email Template Editor for responsive campaign layouts.',
             },
           },
           {

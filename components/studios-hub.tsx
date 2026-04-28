@@ -33,9 +33,9 @@ export function StudiosHub() {
     },
     {
       id: 'email',
-      name: 'Email Template Studio',
-      description: 'Create and manage beautiful responsive email templates with drag-and-drop',
-      href: '/email-studio',
+      name: 'Email Template Editor',
+      description: 'Create professional responsive HTML emails with drag-and-drop editing and export-ready code',
+      href: '/email-template-editor',
       color: 'from-cyan-500 to-cyan-600',
       features: ['Drag & Drop', 'Responsive Design', 'Templates', 'Preview', 'Export'],
       status: 'live',

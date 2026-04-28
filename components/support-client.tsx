@@ -25,7 +25,7 @@ export function SupportClient({ structuredData }: SupportClientProps) {
               </h1>
             </div>
             <p className="mt-4 max-w-4xl text-sm leading-7 theme-muted sm:text-base">
-              This support page covers Base64 Studio, PDF Studio, and Email Studio. Use it to understand what each tool is for, how to choose the right workflow, and how privacy-first browser processing works across the platform.
+              This support page covers Base64 Studio, PDF Studio, Calculator Studio, and the Email Template Editor. Use it to understand what each tool is for, how to choose the right workflow, and how privacy-first browser processing works across the platform.
             </p>
 
             <div className="mt-6 rounded-[1.5rem] border p-5 theme-card-soft">
@@ -56,10 +56,10 @@ export function SupportClient({ structuredData }: SupportClientProps) {
                 Open PDF Studio
               </Link>
               <Link
-                href="/email-studio"
+                href="/email-template-editor"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
               >
-                Open Email Studio
+                Open Email Template Editor
               </Link>
             </div>
           </section>
@@ -117,11 +117,11 @@ export function SupportClient({ structuredData }: SupportClientProps) {
             </div>
 
             <div className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
-              <h2 className="text-2xl font-semibold tracking-tight theme-title">Email Studio</h2>
+              <h2 className="text-2xl font-semibold tracking-tight theme-title">Email Template Editor</h2>
               <ul className="mt-4 space-y-3 text-sm leading-7 theme-muted sm:text-base">
-                <li>Use for template-oriented content workflows and responsive email layouts.</li>
-                <li>Helpful when preparing reusable sections for campaigns and product updates.</li>
-                <li>Best paired with Base64 tools when embedding small assets into email content.</li>
+                <li>Use it to design responsive HTML email templates for campaigns, newsletters, and onboarding.</li>
+                <li>Helpful when preparing reusable drag-and-drop sections for launches and marketing updates.</li>
+                <li>Best paired with Base64 tools when embedding small assets or sharing HTML-ready output.</li>
               </ul>
             </div>
           </section>

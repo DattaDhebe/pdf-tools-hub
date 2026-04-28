@@ -32,7 +32,7 @@ export function Footer() {
               <li><Link href="/pdf-tools" className="hover:underline">PDF Tools</Link></li>
               <li><Link href="/base64-studio" className="hover:underline">Base64 Studio</Link></li>
               <li><Link href="/calculator-studio" className="hover:underline">Calculator Studio</Link></li>
-              <li><Link href="/email-studio" className="hover:underline">Email Studio</Link></li>
+              <li><Link href="/email-template-editor" className="hover:underline">Email Template Editor</Link></li>
             </ul>
           </div>
 

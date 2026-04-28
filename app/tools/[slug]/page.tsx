@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Script from 'next/script';
-import { Base64Workbench } from '@/components/base64-workbench';
-import { getToolPageBySlug, toolPages } from '@/lib/tool-pages';
+import { notFound, permanentRedirect } from 'next/navigation';
+import { buildBase64ToolMetadata, getBase64ToolPageBySlug, getBase64ToolPath } from '@/lib/base64-tool-pages';
+import { toolPages } from '@/lib/tool-pages';
 
 interface ToolPageProps {
   params: Promise<{
@@ -18,90 +17,21 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const tool = getToolPageBySlug(slug);
+  const tool = getBase64ToolPageBySlug(slug);
 
   if (!tool) {
     return {};
   }
 
-  const title = `${tool.label} Online`;
-
-  return {
-    title,
-    description: tool.description,
-    alternates: {
-      canonical: `/tools/${tool.slug}`,
-    },
-    openGraph: {
-      title: `${title} | Base64 Studio`,
-      description: tool.description,
-      url: `https://dhebe.com/tools/${tool.slug}`,
-      type: 'website',
-    },
-    twitter: {
-      title: `${title} | Base64 Studio`,
-      description: tool.description,
-    },
-  };
+  return buildBase64ToolMetadata(tool);
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
   const { slug } = await params;
-  const tool = getToolPageBySlug(slug);
+  const tool = getBase64ToolPageBySlug(slug);
 
   if (!tool) {
     notFound();
   }
-
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebApplication',
-        name: `${tool.label} | Base64 Studio`,
-        applicationCategory: 'DeveloperApplication',
-        operatingSystem: 'Web',
-        url: `https://dhebe.com/tools/${tool.slug}`,
-        description: tool.description,
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-        },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: 'https://dhebe.com',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: tool.label,
-            item: `https://dhebe.com/tools/${tool.slug}`,
-          },
-        ],
-      },
-    ],
-  };
-
-  return (
-    <>
-      <Script
-        id={`tool-structured-data-${tool.slug}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <Base64Workbench
-        initialTool={{
-          kind: tool.kind,
-          id: tool.id,
-        }}
-      />
-    </>
-  );
+  permanentRedirect(getBase64ToolPath(tool));
 }

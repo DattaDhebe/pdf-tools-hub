@@ -30,7 +30,7 @@ export function Footer() {
             <h2 className="mb-2 text-base font-semibold">Tools</h2>
             <ul className="space-y-1 text-sm">
               <li><Link href="/pdf-tools" className="hover:underline">PDF Tools</Link></li>
-              <li><Link href="/base64-studio" className="hover:underline">Base64 Studio</Link></li>
+              <li><Link href="/base64-converter" className="hover:underline">Base64 Converter</Link></li>
               <li><Link href="/calculator-studio" className="hover:underline">Calculator Studio</Link></li>
               <li><Link href="/email-template-editor" className="hover:underline">Email Template Editor</Link></li>
             </ul>

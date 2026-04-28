@@ -25,7 +25,7 @@ export function SupportClient({ structuredData }: SupportClientProps) {
               </h1>
             </div>
             <p className="mt-4 max-w-4xl text-sm leading-7 theme-muted sm:text-base">
-              This support page covers Base64 Studio, PDF Studio, Calculator Studio, and the Email Template Editor. Use it to understand what each tool is for, how to choose the right workflow, and how privacy-first browser processing works across the platform.
+              This support page covers the Base64 Converter, PDF Studio, Calculator Studio, and the Email Template Editor. Use it to understand what each tool is for, how to choose the right workflow, and how privacy-first browser processing works across the platform.
             </p>
 
             <div className="mt-6 rounded-[1.5rem] border p-5 theme-card-soft">
@@ -44,10 +44,10 @@ export function SupportClient({ structuredData }: SupportClientProps) {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/base64-studio"
+                href="/base64-converter"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
               >
-                Open Base64 Studio
+                Open Base64 Converter
               </Link>
               <Link
                 href="/pdf-studio"
@@ -99,7 +99,7 @@ export function SupportClient({ structuredData }: SupportClientProps) {
 
           <section className="grid gap-6 lg:grid-cols-3">
             <div className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
-              <h2 className="text-2xl font-semibold tracking-tight theme-title">Base64 Studio</h2>
+              <h2 className="text-2xl font-semibold tracking-tight theme-title">Base64 Converter</h2>
               <ul className="mt-4 space-y-3 text-sm leading-7 theme-muted sm:text-base">
                 <li>Use for encoding files/text into Base64 for APIs, email payloads, and data URLs.</li>
                 <li>Use decoders when you need to recover original files from Base64 strings.</li>

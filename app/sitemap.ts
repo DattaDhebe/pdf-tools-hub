@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
-import { toolPages } from '@/lib/tool-pages';
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
 import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
+import { base64ToolPages, getBase64ToolPath } from '@/lib/base64-tool-pages';
 
 export const dynamic = 'force-static';
 
@@ -20,10 +20,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: 'https://dhebe.com/base64-studio',
-      lastModified: new Date('2026-04-21'),
+      url: 'https://dhebe.com/base64-converter',
+      lastModified: new Date('2026-04-28'),
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.92,
+    },
+    {
+      url: 'https://dhebe.com/base64-encoder',
+      lastModified: new Date('2026-04-28'),
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: 'https://dhebe.com/base64-decoder',
+      lastModified: new Date('2026-04-28'),
+      changeFrequency: 'weekly',
+      priority: 0.88,
     },
     {
       url: 'https://dhebe.com/pdf-studio',
@@ -67,8 +79,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.84,
     })),
-    ...toolPages.map((tool) => ({
-      url: `https://dhebe.com/tools/${tool.slug}`,
+    ...base64ToolPages.map((tool) => ({
+      url: `https://dhebe.com${getBase64ToolPath(tool)}`,
       lastModified: new Date('2026-04-14'),
       changeFrequency: 'weekly' as const,
       priority: 0.8,

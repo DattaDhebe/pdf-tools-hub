@@ -6,9 +6,9 @@ export function StudiosHub() {
   const studios = [
     {
       id: 'base64',
-      name: 'Base64 Studio',
-      description: 'Encode and decode files, text, images, PDFs, and more using Base64',
-      href: '/base64-studio',
+      name: 'Base64 Converter',
+      description: 'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64',
+      href: '/base64-converter',
       color: 'from-orange-500 to-orange-600',
       features: ['Text Encoding', 'Image Conversion', 'PDF Handling', 'URL Encoding', 'Audio Files'],
       status: 'live',

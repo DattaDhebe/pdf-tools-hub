@@ -4,7 +4,7 @@ import { SupportClient } from '@/components/support-client';
 export const metadata: Metadata = {
   title: 'Support',
   description:
-    'Get help for Base64 Studio, PDF Studio, Calculator Studio, and the Email Template Editor. Learn tool usage, privacy-first processing, and common workflows across all DHEBE Studios tools.',
+    'Get help for the Base64 Converter, PDF Studio, Calculator Studio, and the Email Template Editor. Learn tool usage, privacy-first processing, and common workflows across all DHEBE Studios tools.',
   alternates: {
     canonical: '/support',
   },
@@ -57,7 +57,7 @@ export default function SupportPage() {
             name: 'Which tools are available in DHEBE Studios?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'DHEBE Studios includes Base64 tools for encoding and decoding, PDF tools for compression and editing workflows, calculator tools for high-demand utility pages, and an Email Template Editor for responsive campaign layouts.',
+              text: 'DHEBE Studios includes a Base64 Converter for encode and decode workflows, PDF tools for compression and editing, calculator tools for high-demand utility pages, and an Email Template Editor for responsive campaign layouts.',
             },
           },
           {

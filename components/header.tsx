@@ -27,7 +27,7 @@ export function Header() {
         <nav aria-label="Primary" className="hidden flex-1 sm:block">
           <ul className="flex items-center justify-center gap-4 text-sm">
             <li>
-              <Link href="/base64-studio" className="hover:underline">Base64 Studio</Link>
+              <Link href="/base64-converter" className="hover:underline">Base64 Converter</Link>
             </li>
             <li>
               <Link href="/pdf-studio" className="hover:underline">PDF Studio</Link>
@@ -52,7 +52,7 @@ export function Header() {
       <nav aria-label="Mobile Primary" className="border-t border-[var(--app-panel-border)] px-3 py-2 sm:hidden">
         <ul className="flex gap-2 overflow-x-auto pb-1 text-xs whitespace-nowrap">
           <li>
-            <Link href="/base64-studio" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/base64-converter" className="theme-card block rounded-full border px-3 py-1.5">
               Base64
             </Link>
           </li>

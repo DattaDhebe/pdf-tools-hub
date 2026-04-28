@@ -5,7 +5,7 @@ import Script from 'next/script';
 export const metadata: Metadata = {
   title: 'DHEBE Studios - Free Online Tools for Base64, PDF, Calculators & Email',
   description:
-    'Professional tools suite featuring Base64 Studio, PDF Studio, Calculator Studio, and a professional Email Template Editor. Encode, decode, compress, merge, calculate, and design with privacy-first browser tools.',
+    'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, and a professional Email Template Editor. Encode, decode, compress, merge, calculate, and design with privacy-first browser tools.',
   keywords: [
     'dhebe studios',
     'free online tools',
@@ -43,7 +43,7 @@ export default function Home() {
         name: 'DHEBE Studios',
         url: 'https://dhebe.com',
         description:
-          'Professional tools suite featuring Base64 Studio, PDF Studio, Calculator Studio, and a professional Email Template Editor.',
+          'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, and a professional Email Template Editor.',
         potentialAction: {
           '@type': 'SearchAction',
           target: 'https://dhebe.com/?q={search_term_string}',

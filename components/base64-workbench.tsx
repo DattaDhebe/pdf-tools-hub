@@ -150,7 +150,7 @@ export function Base64Workbench({ initialTool }: Base64WorkbenchProps) {
                   Your data stays with you.
                 </h3>
                 <p className="mt-3 text-sm leading-7 theme-privacy-text sm:text-base">
-                  Base64 Studio runs entirely in your browser. We do not upload, store, or retain your files, text, or decoded content on our servers, so your conversions remain private and under your control.
+                  The Base64 Converter runs entirely in your browser. We do not upload, store, or retain your files, text, or decoded content on our servers, so your conversions remain private and under your control.
                 </p>
               </div>
 
@@ -239,7 +239,7 @@ function WorkbenchRail({
     <aside className="theme-panel w-full overflow-hidden rounded-[2rem] border p-5 backdrop-blur xl:sticky xl:top-6 xl:flex xl:h-[calc(100vh-3rem)] xl:w-full xl:flex-col">
       <div className="border-b border-slate-200/80 pb-5">
         <p className={`text-xs font-semibold uppercase tracking-[0.32em] ${accentClasses.eyebrow}`}>
-          Base64 Studio
+          Base64 Converter
         </p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">{title}</h2>
         <p className="mt-3 text-sm leading-6 theme-muted">{description}</p>

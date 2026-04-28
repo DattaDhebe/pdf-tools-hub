@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 
 type Align = 'left' | 'center';
 type BlockType = 'hero' | 'text' | 'image' | 'cta' | 'divider' | 'footer';
@@ -303,10 +303,28 @@ export function EmailStudioClient() {
   const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('desktop');
   const [dragPayload, setDragPayload] = useState<DragPayload | null>(null);
   const [dropIndex, setDropIndex] = useState<number | null>(null);
+  const [commandQuery, setCommandQuery] = useState('');
+  const [isBooting, setIsBooting] = useState(true);
   const [statusMessage, setStatusMessage] = useState('Start from a polished template, then drag blocks into the layout and export clean HTML.');
 
   const activeBlock = editor.blocks.find((block) => block.id === editor.activeId) ?? null;
   const html = useMemo(() => buildEmailHtml(editor.theme, editor.blocks), [editor.theme, editor.blocks]);
+  const query = commandQuery.trim().toLowerCase();
+  const filteredPresets = query
+    ? PRESETS.filter((preset) =>
+        [preset.title, preset.description, preset.category].join(' ').toLowerCase().includes(query),
+      )
+    : PRESETS;
+  const filteredBlocks = query
+    ? BLOCK_LIBRARY.filter((block) =>
+        [block.label, block.description].join(' ').toLowerCase().includes(query),
+      )
+    : BLOCK_LIBRARY;
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsBooting(false), 650);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const commitState = (message: string, updater: (current: EditorState) => EditorState) => {
     setEditor((current) => {
@@ -466,8 +484,51 @@ export function EmailStudioClient() {
 
   const activePreset = PRESETS.find((preset) => preset.id === editor.selectedPresetId)?.title ?? 'Custom layout';
 
+  if (isBooting) {
+    return <EditorShellSkeleton />;
+  }
+
   return (
-    <section id="email-editor" className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
+    <section id="email-editor" className="space-y-5">
+      <div className="rounded-[2rem] border p-4 theme-panel">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="rounded-full bg-slate-950 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
+              DHEBE Editor
+            </span>
+            <span className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] theme-title">
+              Campaign workspace
+            </span>
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+              Saved locally
+            </span>
+          </div>
+
+          <div className="flex flex-1 flex-col gap-3 xl:max-w-[38rem] xl:flex-row xl:items-center">
+            <label className="flex flex-1 items-center gap-3 rounded-full border bg-white px-4 py-3 text-sm shadow-sm">
+              <span className="text-slate-400">⌕</span>
+              <input
+                value={commandQuery}
+                onChange={(event) => setCommandQuery(event.target.value)}
+                placeholder="Search templates, blocks, or campaign controls"
+                className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+              />
+            </label>
+            <div className="flex gap-2">
+              {['Plan', 'Design', 'Review'].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[var(--app-card-border)] bg-[var(--app-card)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] theme-title"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
       <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
         <div className="rounded-[2rem] border p-5 theme-panel">
           <div className="flex items-start justify-between gap-4">
@@ -516,7 +577,7 @@ export function EmailStudioClient() {
                 </button>
               </div>
               <div className="mt-4 grid gap-3">
-                {PRESETS.map((preset) => (
+                {filteredPresets.map((preset) => (
                   <button
                     key={preset.id}
                     onClick={() => applyPreset(preset.id)}
@@ -531,6 +592,9 @@ export function EmailStudioClient() {
                     <p className="mt-2 text-sm leading-6 theme-muted">{preset.description}</p>
                   </button>
                 ))}
+                {filteredPresets.length === 0 ? (
+                  <EmptySidebarState message="No matching templates. Try another keyword or start from a blank layout." />
+                ) : null}
               </div>
             </>
           ) : null}
@@ -541,7 +605,7 @@ export function EmailStudioClient() {
               <h3 className="mt-2 text-lg font-semibold theme-title">Add sections to your campaign</h3>
               <p className="mt-3 text-sm leading-7 theme-muted">Drag blocks into the canvas or add them with one click.</p>
               <div className="mt-4 grid gap-3">
-                {BLOCK_LIBRARY.map((item) => (
+                {filteredBlocks.map((item) => (
                   <div
                     key={item.type}
                     draggable
@@ -566,6 +630,9 @@ export function EmailStudioClient() {
                     </div>
                   </div>
                 ))}
+                {filteredBlocks.length === 0 ? (
+                  <EmptySidebarState message="No matching blocks found. Clear the search to see the full block library." />
+                ) : null}
               </div>
             </>
           ) : null}
@@ -601,6 +668,13 @@ export function EmailStudioClient() {
               </div>
             </>
           ) : null}
+        </div>
+
+        <div className="rounded-[2rem] border p-5 theme-panel">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600">Workflow note</p>
+          <p className="mt-3 text-sm leading-7 theme-muted">
+            This shell is rebuilt from the product patterns you shared: clearer command space, stronger loading experience, and one focused navigation rail.
+          </p>
         </div>
       </aside>
 
@@ -888,6 +962,7 @@ export function EmailStudioClient() {
           ) : null}
         </section>
       </div>
+      </div>
     </section>
   );
 }
@@ -970,6 +1045,75 @@ function MetricLine({ label, value }: { label: string; value: string }) {
       <p className="text-xs font-semibold uppercase tracking-[0.18em] theme-muted-2">{label}</p>
       <p className="mt-1 text-sm font-semibold theme-title">{value}</p>
     </div>
+  );
+}
+
+function EmptySidebarState({ message }: { message: string }) {
+  return (
+    <div className="rounded-[1.35rem] border border-dashed p-4 theme-card-soft">
+      <p className="text-sm leading-6 theme-muted">{message}</p>
+    </div>
+  );
+}
+
+function EditorShellSkeleton() {
+  return (
+    <section id="email-editor" className="space-y-5">
+      <div className="rounded-[2rem] border p-4 theme-panel">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex gap-3">
+            <div className="h-9 w-32 animate-pulse rounded-full bg-slate-200/80" />
+            <div className="h-9 w-36 animate-pulse rounded-full bg-slate-200/70" />
+          </div>
+          <div className="h-12 w-full animate-pulse rounded-full bg-slate-200/70 xl:max-w-[38rem]" />
+        </div>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
+        <div className="rounded-[2rem] border p-5 theme-panel">
+          <div className="space-y-3">
+            <div className="h-5 w-24 animate-pulse rounded-full bg-slate-200/70" />
+            <div className="h-9 w-48 animate-pulse rounded-2xl bg-slate-200/80" />
+            <div className="h-20 animate-pulse rounded-[1.5rem] bg-slate-200/60" />
+            <div className="grid gap-3 pt-2">
+              {[1, 2, 3, 4].map((item) => (
+                <div key={item} className="h-24 animate-pulse rounded-[1.35rem] bg-slate-200/60" />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="rounded-[2rem] border p-5 theme-panel">
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <div className="h-8 w-24 animate-pulse rounded-full bg-slate-200/80" />
+                <div className="h-8 w-28 animate-pulse rounded-full bg-slate-200/70" />
+                <div className="h-8 w-32 animate-pulse rounded-full bg-slate-200/70" />
+              </div>
+              <div className="h-10 w-72 animate-pulse rounded-2xl bg-slate-200/80" />
+              <div className="grid gap-3 sm:grid-cols-3">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="h-20 animate-pulse rounded-[1.2rem] bg-slate-200/60" />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border p-5 theme-panel">
+            <div className="space-y-4">
+              <div className="h-9 w-64 animate-pulse rounded-2xl bg-slate-200/80" />
+              <div className="grid gap-4 xl:grid-cols-4">
+                {[1, 2, 3, 4].map((item) => (
+                  <div key={item} className="h-24 animate-pulse rounded-[1.4rem] bg-slate-200/60" />
+                ))}
+              </div>
+              <div className="h-[34rem] animate-pulse rounded-[1.7rem] bg-slate-200/50" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 function instantiatePreset(preset: PresetDefinition): EditorState {

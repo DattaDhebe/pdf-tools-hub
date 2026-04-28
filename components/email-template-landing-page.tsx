@@ -113,7 +113,7 @@ export function EmailTemplateLandingPage() {
                   One sidebar, cleaner canvas, stronger preview flow
                 </p>
                 <p className="mt-3 text-sm leading-7 theme-muted">
-                  The editor now feels closer to a professional email product instead of a basic utility page.
+                  The editor now feels closer to a professional email product instead of a basic utility page, while still using an original in-house implementation.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">

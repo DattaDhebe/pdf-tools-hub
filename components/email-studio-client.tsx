@@ -490,78 +490,81 @@ export function EmailStudioClient() {
 
   return (
     <section id="email-editor" className="space-y-5">
-      <div className="rounded-[2rem] border p-4 theme-panel">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-slate-950 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-              DHEBE Editor
-            </span>
-            <span className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] theme-title">
-              Campaign workspace
-            </span>
-            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
-              Saved locally
-            </span>
-          </div>
+      <div className="overflow-hidden rounded-[2.25rem] border theme-panel">
+        <div className="border-b border-slate-800 bg-slate-950 px-4 py-4 text-white sm:px-5">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-950">
+                DHEBE Editor
+              </span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
+                Campaign workspace
+              </span>
+              <span className="rounded-full border border-emerald-300/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                Saved locally
+              </span>
+            </div>
 
-          <div className="flex flex-1 flex-col gap-3 xl:max-w-[38rem] xl:flex-row xl:items-center">
-            <label className="flex flex-1 items-center gap-3 rounded-full border bg-white px-4 py-3 text-sm shadow-sm">
-              <span className="text-slate-400">⌕</span>
-              <input
-                value={commandQuery}
-                onChange={(event) => setCommandQuery(event.target.value)}
-                placeholder="Search templates, blocks, or campaign controls"
-                className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
-              />
-            </label>
-            <div className="flex gap-2">
-              {['Plan', 'Design', 'Review'].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-[var(--app-card-border)] bg-[var(--app-card)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] theme-title"
-                >
-                  {item}
-                </span>
-              ))}
+            <div className="flex flex-1 flex-col gap-3 xl:max-w-[42rem] xl:flex-row xl:items-center">
+              <label className="flex flex-1 items-center gap-3 rounded-full border border-white/10 bg-white px-4 py-3 text-sm shadow-sm">
+                <span className="text-slate-400">⌕</span>
+                <input
+                  value={commandQuery}
+                  onChange={(event) => setCommandQuery(event.target.value)}
+                  placeholder="Search templates, blocks, or campaign controls"
+                  className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                />
+              </label>
+              <div className="flex gap-2">
+                {['Plan', 'Design', 'Review'].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
-      <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
-        <div className="rounded-[2rem] border p-5 theme-panel">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">Email Builder</p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight theme-title">Professional campaign studio</h2>
-            </div>
-            <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">One sidebar</span>
-          </div>
-          <p className="mt-3 text-sm leading-7 theme-muted">
-            A cleaner layout inspired by modern email platforms: one command rail, a focused canvas, and a clear preview workflow.
-          </p>
-
-          <div className="mt-5 grid gap-2">
-            {SIDEBAR_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setSidebarView(item.id)}
-                className={`rounded-[1.1rem] border px-4 py-3 text-left transition ${
-                  sidebarView === item.id ? 'border-sky-300 bg-sky-50 shadow-sm' : 'theme-card-soft hover:border-sky-200'
-                }`}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm font-semibold theme-title">{item.label}</span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.16em] theme-muted-2">{item.short}</span>
+        <div className="grid gap-0 xl:grid-cols-[18.5rem_minmax(0,1fr)]">
+          <aside className="theme-rail border-b border-[var(--app-card-border)] p-4 xl:sticky xl:top-24 xl:h-[calc(100vh-7rem)] xl:overflow-auto xl:border-b-0 xl:border-r">
+            <div className="rounded-[1.8rem] border p-4 theme-card">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">Email Builder</p>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-tight theme-title">One clear left rail</h2>
                 </div>
-                <p className="mt-2 text-sm leading-6 theme-muted">{item.description}</p>
-              </button>
-            ))}
-          </div>
-        </div>
+                <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">
+                  Live
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-7 theme-muted">
+                Templates, blocks, brand controls, and campaign settings now live in one focused rail.
+              </p>
 
-        <div className="rounded-[2rem] border p-5 theme-panel">
+              <div className="mt-5 grid gap-2">
+                {SIDEBAR_ITEMS.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setSidebarView(item.id)}
+                    className={`rounded-[1.1rem] border px-4 py-3 text-left transition ${
+                      sidebarView === item.id ? 'border-sky-300 bg-sky-50 shadow-sm' : 'theme-card-soft hover:border-sky-200'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-semibold theme-title">{item.label}</span>
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.16em] theme-muted-2">{item.short}</span>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 theme-muted">{item.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-[1.8rem] border p-4 theme-card">
           {sidebarView === 'templates' ? (
             <>
               <div className="flex items-start justify-between gap-4">
@@ -668,48 +671,52 @@ export function EmailStudioClient() {
               </div>
             </>
           ) : null}
-        </div>
-
-        <div className="rounded-[2rem] border p-5 theme-panel">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600">Workflow note</p>
-          <p className="mt-3 text-sm leading-7 theme-muted">
-            This shell is rebuilt from the product patterns you shared: clearer command space, stronger loading experience, and one focused navigation rail.
-          </p>
-        </div>
-      </aside>
-
-      <div className="space-y-6">
-        <section className="rounded-[2rem] border p-5 theme-panel">
-          <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-slate-950 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">{activePreset}</span>
-                <span className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] theme-title">{editor.blocks.length} sections</span>
-                <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">Responsive HTML</span>
-              </div>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight theme-title">{editor.theme.campaignName}</h2>
-              <p className="mt-2 text-sm leading-7 theme-muted">{editor.theme.objective}</p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <MetricCard label="Audience" value={editor.theme.audienceLabel} />
-                <MetricCard label="Sender" value={editor.theme.senderName} />
-                <MetricCard label="Subject" value={editor.theme.subjectLine} />
-              </div>
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              <button onClick={undo} disabled={history.length === 0} className="rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50">Undo</button>
-              <button onClick={redo} disabled={future.length === 0} className="rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50">Redo</button>
-              <button onClick={copyHtml} className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100">Copy HTML</button>
-              <button onClick={downloadHtml} className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90">Download HTML</button>
+            <div className="mt-5 rounded-[1.8rem] border p-4 theme-card-soft">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600">Workflow note</p>
+              <p className="mt-3 text-sm leading-7 theme-muted">
+                This shell is rebuilt from the product patterns you shared: one header, one left rail, and one obvious editor stage in the center.
+              </p>
             </div>
-          </div>
+          </aside>
 
-          <div className="mt-5 rounded-[1.4rem] border p-4 theme-card-soft">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-600">Workspace status</p>
-            <p className="mt-2 text-sm leading-7 theme-muted">{statusMessage}</p>
-          </div>
-        </section>
-        <section className="rounded-[2rem] border p-5 theme-panel">
+          <div className="min-w-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.08),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.08),_transparent_28%),linear-gradient(180deg,_rgba(248,250,252,0.96)_0%,_rgba(255,255,255,0.96)_100%)] p-4 sm:p-5">
+            <div className="rounded-[1.9rem] border-2 border-slate-200/80 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+              <div className="mb-5 rounded-[1.6rem] bg-slate-950 px-5 py-5 text-white">
+                <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-950">{activePreset}</span>
+                      <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">{editor.blocks.length} sections</span>
+                      <span className="rounded-full border border-emerald-300/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200">Responsive HTML</span>
+                    </div>
+                    <p className="mt-4 text-xs font-semibold uppercase tracking-[0.22em] text-sky-200">Editor stage</p>
+                    <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">{editor.theme.campaignName}</h2>
+                    <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-300">{editor.theme.objective}</p>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                      <MetricCard label="Audience" value={editor.theme.audienceLabel} />
+                      <MetricCard label="Sender" value={editor.theme.senderName} />
+                      <MetricCard label="Subject" value={editor.theme.subjectLine} />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3">
+                    <button onClick={undo} disabled={history.length === 0} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50">Undo</button>
+                    <button onClick={redo} disabled={future.length === 0} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50">Redo</button>
+                    <button onClick={copyHtml} className="rounded-full border border-sky-300/30 bg-sky-400/10 px-4 py-2 text-sm font-semibold text-sky-100 transition hover:bg-sky-400/20">Copy HTML</button>
+                    <button onClick={downloadHtml} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:opacity-90">Download HTML</button>
+                  </div>
+                </div>
+
+                <div className="mt-5 rounded-[1.2rem] border border-white/10 bg-white/5 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200">Workspace status</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">{statusMessage}</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+        <section className="rounded-[1.7rem] border p-5 theme-card">
           <div className="flex flex-col gap-4 border-b border-[var(--app-card-border)] pb-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Workspace</p>
@@ -961,7 +968,10 @@ export function EmailStudioClient() {
             </div>
           ) : null}
         </section>
-      </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -1059,56 +1069,69 @@ function EmptySidebarState({ message }: { message: string }) {
 function EditorShellSkeleton() {
   return (
     <section id="email-editor" className="space-y-5">
-      <div className="rounded-[2rem] border p-4 theme-panel">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-          <div className="flex gap-3">
-            <div className="h-9 w-32 animate-pulse rounded-full bg-slate-200/80" />
-            <div className="h-9 w-36 animate-pulse rounded-full bg-slate-200/70" />
-          </div>
-          <div className="h-12 w-full animate-pulse rounded-full bg-slate-200/70 xl:max-w-[38rem]" />
-        </div>
-      </div>
-
-      <div className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
-        <div className="rounded-[2rem] border p-5 theme-panel">
-          <div className="space-y-3">
-            <div className="h-5 w-24 animate-pulse rounded-full bg-slate-200/70" />
-            <div className="h-9 w-48 animate-pulse rounded-2xl bg-slate-200/80" />
-            <div className="h-20 animate-pulse rounded-[1.5rem] bg-slate-200/60" />
-            <div className="grid gap-3 pt-2">
-              {[1, 2, 3, 4].map((item) => (
-                <div key={item} className="h-24 animate-pulse rounded-[1.35rem] bg-slate-200/60" />
-              ))}
+      <div className="overflow-hidden rounded-[2.25rem] border theme-panel">
+        <div className="border-b border-slate-800 bg-slate-950 px-4 py-4">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="flex gap-3">
+              <div className="h-9 w-32 animate-pulse rounded-full bg-white/80" />
+              <div className="h-9 w-36 animate-pulse rounded-full bg-white/10" />
             </div>
+            <div className="h-12 w-full animate-pulse rounded-full bg-white xl:max-w-[42rem]" />
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="rounded-[2rem] border p-5 theme-panel">
-            <div className="space-y-4">
-              <div className="flex gap-3">
-                <div className="h-8 w-24 animate-pulse rounded-full bg-slate-200/80" />
-                <div className="h-8 w-28 animate-pulse rounded-full bg-slate-200/70" />
-                <div className="h-8 w-32 animate-pulse rounded-full bg-slate-200/70" />
+        <div className="grid gap-0 xl:grid-cols-[18.5rem_minmax(0,1fr)]">
+          <div className="theme-rail border-b border-[var(--app-card-border)] p-4 xl:border-b-0 xl:border-r">
+            <div className="rounded-[1.8rem] border p-4 theme-card">
+              <div className="space-y-3">
+                <div className="h-5 w-24 animate-pulse rounded-full bg-slate-200/70" />
+                <div className="h-9 w-48 animate-pulse rounded-2xl bg-slate-200/80" />
+                <div className="h-20 animate-pulse rounded-[1.5rem] bg-slate-200/60" />
               </div>
-              <div className="h-10 w-72 animate-pulse rounded-2xl bg-slate-200/80" />
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[1, 2, 3].map((item) => (
-                  <div key={item} className="h-20 animate-pulse rounded-[1.2rem] bg-slate-200/60" />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] border p-5 theme-panel">
-            <div className="space-y-4">
-              <div className="h-9 w-64 animate-pulse rounded-2xl bg-slate-200/80" />
-              <div className="grid gap-4 xl:grid-cols-4">
+              <div className="mt-5 grid gap-3">
                 {[1, 2, 3, 4].map((item) => (
-                  <div key={item} className="h-24 animate-pulse rounded-[1.4rem] bg-slate-200/60" />
+                  <div key={item} className="h-20 animate-pulse rounded-[1.35rem] bg-slate-200/60" />
                 ))}
               </div>
-              <div className="h-[34rem] animate-pulse rounded-[1.7rem] bg-slate-200/50" />
+            </div>
+
+            <div className="mt-5 rounded-[1.8rem] border p-4 theme-card">
+              <div className="h-6 w-40 animate-pulse rounded-full bg-slate-200/70" />
+              <div className="mt-4 grid gap-3">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="h-24 animate-pulse rounded-[1.35rem] bg-slate-200/60" />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.08),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.08),_transparent_28%),linear-gradient(180deg,_rgba(248,250,252,0.96)_0%,_rgba(255,255,255,0.96)_100%)] p-4 sm:p-5">
+            <div className="rounded-[1.9rem] border-2 border-slate-200/80 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+              <div className="rounded-[1.6rem] bg-slate-950 px-5 py-5">
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <div className="h-8 w-24 animate-pulse rounded-full bg-white/80" />
+                    <div className="h-8 w-28 animate-pulse rounded-full bg-white/10" />
+                    <div className="h-8 w-32 animate-pulse rounded-full bg-white/10" />
+                  </div>
+                  <div className="h-10 w-72 animate-pulse rounded-2xl bg-white/80" />
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {[1, 2, 3].map((item) => (
+                      <div key={item} className="h-20 animate-pulse rounded-[1.2rem] bg-white/10" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-5">
+                <div className="h-10 w-64 animate-pulse rounded-2xl bg-slate-200/80" />
+                <div className="grid gap-4 xl:grid-cols-4">
+                  {[1, 2, 3, 4].map((item) => (
+                    <div key={item} className="h-24 animate-pulse rounded-[1.4rem] bg-slate-200/60" />
+                  ))}
+                </div>
+                <div className="h-[34rem] animate-pulse rounded-[1.7rem] bg-slate-200/50" />
+              </div>
             </div>
           </div>
         </div>

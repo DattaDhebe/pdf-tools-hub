@@ -2,65 +2,68 @@
 
 import Link from 'next/link';
 
-export function StudiosHub() {
-  const studios = [
-    {
-      id: 'base64',
-      category: 'Developer Tools',
-      name: 'Base64 Converter',
-      description: 'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64.',
-      href: '/base64-converter',
-      accent: 'bg-orange-100 text-orange-700',
-      dot: 'bg-orange-500',
-      features: ['Text Encoding', 'Image Conversion', 'File Utilities'],
-      cta: 'Open Converter',
-      status: 'live',
-    },
-    {
-      id: 'pdf',
-      category: 'Document Tools',
-      name: 'PDF Studio',
-      description: 'Powerful PDF tools for compression, merging, splitting, conversion, and document cleanup.',
-      href: '/pdf-studio',
-      accent: 'bg-purple-100 text-purple-700',
-      dot: 'bg-purple-500',
-      features: ['Merge & Split', 'Compress & Convert', 'Page Extraction'],
-      cta: 'Open PDF Studio',
-      status: 'live',
-    },
-    {
-      id: 'calculator',
-      category: 'Utility Tools',
-      name: 'Calculator Studio',
-      description: 'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentage workflows.',
-      href: '/calculator-studio',
-      accent: 'bg-emerald-100 text-emerald-700',
-      dot: 'bg-emerald-500',
-      features: ['Health & Age', 'Finance Math', 'Percentage Tools'],
-      cta: 'Open Calculators',
-      status: 'live',
-    },
-    {
-      id: 'email',
-      category: 'Marketing Tools',
-      name: 'Email Template Editor',
-      description: 'Create professional responsive HTML emails with drag-and-drop editing, live preview, and export-ready code.',
-      href: '/email-template-editor',
-      accent: 'bg-sky-100 text-sky-700',
-      dot: 'bg-sky-500',
-      features: ['Drag & Drop', 'Responsive Preview', 'HTML Export'],
-      cta: 'Open Email Editor',
-      status: 'live',
-      featured: true,
-    },
-  ] as const;
+const studios = [
+  {
+    id: 'email',
+    category: 'Marketing Tools',
+    name: 'Email Template Editor',
+    description:
+      'Create professional responsive HTML emails with drag-and-drop editing, live preview, and export-ready code.',
+    href: '/email-template-editor',
+    accent: 'bg-sky-100 text-sky-700',
+    dot: 'bg-sky-500',
+    features: ['Drag and drop builder', 'Responsive preview', 'HTML export'],
+    cta: 'Open Email Editor',
+    initials: 'EM',
+  },
+  {
+    id: 'pdf',
+    category: 'Document Tools',
+    name: 'PDF Studio',
+    description:
+      'Powerful PDF tools for compression, merging, splitting, conversion, and document cleanup.',
+    href: '/pdf-studio',
+    accent: 'bg-purple-100 text-purple-700',
+    dot: 'bg-purple-500',
+    features: ['Merge and split', 'Compress and convert', 'Page extraction'],
+    cta: 'Open PDF Studio',
+    initials: 'PD',
+  },
+  {
+    id: 'calculator',
+    category: 'Utility Tools',
+    name: 'Calculator Studio',
+    description:
+      'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentage workflows.',
+    href: '/calculator-studio',
+    accent: 'bg-emerald-100 text-emerald-700',
+    dot: 'bg-emerald-500',
+    features: ['Health and age', 'Finance math', 'Percentage tools'],
+    cta: 'Open Calculators',
+    initials: 'CA',
+  },
+  {
+    id: 'base64',
+    category: 'Developer Tools',
+    name: 'Base64 Converter',
+    description:
+      'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64.',
+    href: '/base64-converter',
+    accent: 'bg-orange-100 text-orange-700',
+    dot: 'bg-orange-500',
+    features: ['Text encoding', 'Image conversion', 'File utilities'],
+    cta: 'Open Converter',
+    initials: 'B6',
+  },
+] as const;
 
-  const featuredStudio = studios.find((studio) => studio.id === 'email') ?? studios[0];
+export function StudiosHub() {
+  const featuredStudio = studios[0];
 
   return (
     <main className="theme-page-home min-h-screen text-[var(--app-text)] transition-colors duration-200">
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-10 rounded-[2rem] border p-6 theme-panel sm:p-8">
+        <div className="mb-10 rounded-[2.25rem] border p-6 theme-panel sm:p-8">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1.05fr)_minmax(19rem,0.95fr)] xl:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
@@ -73,7 +76,7 @@ export function StudiosHub() {
                 </span>
               </h1>
               <p className="mt-4 max-w-3xl text-lg leading-8 theme-muted">
-                We’ve simplified the studio access UI so every tool entry follows one consistent pattern. If you want the fastest path, jump straight into the email editor below.
+                Every studio entry now follows the same visual pattern, so it is easier to scan, compare, and jump into the right tool without hunting for the main action.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -107,7 +110,7 @@ export function StudiosHub() {
               </div>
             </div>
 
-            <div className="rounded-[1.8rem] border bg-[var(--app-card)] p-6 shadow-sm">
+            <div className="rounded-[1.9rem] border bg-[var(--app-card)] p-6 shadow-sm">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">
@@ -120,9 +123,7 @@ export function StudiosHub() {
                 </span>
               </div>
 
-              <p className="mt-4 text-sm leading-7 theme-muted">
-                {featuredStudio.description}
-              </p>
+              <p className="mt-4 text-sm leading-7 theme-muted">{featuredStudio.description}</p>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-3">
                 {featuredStudio.features.map((feature) => (
@@ -142,13 +143,13 @@ export function StudiosHub() {
           </div>
         </div>
 
-        <div id="all-studios" className="mb-4 flex items-center justify-between gap-4">
+        <div id="all-studios" className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">All studios</p>
             <h2 className="mt-2 text-2xl font-bold theme-title">Choose a workspace</h2>
           </div>
           <p className="max-w-xl text-sm leading-6 theme-muted">
-            Each card now uses the same layout, button style, and information hierarchy so it’s easier to scan and choose the right tool.
+            Each card uses the same layout, status badge, feature list, and call-to-action so the whole home page feels more consistent and user friendly.
           </p>
         </div>
 
@@ -157,11 +158,13 @@ export function StudiosHub() {
             <Link
               key={studio.id}
               href={studio.href}
-              className="group flex h-full min-h-[25rem] flex-col rounded-[1.8rem] border p-6 theme-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group flex h-full min-h-[25rem] flex-col rounded-[1.9rem] border p-6 theme-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="flex items-start justify-between gap-4">
-                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold ${studio.accent}`}>
-                  {studio.name.slice(0, 2).toUpperCase()}
+                <div
+                  className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold ${studio.accent}`}
+                >
+                  {studio.initials}
                 </div>
                 <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
                   Live
@@ -189,7 +192,7 @@ export function StudiosHub() {
                 <div className="flex items-center justify-between rounded-[1.2rem] border px-4 py-3 transition group-hover:bg-slate-950 group-hover:text-white">
                   <span className="text-sm font-semibold">{studio.cta}</span>
                   <span className="text-lg" aria-hidden="true">
-                    →
+                    -&gt;
                   </span>
                 </div>
               </div>
@@ -230,7 +233,7 @@ export function StudiosHub() {
 
         <div className="border-t border-[var(--app-card-border)] pt-16 text-center">
           <p className="mb-6 theme-muted">
-            More studios are on the way. We&apos;ll add any contact or subscription options once they&apos;re ready.
+            More studios are on the way. We will add any contact or subscription options once they are ready.
           </p>
           <p className="text-sm theme-muted-2">
             For now, every available studio remains free to use with no sign-up required.

@@ -22,7 +22,7 @@ export function Footer() {
               <span className="sr-only">DHEBE Studios</span>
             </Link>
             <p className="mt-3 text-sm theme-muted">
-              Free online tools for Base64, PDF and Email. 100% client-side and privacy-first.
+              Free online tools for Base64, PDF, calculators, and email. 100% client-side and privacy-first.
             </p>
           </div>
 
@@ -31,6 +31,7 @@ export function Footer() {
             <ul className="space-y-1 text-sm">
               <li><Link href="/pdf-tools" className="hover:underline">PDF Tools</Link></li>
               <li><Link href="/base64-studio" className="hover:underline">Base64 Studio</Link></li>
+              <li><Link href="/calculator-studio" className="hover:underline">Calculator Studio</Link></li>
               <li><Link href="/email-studio" className="hover:underline">Email Studio</Link></li>
             </ul>
           </div>

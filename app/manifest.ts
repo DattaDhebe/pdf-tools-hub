@@ -4,10 +4,10 @@ export const dynamic = 'force-static';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Base64 Studio',
-    short_name: 'Base64 Studio',
+    name: 'DHEBE Studios',
+    short_name: 'DHEBE',
     description:
-      'Free online Base64 encoder and decoder tools for text, images, files, PDFs, audio, URLs, HTML, CSS, and hex.',
+      'Free online tools for Base64, PDF, calculators, and email workflows with privacy-first browser processing.',
     start_url: '/',
     display: 'standalone',
     background_color: '#fffaf5',

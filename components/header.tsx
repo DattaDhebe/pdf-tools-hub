@@ -33,6 +33,9 @@ export function Header() {
               <Link href="/pdf-studio" className="hover:underline">PDF Studio</Link>
             </li>
             <li>
+              <Link href="/calculator-studio" className="hover:underline">Calculator Studio</Link>
+            </li>
+            <li>
               <Link href="/email-studio" className="hover:underline">Email Studio</Link>
             </li>
             <li>
@@ -56,6 +59,11 @@ export function Header() {
           <li>
             <Link href="/pdf-studio" className="theme-card block rounded-full border px-3 py-1.5">
               PDF
+            </Link>
+          </li>
+          <li>
+            <Link href="/calculator-studio" className="theme-card block rounded-full border px-3 py-1.5">
+              Calculators
             </Link>
           </li>
           <li>

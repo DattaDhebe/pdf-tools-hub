@@ -23,6 +23,15 @@ export function StudiosHub() {
       status: 'live',
     },
     {
+      id: 'calculator',
+      name: 'Calculator Studio',
+      description: 'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentages',
+      href: '/calculator-studio',
+      color: 'from-emerald-500 to-amber-500',
+      features: ['Age Calculator', 'BMI Check', 'EMI & SIP', 'GST Math', 'Percentage Tools'],
+      status: 'live',
+    },
+    {
       id: 'email',
       name: 'Email Template Studio',
       description: 'Create and manage beautiful responsive email templates with drag-and-drop',
@@ -45,7 +54,7 @@ export function StudiosHub() {
             </span>
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-xl theme-muted">
-            Professional-grade utilities for encoding, PDF manipulation, and email design. All tools run 100% in your browser with complete privacy.
+            Professional-grade utilities for encoding, PDF manipulation, calculators, and email design. All tools run 100% in your browser with complete privacy.
           </p>
           <div className="flex items-center justify-center gap-4 text-sm theme-muted">
             <div className="flex items-center gap-2">
@@ -62,7 +71,7 @@ export function StudiosHub() {
           </div>
         </div>
 
-        <div className="mb-16 grid gap-6 md:grid-cols-3">
+        <div className="mb-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {studios.map((studio) => (
             <Link
               key={studio.id}

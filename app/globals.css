@@ -109,6 +109,13 @@ pre {
     linear-gradient(180deg, #faf5ff 0%, #f5fdf8 38%, #fdf8ff 100%);
 }
 
+.theme-page-calculator {
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.16), transparent 32%),
+    linear-gradient(180deg, #f0fdf4 0%, #fffbeb 44%, #fffcf6 100%);
+}
+
 .theme-accent-chip-orange {
   background: #ffedd5;
   color: #c2410c;
@@ -131,6 +138,13 @@ pre {
     radial-gradient(circle at top left, rgba(168, 85, 247, 0.2), transparent 25%),
     radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.14), transparent 30%),
     linear-gradient(180deg, #020617 0%, #111827 52%, #020617 100%);
+}
+
+[data-theme='dark'] .theme-page-calculator {
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.14), transparent 28%),
+    linear-gradient(180deg, #03130f 0%, #111827 52%, #1f1303 100%);
 }
 
 [data-theme='dark'] .theme-accent-chip-orange {

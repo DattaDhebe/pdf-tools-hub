@@ -3,14 +3,15 @@ import { StudiosHub } from '@/components/studios-hub';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'DHEBE Studios - Free Online Tools for Base64, PDF & Email',
+  title: 'DHEBE Studios - Free Online Tools for Base64, PDF, Calculators & Email',
   description:
-    'Professional tools suite featuring Base64 Studio, PDF Studio, and Email Template Studio. Encode, decode, compress, merge, and split files. 100% private, client-side processing, and completely free.',
+    'Professional tools suite featuring Base64 Studio, PDF Studio, Calculator Studio, and Email Template Studio. Encode, decode, compress, merge, calculate, and design with privacy-first browser tools.',
   keywords: [
     'dhebe studios',
     'free online tools',
     'base64 tools',
     'pdf tools',
+    'calculator tools',
     'email templates',
     'encoding tools',
     'online utilities',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'DHEBE Studios - Professional Tools Suite',
     description:
-      'Free online tools for Base64 encoding/decoding, PDF manipulation, and email design. 100% private processing.',
+      'Free online tools for Base64 encoding/decoding, PDF manipulation, calculators, and email design. 100% private processing.',
     url: 'https://dhebe.com',
     type: 'website',
     siteName: 'DHEBE Studios',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'DHEBE Studios - Professional Tools Suite',
-    description: 'Free online Base64, PDF, and email tools. No uploads, no tracking.',
+    description: 'Free online Base64, PDF, calculator, and email tools. No uploads, no tracking.',
   },
 };
 
@@ -42,7 +43,7 @@ export default function Home() {
         name: 'DHEBE Studios',
         url: 'https://dhebe.com',
         description:
-          'Professional tools suite featuring Base64 Studio, PDF Studio, and Email Template Studio.',
+          'Professional tools suite featuring Base64 Studio, PDF Studio, Calculator Studio, and Email Template Studio.',
         potentialAction: {
           '@type': 'SearchAction',
           target: 'https://dhebe.com/?q={search_term_string}',

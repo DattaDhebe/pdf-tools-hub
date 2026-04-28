@@ -7,11 +7,11 @@ import { Footer } from '@/components/footer';
 export const metadata: Metadata = {
   metadataBase: new URL('https://dhebe.com'),
   title: {
-    default: 'DHEBE Studios - Base64, PDF & Email Tools',
+    default: 'DHEBE Studios - Base64, PDF, Calculator & Email Tools',
     template: '%s | DHEBE Studios',
   },
   description:
-    'Professional tools suite featuring Base64 Studio for encoding/decoding, PDF Studio for compression/merging/splitting, and Email Template Studio (coming soon). 100% private, fast, and free.',
+    'Professional tools suite featuring Base64 Studio for encoding and decoding, PDF Studio for document workflows, Calculator Studio for high-demand web calculators, and Email Template Studio. 100% private, fast, and free.',
   applicationName: 'DHEBE Studios',
   keywords: [
     'base64 converter',
@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     'pdf compressor',
     'pdf merger',
     'pdf splitter',
+    'age calculator',
+    'emi calculator',
+    'gst calculator',
     'online tools',
     'free tools',
     'dhebe studios',
@@ -46,14 +49,14 @@ export const metadata: Metadata = {
     siteName: 'DHEBE Studios',
     title: 'DHEBE Studios - Professional Tools Suite',
     description:
-      'Free online tools for Base64 encoding/decoding, PDF manipulation, and email template design. 100% private, client-side processing.',
+      'Free online tools for Base64 encoding/decoding, PDF manipulation, calculators, and email template design. 100% private, client-side processing.',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'DHEBE Studios - Professional Tools Suite',
     description:
-      'Free online Base64, PDF, and email tools. No uploads, no tracking, 100% private processing.',
+      'Free online Base64, PDF, calculator, and email tools. No uploads, no tracking, 100% private processing.',
     creator: '@dhebestudios',
   },
   robots: {

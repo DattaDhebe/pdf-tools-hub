@@ -93,7 +93,7 @@ export function EmailTemplateLandingPage() {
                   href="#email-editor"
                   className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
                 >
-                  Open the editor
+                  Jump to live editor
                 </a>
                 <Link
                   href="/support"
@@ -137,7 +137,38 @@ export function EmailTemplateLandingPage() {
             </div>
           </section>
 
-          <EmailStudioClient />
+          <section className="rounded-[2rem] border-2 border-sky-200/80 p-4 theme-panel sm:p-5">
+            <div className="mb-4 flex flex-col gap-4 rounded-[1.5rem] bg-slate-950 px-5 py-5 text-white xl:flex-row xl:items-center xl:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-200">
+                  Editor Starts Here
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+                  Live email template workspace
+                </h2>
+                <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-300">
+                  This is the main builder area. Choose a template, drag blocks into the canvas, preview the email, and export the final HTML from the workspace below.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+                  Templates
+                </span>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+                  Drag & Drop
+                </span>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+                  Preview
+                </span>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+                  HTML Export
+                </span>
+              </div>
+            </div>
+
+            <EmailStudioClient />
+          </section>
 
           <section className="grid gap-8 xl:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.85fr)]">
             <div className="grid gap-6">

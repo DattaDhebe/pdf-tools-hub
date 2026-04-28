@@ -6,69 +6,150 @@ export function StudiosHub() {
   const studios = [
     {
       id: 'base64',
+      category: 'Developer Tools',
       name: 'Base64 Converter',
-      description: 'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64',
+      description: 'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64.',
       href: '/base64-converter',
-      color: 'from-orange-500 to-orange-600',
-      features: ['Text Encoding', 'Image Conversion', 'PDF Handling', 'URL Encoding', 'Audio Files'],
+      accent: 'bg-orange-100 text-orange-700',
+      dot: 'bg-orange-500',
+      features: ['Text Encoding', 'Image Conversion', 'File Utilities'],
+      cta: 'Open Converter',
       status: 'live',
     },
     {
       id: 'pdf',
+      category: 'Document Tools',
       name: 'PDF Studio',
-      description: 'Powerful PDF tools for compression, merging, splitting, and manipulation',
+      description: 'Powerful PDF tools for compression, merging, splitting, conversion, and document cleanup.',
       href: '/pdf-studio',
-      color: 'from-purple-500 to-purple-600',
-      features: ['Compression', 'Merging', 'Splitting', 'Page Extraction', 'Fast Processing'],
+      accent: 'bg-purple-100 text-purple-700',
+      dot: 'bg-purple-500',
+      features: ['Merge & Split', 'Compress & Convert', 'Page Extraction'],
+      cta: 'Open PDF Studio',
       status: 'live',
     },
     {
       id: 'calculator',
+      category: 'Utility Tools',
       name: 'Calculator Studio',
-      description: 'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentages',
+      description: 'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentage workflows.',
       href: '/calculator-studio',
-      color: 'from-emerald-500 to-amber-500',
-      features: ['Age Calculator', 'BMI Check', 'EMI & SIP', 'GST Math', 'Percentage Tools'],
+      accent: 'bg-emerald-100 text-emerald-700',
+      dot: 'bg-emerald-500',
+      features: ['Health & Age', 'Finance Math', 'Percentage Tools'],
+      cta: 'Open Calculators',
       status: 'live',
     },
     {
       id: 'email',
+      category: 'Marketing Tools',
       name: 'Email Template Editor',
-      description: 'Create professional responsive HTML emails with drag-and-drop editing and export-ready code',
+      description: 'Create professional responsive HTML emails with drag-and-drop editing, live preview, and export-ready code.',
       href: '/email-template-editor',
-      color: 'from-cyan-500 to-cyan-600',
-      features: ['Drag & Drop', 'Responsive Design', 'Templates', 'Preview', 'Export'],
+      accent: 'bg-sky-100 text-sky-700',
+      dot: 'bg-sky-500',
+      features: ['Drag & Drop', 'Responsive Preview', 'HTML Export'],
+      cta: 'Open Email Editor',
       status: 'live',
+      featured: true,
     },
   ] as const;
+
+  const featuredStudio = studios.find((studio) => studio.id === 'email') ?? studios[0];
 
   return (
     <main className="theme-page-home min-h-screen text-[var(--app-text)] transition-colors duration-200">
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-5xl font-bold tracking-tight theme-title sm:text-6xl">
-            All Your Tools
-            <br />
-            <span className="bg-gradient-to-r from-orange-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
-              In One Place
-            </span>
-          </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-xl theme-muted">
-            Professional-grade utilities for encoding, PDF manipulation, calculators, and email design. All tools run 100% in your browser with complete privacy.
-          </p>
-          <div className="flex items-center justify-center gap-4 text-sm theme-muted">
-            <div className="flex items-center gap-2">
-              <span>100% Private</span>
+        <div className="mb-10 rounded-[2rem] border p-6 theme-panel sm:p-8">
+          <div className="grid gap-8 xl:grid-cols-[minmax(0,1.05fr)_minmax(19rem,0.95fr)] xl:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
+                Studio Directory
+              </p>
+              <h1 className="mt-3 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
+                Access every studio from one
+                <span className="block bg-gradient-to-r from-slate-950 via-sky-700 to-violet-700 bg-clip-text text-transparent">
+                  cleaner workspace
+                </span>
+              </h1>
+              <p className="mt-4 max-w-3xl text-lg leading-8 theme-muted">
+                We’ve simplified the studio access UI so every tool entry follows one consistent pattern. If you want the fastest path, jump straight into the email editor below.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href={featuredStudio.href}
+                  className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                >
+                  Open Email Editor
+                </Link>
+                <Link
+                  href="#all-studios"
+                  className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-5 py-3 text-sm font-semibold theme-title transition hover:bg-white/70"
+                >
+                  Browse all studios
+                </Link>
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm theme-muted">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+                  100% private
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-sky-500"></span>
+                  Browser-based
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-violet-500"></span>
+                  No sign-up required
+                </div>
+              </div>
             </div>
-            <div className="h-1 w-1 rounded-full theme-muted"></div>
-            <div className="flex items-center gap-2">
-              <span>Lightning Fast</span>
-            </div>
-            <div className="h-1 w-1 rounded-full theme-muted"></div>
-            <div className="flex items-center gap-2">
-              <span>No Limits</span>
+
+            <div className="rounded-[1.8rem] border bg-[var(--app-card)] p-6 shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">
+                    Featured Workspace
+                  </p>
+                  <h2 className="mt-3 text-2xl font-bold theme-title">{featuredStudio.name}</h2>
+                </div>
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
+                  Live
+                </span>
+              </div>
+
+              <p className="mt-4 text-sm leading-7 theme-muted">
+                {featuredStudio.description}
+              </p>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {featuredStudio.features.map((feature) => (
+                  <div key={feature} className="rounded-[1.1rem] border p-4 theme-card-soft">
+                    <p className="text-sm font-semibold theme-title">{feature}</p>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href={featuredStudio.href}
+                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:opacity-90"
+              >
+                Open the live editor
+              </Link>
             </div>
           </div>
+        </div>
+
+        <div id="all-studios" className="mb-4 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">All studios</p>
+            <h2 className="mt-2 text-2xl font-bold theme-title">Choose a workspace</h2>
+          </div>
+          <p className="max-w-xl text-sm leading-6 theme-muted">
+            Each card now uses the same layout, button style, and information hierarchy so it’s easier to scan and choose the right tool.
+          </p>
         </div>
 
         <div className="mb-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -76,37 +157,41 @@ export function StudiosHub() {
             <Link
               key={studio.id}
               href={studio.href}
-              className="group relative overflow-hidden rounded-2xl border theme-card px-8 py-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--app-card-border)] hover:shadow-xl"
+              className="group flex h-full min-h-[25rem] flex-col rounded-[1.8rem] border p-6 theme-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${studio.color} opacity-0 transition-opacity duration-300 group-hover:opacity-5`}
-              />
+              <div className="flex items-start justify-between gap-4">
+                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold ${studio.accent}`}>
+                  {studio.name.slice(0, 2).toUpperCase()}
+                </div>
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
+                  Live
+                </span>
+              </div>
 
-              <div className="relative">
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="text-sm font-semibold theme-muted-2">Studio</div>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                    Live
+              <div className="mt-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] theme-muted-2">
+                  {studio.category}
+                </p>
+                <h3 className="mt-3 text-2xl font-bold leading-tight theme-title">{studio.name}</h3>
+                <p className="mt-4 text-sm leading-7 theme-muted">{studio.description}</p>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {studio.features.map((feature) => (
+                  <div key={feature} className="flex items-center gap-3 text-sm theme-muted">
+                    <span className={`h-2.5 w-2.5 rounded-full ${studio.dot}`}></span>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-auto pt-8">
+                <div className="flex items-center justify-between rounded-[1.2rem] border px-4 py-3 transition group-hover:bg-slate-950 group-hover:text-white">
+                  <span className="text-sm font-semibold">{studio.cta}</span>
+                  <span className="text-lg" aria-hidden="true">
+                    →
                   </span>
                 </div>
-
-                <h3 className="mb-2 text-2xl font-bold theme-title">{studio.name}</h3>
-                <p className="mb-6 leading-relaxed theme-muted">{studio.description}</p>
-
-                <div className="mb-6 space-y-2">
-                  {studio.features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-2 text-sm theme-muted">
-                      <span className="h-1.5 w-1.5 rounded-full theme-muted-2"></span>
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  className={`w-full rounded-lg bg-gradient-to-r ${studio.color} px-4 py-3 font-semibold text-white transition-all duration-300 group-hover:shadow-lg`}
-                >
-                  Access Studio
-                </button>
               </div>
             </Link>
           ))}

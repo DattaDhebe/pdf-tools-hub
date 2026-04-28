@@ -63,43 +63,77 @@ export function EmailTemplateLandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.16),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.12),_transparent_28%),linear-gradient(180deg,_#f7fcff_0%,_#f6fbff_36%,_#fcfcff_100%)] px-4 py-6 text-[var(--app-text)] transition-colors duration-200 xl:px-6">
+      <main className="theme-page-email min-h-screen px-4 py-6 text-[var(--app-text)] transition-colors duration-200 xl:px-6">
         <div className="mx-auto max-w-[1600px] space-y-8">
-          <section className="rounded-[2rem] border p-6 theme-panel sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-600">
-              Free Email Template Builder
-            </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight theme-title sm:text-5xl">
-              Email Template Editor
-            </h1>
-            <p className="mt-4 max-w-4xl text-sm leading-7 theme-muted sm:text-base">
-              {emailTemplateEditorMetaDescription}
-            </p>
+          <section className="grid gap-6 rounded-[2rem] border p-6 theme-panel sm:p-8 xl:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
+                Free Email Template Builder
+              </p>
+              <h1 className="mt-3 text-4xl font-semibold tracking-tight theme-title sm:text-5xl">
+                Email Template Editor
+              </h1>
+              <p className="mt-4 max-w-4xl text-sm leading-7 theme-muted sm:text-base">
+                {emailTemplateEditorMetaDescription}
+              </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {emailTemplateEditorHighlightKeywords.map((keyword) => (
-                <span
-                  key={keyword}
-                  className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 sm:text-sm"
+              <div className="mt-6 flex flex-wrap gap-2">
+                {emailTemplateEditorHighlightKeywords.map((keyword) => (
+                  <span
+                    key={keyword}
+                    className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 sm:text-sm"
+                  >
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#email-editor"
+                  className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
                 >
-                  {keyword}
-                </span>
-              ))}
+                  Open the editor
+                </a>
+                <Link
+                  href="/support"
+                  className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-sky-50"
+                >
+                  View support
+                </Link>
+              </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="#email-editor"
-                className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
-              >
-                Open the editor
-              </a>
-              <Link
-                href="/support"
-                className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-cyan-50"
-              >
-                View support
-              </Link>
+            <div className="grid gap-4">
+              <div className="rounded-[1.5rem] border p-5 theme-card-soft">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600">
+                  App-Style Workflow
+                </p>
+                <p className="mt-3 text-lg font-semibold theme-title">
+                  One sidebar, cleaner canvas, stronger preview flow
+                </p>
+                <p className="mt-3 text-sm leading-7 theme-muted">
+                  The editor now feels closer to a professional email product instead of a basic utility page.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+                <div className="rounded-[1.5rem] border p-5 theme-card-soft">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600">
+                    Built For
+                  </p>
+                  <p className="mt-3 text-sm leading-7 theme-muted">
+                    Newsletters, welcome emails, product launches, internal comms, and marketing campaigns.
+                  </p>
+                </div>
+                <div className="rounded-[1.5rem] border p-5 theme-card-soft">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">
+                    Core Value
+                  </p>
+                  <p className="mt-3 text-sm leading-7 theme-muted">
+                    Drag-and-drop layout editing, inbox preview, mobile preview, and clean HTML export in one workflow.
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
 

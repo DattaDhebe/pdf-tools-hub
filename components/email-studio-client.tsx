@@ -4,10 +4,16 @@ import { Fragment, useMemo, useState } from 'react';
 
 type Align = 'left' | 'center';
 type BlockType = 'hero' | 'text' | 'image' | 'cta' | 'divider' | 'footer';
-type PreviewMode = 'desktop' | 'mobile' | 'html';
+type SidebarView = 'templates' | 'blocks' | 'brand' | 'campaign';
+type WorkspaceView = 'compose' | 'preview' | 'html';
+type PreviewDevice = 'desktop' | 'mobile';
 
 interface ThemeSettings {
+  campaignName: string;
   brandName: string;
+  senderName: string;
+  audienceLabel: string;
+  objective: string;
   subjectLine: string;
   preheader: string;
   accentColor: string;
@@ -36,8 +42,16 @@ interface PresetDefinition {
   id: string;
   title: string;
   description: string;
+  category: string;
   theme: ThemeSettings;
   blocks: Omit<EmailBlock, 'id'>[];
+}
+
+interface EditorState {
+  theme: ThemeSettings;
+  blocks: EmailBlock[];
+  activeId: string;
+  selectedPresetId: string;
 }
 
 type DragPayload =
@@ -45,48 +59,53 @@ type DragPayload =
   | { kind: 'existing'; blockId: string };
 
 const BLOCK_LIBRARY: Array<{ type: BlockType; label: string; description: string }> = [
-  { type: 'hero', label: 'Hero Banner', description: 'Headline, body copy, and a strong CTA.' },
-  { type: 'text', label: 'Content Section', description: 'Editorial, newsletter, or marketing copy.' },
-  { type: 'image', label: 'Image Spotlight', description: 'Product shot, visual banner, or creative.' },
-  { type: 'cta', label: 'CTA Panel', description: 'Conversion-focused section with a button.' },
-  { type: 'divider', label: 'Divider', description: 'Clean spacing between email sections.' },
-  { type: 'footer', label: 'Footer', description: 'Brand, support, and unsubscribe messaging.' },
+  { type: 'hero', label: 'Hero Banner', description: 'Lead the campaign with a strong headline and CTA.' },
+  { type: 'text', label: 'Content Section', description: 'Explain the update with clean, readable supporting copy.' },
+  { type: 'image', label: 'Image Spotlight', description: 'Feature a visual banner, product image, or event creative.' },
+  { type: 'cta', label: 'CTA Panel', description: 'Repeat the value and guide readers to the next click.' },
+  { type: 'divider', label: 'Divider', description: 'Add breathing room between sections without visual clutter.' },
+  { type: 'footer', label: 'Footer', description: 'Close with support, preferences, or unsubscribe copy.' },
 ];
 
 const PRESETS: PresetDefinition[] = [
   {
     id: 'newsletter',
-    title: 'Newsletter',
-    description: 'Editorial layout for weekly updates and digest emails.',
+    title: 'Executive Newsletter',
+    description: 'A calm, polished digest inspired by official email campaign apps.',
+    category: 'Newsletter',
     theme: {
+      campaignName: 'Quarterly Product Digest',
       brandName: 'DHEBE Weekly',
+      senderName: 'Ariana from DHEBE',
+      audienceLabel: 'Subscribers · Product and content updates',
+      objective: 'Educate readers and drive one focused click',
       subjectLine: 'Your weekly digest is ready',
-      preheader: 'A responsive newsletter template with clear sections and one focused CTA.',
-      accentColor: '#0f766e',
-      backgroundColor: '#ecfeff',
+      preheader: 'A responsive newsletter layout with clean sections and one focused CTA.',
+      accentColor: '#0f172a',
+      backgroundColor: '#eef2ff',
       surfaceColor: '#ffffff',
-      titleColor: '#0f172a',
+      titleColor: '#020617',
       bodyColor: '#475569',
     },
     blocks: [
       {
         type: 'hero',
         eyebrow: 'Weekly digest',
-        title: 'Build a professional email newsletter in minutes',
-        body: 'Share launches, stories, and product updates with a polished HTML email that looks clean on mobile and desktop.',
+        title: 'Build a professional newsletter that feels modern and on brand',
+        body: 'Share launches, stories, and internal updates with a responsive HTML email that stays readable on mobile and desktop.',
         buttonLabel: 'Read the issue',
         buttonUrl: 'https://dhebe.com',
         imageUrl: '',
         altText: '',
         secondaryText: '',
         align: 'left',
-        tone: '#f0fdfa',
+        tone: '#f8fafc',
       },
       {
         type: 'text',
         eyebrow: '',
-        title: 'Lead with clarity',
-        body: 'The best newsletter templates make scanning easy. Keep paragraphs short, separate ideas with headings, and use one primary CTA per major section.',
+        title: 'Give each section a clear job',
+        body: 'The strongest email builders keep each block focused: announce the update, explain the value, and offer one action.',
         buttonLabel: '',
         buttonUrl: '',
         imageUrl: '',
@@ -98,15 +117,15 @@ const PRESETS: PresetDefinition[] = [
       {
         type: 'cta',
         eyebrow: '',
-        title: 'Guide the next click',
-        body: 'Close the email with one simple action so readers know exactly what to do next.',
+        title: 'Close with a primary action',
+        body: 'Use one final CTA to guide readers into the campaign page, article, signup flow, or resource hub.',
         buttonLabel: 'Open the campaign',
         buttonUrl: 'https://dhebe.com',
         imageUrl: '',
         altText: '',
         secondaryText: '',
         align: 'left',
-        tone: '#ccfbf1',
+        tone: '#e0e7ff',
       },
       {
         type: 'footer',
@@ -125,12 +144,17 @@ const PRESETS: PresetDefinition[] = [
   },
   {
     id: 'welcome',
-    title: 'Welcome Email',
-    description: 'Onboarding layout for new leads, members, or customers.',
+    title: 'Onboarding Welcome',
+    description: 'A clean onboarding template for SaaS, communities, and customer success.',
+    category: 'Welcome',
     theme: {
+      campaignName: 'Customer Welcome Series',
       brandName: 'DHEBE Onboarding',
+      senderName: 'Rina from DHEBE',
+      audienceLabel: 'New signups · First 7 days',
+      objective: 'Reduce friction and drive activation',
       subjectLine: 'Welcome — here is how to get started',
-      preheader: 'Introduce your brand, explain the next step, and reduce friction right away.',
+      preheader: 'Introduce the brand, set expectations, and guide one clear first action.',
       accentColor: '#2563eb',
       backgroundColor: '#eff6ff',
       surfaceColor: '#ffffff',
@@ -142,7 +166,7 @@ const PRESETS: PresetDefinition[] = [
         type: 'hero',
         eyebrow: 'Welcome',
         title: 'Help new subscribers feel confident right away',
-        body: 'Use a warm, professional welcome email to explain what happens next and where readers can find value quickly.',
+        body: 'Use a warm, professional welcome email to explain what happens next and point readers to the fastest path to value.',
         buttonLabel: 'Complete setup',
         buttonUrl: 'https://dhebe.com',
         imageUrl: '',
@@ -155,7 +179,7 @@ const PRESETS: PresetDefinition[] = [
         type: 'text',
         eyebrow: '',
         title: 'Keep the first message focused',
-        body: 'A welcome email performs best when it introduces the brand, sets expectations, and guides one clear first action.',
+        body: 'Great onboarding emails introduce the brand, explain the first win, and guide one action with strong spacing.',
         buttonLabel: '',
         buttonUrl: '',
         imageUrl: '',
@@ -181,12 +205,17 @@ const PRESETS: PresetDefinition[] = [
   },
   {
     id: 'promotion',
-    title: 'Promotional Campaign',
-    description: 'A sharper sales layout for launches, offers, and announcements.',
+    title: 'Promotional Launch',
+    description: 'A sharper sales layout with premium rhythm and conversion-ready CTA blocks.',
+    category: 'Promotion',
     theme: {
+      campaignName: 'Spring Launch Campaign',
       brandName: 'DHEBE Campaigns',
+      senderName: 'Noah from DHEBE',
+      audienceLabel: 'High-intent shoppers · Last 30 days',
+      objective: 'Drive clicks and lift conversions',
       subjectLine: 'Limited-time offer inside',
-      preheader: 'Create a launch or sales email with a premium visual feel and a clear CTA.',
+      preheader: 'Create a launch email with bold hierarchy, visual focus, and one clear CTA.',
       accentColor: '#db2777',
       backgroundColor: '#fff1f2',
       surfaceColor: '#ffffff',
@@ -224,7 +253,7 @@ const PRESETS: PresetDefinition[] = [
         type: 'cta',
         eyebrow: '',
         title: 'Close with one strong action',
-        body: 'Repeat the benefit and give high-intent readers one final place to click.',
+        body: 'Repeat the benefit and give high-intent readers one final place to click before the footer.',
         buttonLabel: 'Shop now',
         buttonUrl: 'https://dhebe.com',
         imageUrl: '',
@@ -250,23 +279,53 @@ const PRESETS: PresetDefinition[] = [
   },
 ];
 
+const SIDEBAR_ITEMS: Array<{ id: SidebarView; label: string; short: string; description: string }> = [
+  { id: 'templates', label: 'Templates', short: 'Start', description: 'Choose a professional layout or begin blank.' },
+  { id: 'blocks', label: 'Blocks', short: 'Build', description: 'Drag and drop email-safe sections into the canvas.' },
+  { id: 'brand', label: 'Brand', short: 'Style', description: 'Control campaign branding, colors, and sender identity.' },
+  { id: 'campaign', label: 'Campaign', short: 'Target', description: 'Set audience, subject line, and inbox preview details.' },
+];
+
+const WORKSPACE_ITEMS: Array<{ id: WorkspaceView; label: string }> = [
+  { id: 'compose', label: 'Compose' },
+  { id: 'preview', label: 'Preview' },
+  { id: 'html', label: 'HTML' },
+];
+
 const INITIAL = instantiatePreset(PRESETS[0]);
 
 export function EmailStudioClient() {
-  const [theme, setTheme] = useState<ThemeSettings>(INITIAL.theme);
-  const [blocks, setBlocks] = useState<EmailBlock[]>(INITIAL.blocks);
-  const [activeId, setActiveId] = useState<string>(INITIAL.blocks[0]?.id ?? '');
-  const [selectedPresetId, setSelectedPresetId] = useState<string>(PRESETS[0].id);
-  const [previewMode, setPreviewMode] = useState<PreviewMode>('desktop');
+  const [editor, setEditor] = useState<EditorState>(INITIAL);
+  const [history, setHistory] = useState<EditorState[]>([]);
+  const [future, setFuture] = useState<EditorState[]>([]);
+  const [sidebarView, setSidebarView] = useState<SidebarView>('templates');
+  const [workspaceView, setWorkspaceView] = useState<WorkspaceView>('compose');
+  const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('desktop');
   const [dragPayload, setDragPayload] = useState<DragPayload | null>(null);
   const [dropIndex, setDropIndex] = useState<number | null>(null);
-  const [statusMessage, setStatusMessage] = useState('Drag blocks into the canvas, then export your HTML email.');
+  const [statusMessage, setStatusMessage] = useState('Start from a polished template, then drag blocks into the layout and export clean HTML.');
 
-  const activeBlock = blocks.find((block) => block.id === activeId) ?? null;
-  const html = useMemo(() => buildEmailHtml(theme, blocks), [theme, blocks]);
+  const activeBlock = editor.blocks.find((block) => block.id === editor.activeId) ?? null;
+  const html = useMemo(() => buildEmailHtml(editor.theme, editor.blocks), [editor.theme, editor.blocks]);
+
+  const commitState = (message: string, updater: (current: EditorState) => EditorState) => {
+    setEditor((current) => {
+      const next = updater(current);
+      if (serializeEditor(current) === serializeEditor(next)) {
+        return current;
+      }
+      setHistory((prev) => [...prev.slice(-39), cloneEditorState(current)]);
+      setFuture([]);
+      return next;
+    });
+    setStatusMessage(message);
+  };
 
   const updateTheme = <K extends keyof ThemeSettings>(key: K, value: ThemeSettings[K]) => {
-    setTheme((prev) => ({ ...prev, [key]: value }));
+    commitState(`${themeLabelFor(key)} updated.`, (current) => ({
+      ...current,
+      theme: { ...current.theme, [key]: value },
+    }));
   };
 
   const updateActiveBlock = <K extends keyof EmailBlock>(key: K, value: EmailBlock[K]) => {
@@ -274,40 +333,46 @@ export function EmailStudioClient() {
       return;
     }
 
-    setBlocks((prev) =>
-      prev.map((block) => (block.id === activeBlock.id ? { ...block, [key]: value } : block)),
-    );
+    commitState(`${labelFor(activeBlock.type)} updated.`, (current) => ({
+      ...current,
+      blocks: current.blocks.map((block) => (block.id === current.activeId ? { ...block, [key]: value } : block)),
+    }));
   };
 
   const addBlock = (type: BlockType) => {
-    const nextBlock = createBlock(type);
-    setBlocks((prev) => [...prev, nextBlock]);
-    setActiveId(nextBlock.id);
-    setStatusMessage(`${labelFor(type)} added to the email layout.`);
-  };
-
-  const removeBlock = (blockId: string) => {
-    setBlocks((prev) => {
-      const next = prev.filter((block) => block.id !== blockId);
-      setActiveId(next[0]?.id ?? '');
-      return next;
+    commitState(`${labelFor(type)} added to the layout.`, (current) => {
+      const nextBlock = createBlock(type);
+      return {
+        ...current,
+        blocks: [...current.blocks, nextBlock],
+        activeId: nextBlock.id,
+      };
     });
-    setStatusMessage('Section removed.');
+    setWorkspaceView('compose');
   };
 
   const duplicateBlock = (blockId: string) => {
-    setBlocks((prev) => {
-      const index = prev.findIndex((block) => block.id === blockId);
+    commitState('Section duplicated.', (current) => {
+      const index = current.blocks.findIndex((block) => block.id === blockId);
       if (index < 0) {
-        return prev;
+        return current;
       }
-      const clone = { ...prev[index], id: createId(prev[index].type) };
-      const next = [...prev];
-      next.splice(index + 1, 0, clone);
-      setActiveId(clone.id);
-      return next;
+      const clone = { ...current.blocks[index], id: createId(current.blocks[index].type) };
+      const nextBlocks = [...current.blocks];
+      nextBlocks.splice(index + 1, 0, clone);
+      return { ...current, blocks: nextBlocks, activeId: clone.id };
     });
-    setStatusMessage('Section duplicated.');
+  };
+
+  const removeBlock = (blockId: string) => {
+    commitState('Section removed.', (current) => {
+      const nextBlocks = current.blocks.filter((block) => block.id !== blockId);
+      return {
+        ...current,
+        blocks: nextBlocks,
+        activeId: nextBlocks[0]?.id ?? '',
+      };
+    });
   };
 
   const applyPreset = (presetId: string) => {
@@ -315,12 +380,15 @@ export function EmailStudioClient() {
     if (!preset) {
       return;
     }
-    const next = instantiatePreset(preset);
-    setTheme(next.theme);
-    setBlocks(next.blocks);
-    setActiveId(next.blocks[0]?.id ?? '');
-    setSelectedPresetId(preset.id);
-    setStatusMessage(`${preset.title} preset loaded.`);
+    commitState(`${preset.title} preset loaded.`, () => instantiatePreset(preset));
+    setSidebarView('brand');
+    setWorkspaceView('compose');
+  };
+  const startFromScratch = () => {
+    commitState('Blank workspace loaded.', (current) => {
+      const blocks = [createBlock('hero'), createBlock('text'), createBlock('footer')];
+      return { ...current, blocks, activeId: blocks[0].id, selectedPresetId: '' };
+    });
   };
 
   const handleDrop = (index: number) => {
@@ -328,28 +396,50 @@ export function EmailStudioClient() {
       return;
     }
 
-    setBlocks((prev) => {
-      const next = [...prev];
+    commitState('Layout order updated.', (current) => {
+      const nextBlocks = [...current.blocks];
+
       if (dragPayload.kind === 'new') {
         const nextBlock = createBlock(dragPayload.blockType);
-        next.splice(index, 0, nextBlock);
-        setActiveId(nextBlock.id);
-      } else {
-        const from = next.findIndex((block) => block.id === dragPayload.blockId);
-        if (from < 0) {
-          return prev;
-        }
-        const [moved] = next.splice(from, 1);
-        const targetIndex = from < index ? index - 1 : index;
-        next.splice(targetIndex, 0, moved);
-        setActiveId(moved.id);
+        nextBlocks.splice(index, 0, nextBlock);
+        return { ...current, blocks: nextBlocks, activeId: nextBlock.id };
       }
-      return next;
+
+      const from = nextBlocks.findIndex((block) => block.id === dragPayload.blockId);
+      if (from < 0) {
+        return current;
+      }
+
+      const [moved] = nextBlocks.splice(from, 1);
+      const targetIndex = from < index ? index - 1 : index;
+      nextBlocks.splice(targetIndex, 0, moved);
+      return { ...current, blocks: nextBlocks, activeId: moved.id };
     });
 
     setDragPayload(null);
     setDropIndex(null);
-    setStatusMessage('Layout order updated.');
+  };
+
+  const undo = () => {
+    if (history.length === 0) {
+      return;
+    }
+    const previous = history[history.length - 1];
+    setHistory((prev) => prev.slice(0, -1));
+    setFuture((prev) => [cloneEditorState(editor), ...prev.slice(0, 39)]);
+    setEditor(cloneEditorState(previous));
+    setStatusMessage('Previous change restored.');
+  };
+
+  const redo = () => {
+    if (future.length === 0) {
+      return;
+    }
+    const next = future[0];
+    setFuture((prev) => prev.slice(1));
+    setHistory((prev) => [...prev.slice(-39), cloneEditorState(editor)]);
+    setEditor(cloneEditorState(next));
+    setStatusMessage('Change reapplied.');
   };
 
   const copyHtml = async () => {
@@ -357,7 +447,7 @@ export function EmailStudioClient() {
       await navigator.clipboard.writeText(html);
       setStatusMessage('HTML copied to the clipboard.');
     } catch {
-      setStatusMessage('Clipboard access is unavailable. Use the HTML preview tab instead.');
+      setStatusMessage('Clipboard access is unavailable. Use the HTML panel to copy the code manually.');
     }
   };
 
@@ -366,7 +456,7 @@ export function EmailStudioClient() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `${slugify(theme.brandName || 'email-template')}.html`;
+    link.download = `${slugify(editor.theme.campaignName || editor.theme.brandName || 'email-template')}.html`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -374,264 +464,430 @@ export function EmailStudioClient() {
     setStatusMessage('HTML template downloaded.');
   };
 
+  const activePreset = PRESETS.find((preset) => preset.id === editor.selectedPresetId)?.title ?? 'Custom layout';
+
   return (
-    <section id="email-editor" className="grid gap-6 xl:grid-cols-[20rem_minmax(0,1fr)_28rem]">
+    <section id="email-editor" className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
       <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
         <div className="rounded-[2rem] border p-5 theme-panel">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-600">Email Builder</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight theme-title">
-            Build responsive HTML emails with professional controls
-          </h2>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">Email Builder</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight theme-title">Professional campaign studio</h2>
+            </div>
+            <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">One sidebar</span>
+          </div>
           <p className="mt-3 text-sm leading-7 theme-muted">
-            Configure your subject line, preheader, and brand colors once. Then drag sections into place and export clean email HTML.
+            A cleaner layout inspired by modern email platforms: one command rail, a focused canvas, and a clear preview workflow.
           </p>
 
-          <div className="mt-5 space-y-3">
-            <TextField label="Brand Name" value={theme.brandName} onChange={(value) => updateTheme('brandName', value)} />
-            <TextField label="Subject Line" value={theme.subjectLine} onChange={(value) => updateTheme('subjectLine', value)} />
-            <TextAreaField label="Preheader" value={theme.preheader} rows={3} onChange={(value) => updateTheme('preheader', value)} />
-          </div>
-
-          <div className="mt-5 grid grid-cols-2 gap-3">
-            <ColorField label="Accent" value={theme.accentColor} onChange={(value) => updateTheme('accentColor', value)} />
-            <ColorField label="Canvas" value={theme.backgroundColor} onChange={(value) => updateTheme('backgroundColor', value)} />
-            <ColorField label="Card" value={theme.surfaceColor} onChange={(value) => updateTheme('surfaceColor', value)} />
-            <ColorField label="Heading" value={theme.titleColor} onChange={(value) => updateTheme('titleColor', value)} />
-          </div>
-
-          <div className="mt-5 flex flex-wrap gap-3">
-            <button onClick={copyHtml} className="rounded-full bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90">
-              Copy HTML
-            </button>
-            <button onClick={downloadHtml} className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90">
-              Download HTML
-            </button>
-          </div>
-        </div>
-
-        <div className="rounded-[2rem] border p-5 theme-panel">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Template Presets</p>
-          <h2 className="mt-2 text-lg font-semibold theme-title">Start from a professional layout</h2>
-          <div className="mt-4 grid gap-3">
-            {PRESETS.map((preset) => (
+          <div className="mt-5 grid gap-2">
+            {SIDEBAR_ITEMS.map((item) => (
               <button
-                key={preset.id}
-                onClick={() => applyPreset(preset.id)}
-                className={`rounded-[1.35rem] border p-4 text-left transition ${
-                  selectedPresetId === preset.id ? 'border-cyan-300 bg-cyan-50 shadow-sm' : 'theme-card-soft hover:border-cyan-200'
+                key={item.id}
+                onClick={() => setSidebarView(item.id)}
+                className={`rounded-[1.1rem] border px-4 py-3 text-left transition ${
+                  sidebarView === item.id ? 'border-sky-300 bg-sky-50 shadow-sm' : 'theme-card-soft hover:border-sky-200'
                 }`}
               >
-                <p className="text-sm font-semibold theme-title">{preset.title}</p>
-                <p className="mt-2 text-sm leading-6 theme-muted">{preset.description}</p>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-semibold theme-title">{item.label}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.16em] theme-muted-2">{item.short}</span>
+                </div>
+                <p className="mt-2 text-sm leading-6 theme-muted">{item.description}</p>
               </button>
             ))}
           </div>
         </div>
 
         <div className="rounded-[2rem] border p-5 theme-panel">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Drag And Drop</p>
-          <h2 className="mt-2 text-lg font-semibold theme-title">Add blocks to your canvas</h2>
-          <div className="mt-4 grid gap-3">
-            {BLOCK_LIBRARY.map((item) => (
-              <div
-                key={item.type}
-                draggable
-                onDragStart={() => setDragPayload({ kind: 'new', blockType: item.type })}
-                onDragEnd={() => {
-                  setDragPayload(null);
-                  setDropIndex(null);
-                }}
-                className="rounded-[1.35rem] border p-4 theme-card-soft transition hover:border-cyan-200"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-semibold theme-title">{item.label}</p>
-                    <p className="mt-2 text-sm leading-6 theme-muted">{item.description}</p>
-                  </div>
-                  <button onClick={() => addBlock(item.type)} className="rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-700 transition hover:bg-cyan-100">
-                    Add
-                  </button>
+          {sidebarView === 'templates' ? (
+            <>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Template gallery</p>
+                  <h3 className="mt-2 text-lg font-semibold theme-title">Start from a polished layout</h3>
                 </div>
+                <button
+                  onClick={startFromScratch}
+                  className="rounded-full border border-[var(--app-card-border)] px-3 py-1.5 text-xs font-semibold theme-title transition hover:bg-sky-50"
+                >
+                  Start blank
+                </button>
               </div>
-            ))}
-          </div>
+              <div className="mt-4 grid gap-3">
+                {PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => applyPreset(preset.id)}
+                    className={`rounded-[1.35rem] border p-4 text-left transition ${
+                      editor.selectedPresetId === preset.id ? 'border-sky-300 bg-sky-50 shadow-sm' : 'theme-card-soft hover:border-sky-200'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-sm font-semibold theme-title">{preset.title}</p>
+                      <span className="rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">{preset.category}</span>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 theme-muted">{preset.description}</p>
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : null}
+
+          {sidebarView === 'blocks' ? (
+            <>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Drag and drop</p>
+              <h3 className="mt-2 text-lg font-semibold theme-title">Add sections to your campaign</h3>
+              <p className="mt-3 text-sm leading-7 theme-muted">Drag blocks into the canvas or add them with one click.</p>
+              <div className="mt-4 grid gap-3">
+                {BLOCK_LIBRARY.map((item) => (
+                  <div
+                    key={item.type}
+                    draggable
+                    onDragStart={() => setDragPayload({ kind: 'new', blockType: item.type })}
+                    onDragEnd={() => {
+                      setDragPayload(null);
+                      setDropIndex(null);
+                    }}
+                    className="rounded-[1.35rem] border p-4 theme-card-soft transition hover:border-sky-200"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold theme-title">{item.label}</p>
+                        <p className="mt-2 text-sm leading-6 theme-muted">{item.description}</p>
+                      </div>
+                      <button
+                        onClick={() => addBlock(item.type)}
+                        className="rounded-full bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-700 transition hover:bg-sky-100"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : null}
+
+          {sidebarView === 'brand' ? (
+            <>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Brand controls</p>
+              <h3 className="mt-2 text-lg font-semibold theme-title">Match the template to your brand</h3>
+              <div className="mt-4 space-y-3">
+                <TextField label="Brand Name" value={editor.theme.brandName} onChange={(value) => updateTheme('brandName', value)} />
+                <TextField label="Campaign Name" value={editor.theme.campaignName} onChange={(value) => updateTheme('campaignName', value)} />
+                <TextField label="Sender Name" value={editor.theme.senderName} onChange={(value) => updateTheme('senderName', value)} />
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <ColorField label="Accent" value={editor.theme.accentColor} onChange={(value) => updateTheme('accentColor', value)} />
+                <ColorField label="Canvas" value={editor.theme.backgroundColor} onChange={(value) => updateTheme('backgroundColor', value)} />
+                <ColorField label="Card" value={editor.theme.surfaceColor} onChange={(value) => updateTheme('surfaceColor', value)} />
+                <ColorField label="Heading" value={editor.theme.titleColor} onChange={(value) => updateTheme('titleColor', value)} />
+              </div>
+            </>
+          ) : null}
+
+          {sidebarView === 'campaign' ? (
+            <>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Campaign setup</p>
+              <h3 className="mt-2 text-lg font-semibold theme-title">Subject line, audience, and objective</h3>
+              <div className="mt-4 space-y-3">
+                <TextField label="Audience" value={editor.theme.audienceLabel} onChange={(value) => updateTheme('audienceLabel', value)} />
+                <TextField label="Objective" value={editor.theme.objective} onChange={(value) => updateTheme('objective', value)} />
+                <TextField label="Subject Line" value={editor.theme.subjectLine} onChange={(value) => updateTheme('subjectLine', value)} />
+                <TextAreaField label="Preheader" value={editor.theme.preheader} rows={3} onChange={(value) => updateTheme('preheader', value)} />
+                <ColorField label="Body Text" value={editor.theme.bodyColor} onChange={(value) => updateTheme('bodyColor', value)} />
+              </div>
+            </>
+          ) : null}
         </div>
       </aside>
 
-      <div className="rounded-[2rem] border p-5 theme-panel">
-        <div className="flex flex-col gap-3 border-b border-[var(--app-card-border)] pb-5 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Canvas</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight theme-title">Drag sections to build your email template</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700">{blocks.length} sections</span>
-            <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Responsive preview</span>
-          </div>
-        </div>
-
-        <div className="mt-5 space-y-3">
-          <DropZone active={dropIndex === 0} onDragOver={() => setDropIndex(0)} onDrop={() => handleDrop(0)} />
-          {blocks.map((block, index) => (
-            <Fragment key={block.id}>
-              <button
-                draggable
-                onDragStart={() => setDragPayload({ kind: 'existing', blockId: block.id })}
-                onDragEnd={() => {
-                  setDragPayload(null);
-                  setDropIndex(null);
-                }}
-                onClick={() => setActiveId(block.id)}
-                className={`w-full rounded-[1.5rem] border p-5 text-left transition ${
-                  activeId === block.id ? 'border-cyan-300 bg-cyan-50 shadow-sm' : 'theme-card-soft hover:border-cyan-200'
-                }`}
-              >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-600">{labelFor(block.type)}</p>
-                    <p className="mt-2 text-lg font-semibold theme-title">{block.title || 'Untitled section'}</p>
-                    <p className="mt-2 text-sm leading-6 theme-muted">{summaryFor(block)}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full border border-cyan-200 bg-white px-3 py-1 text-xs font-semibold text-cyan-700">Drag</span>
-                    <button
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        duplicateBlock(block.id);
-                      }}
-                      className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-xs font-semibold theme-title transition hover:bg-cyan-50"
-                    >
-                      Duplicate
-                    </button>
-                    <button
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        removeBlock(block.id);
-                      }}
-                      className="rounded-full border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-700 transition hover:bg-rose-50"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              </button>
-              <DropZone active={dropIndex === index + 1} onDragOver={() => setDropIndex(index + 1)} onDrop={() => handleDrop(index + 1)} />
-            </Fragment>
-          ))}
-        </div>
-      </div>
-
-      <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
-        <div className="rounded-[2rem] border p-5 theme-panel">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Section Inspector</p>
-          <h2 className="mt-2 text-lg font-semibold theme-title">{activeBlock ? `Edit ${labelFor(activeBlock.type)}` : 'Select a section'}</h2>
-
-          {!activeBlock ? (
-            <p className="mt-4 text-sm leading-6 theme-muted">Choose a section in the canvas to update text, alignment, button labels, or imagery.</p>
-          ) : (
-            <div className="mt-4 space-y-4">
-              {activeBlock.type === 'hero' ? (
-                <TextField label="Eyebrow" value={activeBlock.eyebrow} onChange={(value) => updateActiveBlock('eyebrow', value)} />
-              ) : null}
-
-              {activeBlock.type !== 'divider' ? (
-                <>
-                  <TextField label={activeBlock.type === 'footer' ? 'Brand Name' : 'Heading'} value={activeBlock.title} onChange={(value) => updateActiveBlock('title', value)} />
-                  <TextAreaField label={activeBlock.type === 'image' ? 'Caption' : 'Body Copy'} value={activeBlock.body} rows={activeBlock.type === 'footer' ? 4 : 5} onChange={(value) => updateActiveBlock('body', value)} />
-                </>
-              ) : null}
-
-              {activeBlock.type === 'footer' ? (
-                <TextAreaField label="Secondary Line" value={activeBlock.secondaryText} rows={3} onChange={(value) => updateActiveBlock('secondaryText', value)} />
-              ) : null}
-
-              {activeBlock.type === 'image' ? (
-                <>
-                  <TextField label="Image URL" value={activeBlock.imageUrl} onChange={(value) => updateActiveBlock('imageUrl', value)} />
-                  <TextField label="Alt Text" value={activeBlock.altText} onChange={(value) => updateActiveBlock('altText', value)} />
-                </>
-              ) : null}
-
-              {activeBlock.type === 'hero' || activeBlock.type === 'cta' ? (
-                <>
-                  <div className="grid grid-cols-2 gap-3">
-                    <TextField label="Button Label" value={activeBlock.buttonLabel} onChange={(value) => updateActiveBlock('buttonLabel', value)} />
-                    <TextField label="Button URL" value={activeBlock.buttonUrl} onChange={(value) => updateActiveBlock('buttonUrl', value)} />
-                  </div>
-                  <SelectField
-                    label="Alignment"
-                    value={activeBlock.align}
-                    onChange={(value) => updateActiveBlock('align', value as Align)}
-                    options={[
-                      { value: 'left', label: 'Left aligned' },
-                      { value: 'center', label: 'Centered' },
-                    ]}
-                  />
-                  <ColorField label="Section Tone" value={activeBlock.tone} onChange={(value) => updateActiveBlock('tone', value)} />
-                </>
-              ) : null}
-
-              {activeBlock.type === 'text' ? (
-                <SelectField
-                  label="Alignment"
-                  value={activeBlock.align}
-                  onChange={(value) => updateActiveBlock('align', value as Align)}
-                  options={[
-                    { value: 'left', label: 'Left aligned' },
-                    { value: 'center', label: 'Centered' },
-                  ]}
-                />
-              ) : null}
-
-              {activeBlock.type === 'divider' ? (
-                <div className="rounded-[1.35rem] border p-4 theme-card-soft">
-                  <p className="text-sm leading-6 theme-muted">Divider blocks create breathing room between key email sections. Drag them where the layout needs a visual pause.</p>
-                </div>
-              ) : null}
+      <div className="space-y-6">
+        <section className="rounded-[2rem] border p-5 theme-panel">
+          <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-slate-950 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">{activePreset}</span>
+                <span className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] theme-title">{editor.blocks.length} sections</span>
+                <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">Responsive HTML</span>
+              </div>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight theme-title">{editor.theme.campaignName}</h2>
+              <p className="mt-2 text-sm leading-7 theme-muted">{editor.theme.objective}</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <MetricCard label="Audience" value={editor.theme.audienceLabel} />
+                <MetricCard label="Sender" value={editor.theme.senderName} />
+                <MetricCard label="Subject" value={editor.theme.subjectLine} />
+              </div>
             </div>
-          )}
-        </div>
 
-        <div className="rounded-[2rem] border p-5 theme-panel">
-          <div className="flex flex-col gap-3 border-b border-[var(--app-card-border)] pb-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-wrap gap-3">
+              <button onClick={undo} disabled={history.length === 0} className="rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50">Undo</button>
+              <button onClick={redo} disabled={future.length === 0} className="rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50">Redo</button>
+              <button onClick={copyHtml} className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100">Copy HTML</button>
+              <button onClick={downloadHtml} className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90">Download HTML</button>
+            </div>
+          </div>
+
+          <div className="mt-5 rounded-[1.4rem] border p-4 theme-card-soft">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-600">Workspace status</p>
+            <p className="mt-2 text-sm leading-7 theme-muted">{statusMessage}</p>
+          </div>
+        </section>
+        <section className="rounded-[2rem] border p-5 theme-panel">
+          <div className="flex flex-col gap-4 border-b border-[var(--app-card-border)] pb-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Live Preview</p>
-              <h2 className="mt-2 text-lg font-semibold theme-title">Desktop, mobile, and raw HTML</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Workspace</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight theme-title">Design, preview, and export in one focused flow</h2>
             </div>
-            <div className="flex gap-2">
-              {(['desktop', 'mobile', 'html'] as PreviewMode[]).map((mode) => (
+            <div className="flex flex-wrap gap-2">
+              {WORKSPACE_ITEMS.map((item) => (
                 <button
-                  key={mode}
-                  onClick={() => setPreviewMode(mode)}
-                  className={`rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] transition ${
-                    previewMode === mode ? 'bg-cyan-600 text-white' : 'border border-[var(--app-card-border)] theme-title hover:bg-cyan-50'
+                  key={item.id}
+                  onClick={() => setWorkspaceView(item.id)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    workspaceView === item.id ? 'bg-slate-950 text-white' : 'border border-[var(--app-card-border)] theme-title hover:bg-sky-50'
                   }`}
                 >
-                  {mode}
+                  {item.label}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="mt-4 rounded-[1.35rem] border p-4 theme-card-soft">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-600">Inbox preview</p>
-            <p className="mt-2 text-base font-semibold theme-title">{theme.subjectLine}</p>
-            <p className="mt-2 text-sm leading-6 theme-muted">{theme.preheader}</p>
-          </div>
-
-          <p className="mt-4 text-sm theme-muted">{statusMessage}</p>
-
-          <div className="mt-4 rounded-[1.5rem] border bg-white p-3">
-            {previewMode === 'html' ? (
-              <pre className="max-h-[32rem] overflow-auto whitespace-pre-wrap break-words text-xs leading-6 text-slate-700">{html}</pre>
-            ) : (
-              <div className={previewMode === 'mobile' ? 'mx-auto w-[375px] max-w-full' : 'w-full'}>
-                <iframe title="Email template preview" srcDoc={html} className="h-[38rem] w-full rounded-[1rem] border bg-white" />
+          {workspaceView === 'compose' ? (
+            <div className="mt-6 space-y-6">
+              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                {[
+                  'Focused hierarchy',
+                  'Brand consistency',
+                  'Inbox readiness',
+                  'HTML handoff',
+                ].map((item) => (
+                  <div key={item} className="rounded-[1.4rem] border p-4 theme-card-soft">
+                    <p className="text-sm font-semibold theme-title">{item}</p>
+                    <p className="mt-2 text-sm leading-6 theme-muted">Build with one clear purpose per section and keep the message easy to scan.</p>
+                  </div>
+                ))}
               </div>
-            )}
-          </div>
-        </div>
-      </aside>
+
+              <div className="rounded-[1.7rem] border p-5 theme-card">
+                <div className="flex flex-col gap-3 border-b border-[var(--app-card-border)] pb-5 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Canvas</p>
+                    <h3 className="mt-2 text-xl font-semibold theme-title">Arrange content blocks like an official email app</h3>
+                  </div>
+                  <button onClick={() => setSidebarView('blocks')} className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100">Open block library</button>
+                </div>
+
+                <div className="mt-5 space-y-3">
+                  <DropZone active={dropIndex === 0} onDragOver={() => setDropIndex(0)} onDrop={() => handleDrop(0)} />
+                  {editor.blocks.map((block, index) => (
+                    <Fragment key={block.id}>
+                      <button
+                        draggable
+                        onDragStart={() => setDragPayload({ kind: 'existing', blockId: block.id })}
+                        onDragEnd={() => {
+                          setDragPayload(null);
+                          setDropIndex(null);
+                        }}
+                        onClick={() => setEditor((current) => ({ ...current, activeId: block.id }))}
+                        className={`w-full rounded-[1.5rem] border p-5 text-left transition ${
+                          editor.activeId === block.id ? 'border-sky-300 bg-sky-50 shadow-sm' : 'theme-card-soft hover:border-sky-200'
+                        }`}
+                      >
+                        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">{labelFor(block.type)}</span>
+                              {block.type !== 'divider' ? <span className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] theme-muted-2">{block.align}</span> : null}
+                            </div>
+                            <p className="mt-3 text-lg font-semibold theme-title">{block.title || 'Untitled section'}</p>
+                            <p className="mt-2 text-sm leading-6 theme-muted">{summaryFor(block)}</p>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-full border border-sky-200 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">Drag</span>
+                            <button onClick={(event) => { event.stopPropagation(); duplicateBlock(block.id); }} className="rounded-full border border-[var(--app-card-border)] px-3 py-1 text-xs font-semibold theme-title transition hover:bg-sky-50">Duplicate</button>
+                            <button onClick={(event) => { event.stopPropagation(); removeBlock(block.id); }} className="rounded-full border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-700 transition hover:bg-rose-50">Remove</button>
+                          </div>
+                        </div>
+                      </button>
+                      <DropZone active={dropIndex === index + 1} onDragOver={() => setDropIndex(index + 1)} onDrop={() => handleDrop(index + 1)} />
+                    </Fragment>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(18rem,0.8fr)]">
+                <div className="rounded-[1.7rem] border p-5 theme-card">
+                  <div className="flex flex-col gap-3 border-b border-[var(--app-card-border)] pb-5 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Section editor</p>
+                      <h3 className="mt-2 text-xl font-semibold theme-title">{activeBlock ? `Edit ${labelFor(activeBlock.type)}` : 'Select a section'}</h3>
+                    </div>
+                  </div>
+
+                  {!activeBlock ? (
+                    <p className="mt-5 text-sm leading-7 theme-muted">Choose a section in the canvas to update copy, visuals, CTA labels, alignment, or footer details.</p>
+                  ) : (
+                    <div className="mt-5 space-y-4">
+                      {activeBlock.type === 'hero' ? <TextField label="Eyebrow" value={activeBlock.eyebrow} onChange={(value) => updateActiveBlock('eyebrow', value)} /> : null}
+
+                      {activeBlock.type !== 'divider' ? (
+                        <>
+                          <TextField label={activeBlock.type === 'footer' ? 'Brand Name' : 'Heading'} value={activeBlock.title} onChange={(value) => updateActiveBlock('title', value)} />
+                          <TextAreaField label={activeBlock.type === 'image' ? 'Caption' : 'Body Copy'} value={activeBlock.body} rows={activeBlock.type === 'footer' ? 4 : 5} onChange={(value) => updateActiveBlock('body', value)} />
+                        </>
+                      ) : null}
+
+                      {activeBlock.type === 'footer' ? <TextAreaField label="Secondary Line" value={activeBlock.secondaryText} rows={3} onChange={(value) => updateActiveBlock('secondaryText', value)} /> : null}
+
+                      {activeBlock.type === 'image' ? (
+                        <>
+                          <TextField label="Image URL" value={activeBlock.imageUrl} onChange={(value) => updateActiveBlock('imageUrl', value)} />
+                          <TextField label="Alt Text" value={activeBlock.altText} onChange={(value) => updateActiveBlock('altText', value)} />
+                        </>
+                      ) : null}
+
+                      {activeBlock.type === 'hero' || activeBlock.type === 'cta' ? (
+                        <>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            <TextField label="Button Label" value={activeBlock.buttonLabel} onChange={(value) => updateActiveBlock('buttonLabel', value)} />
+                            <TextField label="Button URL" value={activeBlock.buttonUrl} onChange={(value) => updateActiveBlock('buttonUrl', value)} />
+                          </div>
+                          <SelectField
+                            label="Alignment"
+                            value={activeBlock.align}
+                            onChange={(value) => updateActiveBlock('align', value as Align)}
+                            options={[{ value: 'left', label: 'Left aligned' }, { value: 'center', label: 'Centered' }]}
+                          />
+                          <ColorField label="Section Tone" value={activeBlock.tone} onChange={(value) => updateActiveBlock('tone', value)} />
+                        </>
+                      ) : null}
+
+                      {activeBlock.type === 'text' ? <SelectField label="Alignment" value={activeBlock.align} onChange={(value) => updateActiveBlock('align', value as Align)} options={[{ value: 'left', label: 'Left aligned' }, { value: 'center', label: 'Centered' }]} /> : null}
+
+                      {activeBlock.type === 'divider' ? (
+                        <div className="rounded-[1.35rem] border p-4 theme-card-soft">
+                          <p className="text-sm leading-6 theme-muted">Divider blocks create breathing room between major email sections and help the layout feel less crowded.</p>
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-6">
+                  <div className="rounded-[1.7rem] border p-5 theme-card">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-600">Inbox preview</p>
+                    <div className="mt-4 rounded-[1.4rem] border bg-white p-4">
+                      <p className="text-sm font-semibold text-slate-950">{editor.theme.senderName}</p>
+                      <p className="mt-1 text-sm font-medium text-slate-950">{editor.theme.subjectLine}</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">{editor.theme.preheader}</p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.7rem] border p-5 theme-card">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600">QA checklist</p>
+                    <div className="mt-4 space-y-3">
+                      {qualityChecklist(editor.blocks, editor.theme).map((item) => (
+                        <div key={item.label} className="rounded-[1.2rem] border p-4 theme-card-soft">
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="text-sm font-semibold theme-title">{item.label}</p>
+                            <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${item.good ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>{item.good ? 'Ready' : 'Review'}</span>
+                          </div>
+                          <p className="mt-2 text-sm leading-6 theme-muted">{item.detail}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {workspaceView === 'preview' ? (
+            <div className="mt-6 space-y-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">Live preview</p>
+                  <h3 className="mt-2 text-xl font-semibold theme-title">Validate the design on desktop and mobile</h3>
+                </div>
+                <div className="flex gap-2">
+                  {(['desktop', 'mobile'] as PreviewDevice[]).map((device) => (
+                    <button
+                      key={device}
+                      onClick={() => setPreviewDevice(device)}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                        previewDevice === device ? 'bg-slate-950 text-white' : 'border border-[var(--app-card-border)] theme-title hover:bg-sky-50'
+                      }`}
+                    >
+                      {device === 'desktop' ? 'Desktop' : 'Mobile'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.7rem] border p-5 theme-card-soft">
+                <div className="grid gap-5 xl:grid-cols-[20rem_minmax(0,1fr)]">
+                  <div className="space-y-4">
+                    <div className="rounded-[1.4rem] border bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-600">Subject line</p>
+                      <p className="mt-2 text-base font-semibold text-slate-950">{editor.theme.subjectLine}</p>
+                      <p className="mt-3 text-sm leading-6 text-slate-600">{editor.theme.preheader}</p>
+                    </div>
+
+                    <div className="rounded-[1.4rem] border p-4 theme-card">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600">Campaign context</p>
+                      <div className="mt-3 space-y-3">
+                        <MetricLine label="Audience" value={editor.theme.audienceLabel} />
+                        <MetricLine label="Sender" value={editor.theme.senderName} />
+                        <MetricLine label="Brand" value={editor.theme.brandName} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.4rem] border bg-white p-3">
+                    <div className={previewDevice === 'mobile' ? 'mx-auto w-[375px] max-w-full' : 'w-full'}>
+                      <iframe title="Email template preview" srcDoc={html} className="h-[42rem] w-full rounded-[1rem] border bg-white" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {workspaceView === 'html' ? (
+            <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_19rem]">
+              <div className="rounded-[1.7rem] border p-5 theme-card-soft">
+                <div className="flex flex-col gap-3 border-b border-[var(--app-card-border)] pb-5 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] theme-muted-2">HTML export</p>
+                    <h3 className="mt-2 text-xl font-semibold theme-title">Copy or download the responsive email HTML</h3>
+                  </div>
+                  <button onClick={copyHtml} className="rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100">Copy code</button>
+                </div>
+                <pre className="mt-5 max-h-[42rem] overflow-auto whitespace-pre-wrap break-words rounded-[1.2rem] border bg-slate-950 p-4 text-xs leading-6 text-slate-100">{html}</pre>
+              </div>
+
+              <div className="rounded-[1.7rem] border p-5 theme-card">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Export tips</p>
+                <div className="mt-4 space-y-3">
+                  {[
+                    'Test the HTML inside your ESP or staging flow before sending.',
+                    'Keep one primary CTA so the action stays obvious.',
+                    'Use descriptive alt text when you include images.',
+                  ].map((tip) => (
+                    <div key={tip} className="rounded-[1.2rem] border p-4 theme-card-soft">
+                      <p className="text-sm leading-6 theme-muted">{tip}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </section>
+      </div>
     </section>
   );
 }
@@ -648,7 +904,7 @@ function DropZone({ active, onDragOver, onDrop }: { active: boolean; onDragOver:
         onDrop();
       }}
       className={`rounded-full border border-dashed px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.2em] transition ${
-        active ? 'border-cyan-400 bg-cyan-50 text-cyan-700' : 'border-transparent text-transparent'
+        active ? 'border-sky-400 bg-sky-50 text-sky-700' : 'border-transparent bg-transparent text-transparent'
       }`}
     >
       Drop section here
@@ -665,17 +921,7 @@ function TextField({ label, value, onChange }: { label: string; value: string; o
   );
 }
 
-function TextAreaField({
-  label,
-  value,
-  rows,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  rows: number;
-  onChange: (value: string) => void;
-}) {
+function TextAreaField({ label, value, rows, onChange }: { label: string; value: string; rows: number; onChange: (value: string) => void }) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-sm font-semibold theme-title">{label}</span>
@@ -684,25 +930,13 @@ function TextAreaField({
   );
 }
 
-function SelectField({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: Array<{ value: string; label: string }>;
-  onChange: (value: string) => void;
-}) {
+function SelectField({ label, value, options, onChange }: { label: string; value: string; options: Array<{ value: string; label: string }>; onChange: (value: string) => void }) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-sm font-semibold theme-title">{label}</span>
       <select value={value} onChange={(event) => onChange(event.target.value)} className="theme-card w-full rounded-xl border px-3 py-2.5 text-sm theme-title">
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
+          <option key={option.value} value={option.value}>{option.label}</option>
         ))}
       </select>
     </label>
@@ -721,11 +955,26 @@ function ColorField({ label, value, onChange }: { label: string; value: string; 
   );
 }
 
-function instantiatePreset(preset: PresetDefinition) {
-  return {
-    theme: { ...preset.theme },
-    blocks: preset.blocks.map((block) => ({ ...block, id: createId(block.type) })),
-  };
+function MetricCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[1.2rem] border p-4 theme-card-soft">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] theme-muted-2">{label}</p>
+      <p className="mt-2 text-sm font-semibold theme-title">{value}</p>
+    </div>
+  );
+}
+
+function MetricLine({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] theme-muted-2">{label}</p>
+      <p className="mt-1 text-sm font-semibold theme-title">{value}</p>
+    </div>
+  );
+}
+function instantiatePreset(preset: PresetDefinition): EditorState {
+  const blocks = preset.blocks.map((block) => ({ ...block, id: createId(block.type) }));
+  return { theme: { ...preset.theme }, blocks, activeId: blocks[0]?.id ?? '', selectedPresetId: preset.id };
 }
 
 function createBlock(type: BlockType): EmailBlock {
@@ -749,10 +998,7 @@ function createBlock(type: BlockType): EmailBlock {
           : 'Use this section to explain the value, share an update, or guide the reader toward the next step.',
     buttonLabel: type === 'hero' || type === 'cta' ? 'Take action' : '',
     buttonUrl: type === 'hero' || type === 'cta' ? 'https://dhebe.com' : '',
-    imageUrl:
-      type === 'image'
-        ? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'
-        : '',
+    imageUrl: type === 'image' ? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80' : '',
     altText: type === 'image' ? 'Email campaign visual' : '',
     secondaryText: type === 'footer' ? 'Add support details, preferences, or unsubscribe instructions here.' : '',
     align: 'left',
@@ -772,7 +1018,60 @@ function summaryFor(block: EmailBlock) {
   if (block.type === 'divider') {
     return 'Adds breathing room between major email sections.';
   }
+  if (block.type === 'image') {
+    return block.body || 'Visual block ready for a campaign image.';
+  }
   return block.body || 'Click to edit this section.';
+}
+
+function themeLabelFor(key: keyof ThemeSettings) {
+  const labels: Record<keyof ThemeSettings, string> = {
+    campaignName: 'Campaign name',
+    brandName: 'Brand name',
+    senderName: 'Sender name',
+    audienceLabel: 'Audience',
+    objective: 'Objective',
+    subjectLine: 'Subject line',
+    preheader: 'Preheader',
+    accentColor: 'Accent color',
+    backgroundColor: 'Canvas color',
+    surfaceColor: 'Card color',
+    titleColor: 'Heading color',
+    bodyColor: 'Body color',
+  };
+  return labels[key];
+}
+
+function qualityChecklist(blocks: EmailBlock[], theme: ThemeSettings) {
+  const hasPrimaryCta = blocks.some((block) => (block.type === 'hero' || block.type === 'cta') && block.buttonLabel.trim() && block.buttonUrl.trim());
+  const hasFooter = blocks.some((block) => block.type === 'footer');
+  const concisePreheader = theme.preheader.trim().length > 0 && theme.preheader.trim().length <= 140;
+
+  return [
+    {
+      label: 'Primary CTA',
+      good: hasPrimaryCta,
+      detail: hasPrimaryCta ? 'The layout includes at least one actionable button.' : 'Add a CTA block or hero button so readers know what to do next.',
+    },
+    {
+      label: 'Inbox preview text',
+      good: concisePreheader,
+      detail: concisePreheader ? 'The preheader is present and sized well for inbox snippets.' : 'Add a preheader under 140 characters for stronger inbox context.',
+    },
+    {
+      label: 'Footer and support copy',
+      good: hasFooter,
+      detail: hasFooter ? 'The footer is ready for brand and support details.' : 'Add a footer block so the email ends with clear brand and support information.',
+    },
+  ];
+}
+
+function cloneEditorState(state: EditorState): EditorState {
+  return JSON.parse(JSON.stringify(state)) as EditorState;
+}
+
+function serializeEditor(state: EditorState) {
+  return JSON.stringify(state);
 }
 
 function buildEmailHtml(theme: ThemeSettings, blocks: EmailBlock[]) {
@@ -798,8 +1097,8 @@ function buildEmailHtml(theme: ThemeSettings, blocks: EmailBlock[]) {
       <td align="center">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" class="email-shell" style="width:100%;max-width:600px;background:${theme.surfaceColor};border-radius:24px;overflow:hidden;">
           <tr>
-            <td style="background:${theme.accentColor};padding:26px 32px;color:#ffffff;">
-              <p style="margin:0;font-size:12px;line-height:1.5;letter-spacing:0.18em;text-transform:uppercase;opacity:0.88;">${escapeHtml(theme.subjectLine)}</p>
+            <td style="background:${theme.accentColor};padding:28px 32px;color:#ffffff;">
+              <p style="margin:0;font-size:12px;line-height:1.5;letter-spacing:0.18em;text-transform:uppercase;opacity:0.82;">${escapeHtml(theme.subjectLine)}</p>
               <p style="margin:10px 0 0 0;font-size:24px;line-height:1.3;font-weight:700;">${escapeHtml(theme.brandName)}</p>
               <p style="margin:8px 0 0 0;font-size:14px;line-height:1.7;opacity:0.92;">${escapeHtml(theme.preheader)}</p>
             </td>
@@ -817,65 +1116,31 @@ function buildEmailHtml(theme: ThemeSettings, blocks: EmailBlock[]) {
 
 function renderBlockHtml(block: EmailBlock, theme: ThemeSettings) {
   if (block.type === 'hero') {
-    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 26px 0;background:${block.tone};border-radius:20px;">
-      <tr><td style="padding:28px;">
-        <p style="margin:0 0 12px 0;font-size:12px;line-height:1.5;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:${theme.accentColor};text-align:${block.align};">${escapeHtml(block.eyebrow)}</p>
-        <h1 style="margin:0 0 14px 0;font-size:32px;line-height:1.2;font-weight:700;color:${theme.titleColor};text-align:${block.align};">${formatText(block.title)}</h1>
-        <p style="margin:0 0 20px 0;font-size:16px;line-height:1.8;color:${theme.bodyColor};text-align:${block.align};">${formatText(block.body)}</p>
-        ${renderButton(block.buttonLabel, block.buttonUrl, theme.accentColor, block.align)}
-      </td></tr>
-    </table>`;
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 26px 0;background:${block.tone};border-radius:20px;"><tr><td style="padding:28px;"><p style="margin:0 0 12px 0;font-size:12px;line-height:1.5;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:${theme.accentColor};text-align:${block.align};">${escapeHtml(block.eyebrow)}</p><h1 style="margin:0 0 14px 0;font-size:32px;line-height:1.2;font-weight:700;color:${theme.titleColor};text-align:${block.align};">${formatText(block.title)}</h1><p style="margin:0 0 20px 0;font-size:16px;line-height:1.8;color:${theme.bodyColor};text-align:${block.align};">${formatText(block.body)}</p>${renderButton(block.buttonLabel, block.buttonUrl, theme.accentColor, block.align)}</td></tr></table>`;
   }
 
   if (block.type === 'text') {
-    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
-      <tr><td>
-        <h2 style="margin:0 0 12px 0;font-size:24px;line-height:1.3;font-weight:700;color:${theme.titleColor};text-align:${block.align};">${formatText(block.title)}</h2>
-        <p style="margin:0;font-size:16px;line-height:1.8;color:${theme.bodyColor};text-align:${block.align};">${formatText(block.body)}</p>
-      </td></tr>
-    </table>`;
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;"><tr><td><h2 style="margin:0 0 12px 0;font-size:24px;line-height:1.3;font-weight:700;color:${theme.titleColor};text-align:${block.align};">${formatText(block.title)}</h2><p style="margin:0;font-size:16px;line-height:1.8;color:${theme.bodyColor};text-align:${block.align};">${formatText(block.body)}</p></td></tr></table>`;
   }
 
   if (block.type === 'image') {
-    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
-      <tr><td>
-        <h2 style="margin:0 0 14px 0;font-size:24px;line-height:1.3;font-weight:700;color:${theme.titleColor};">${formatText(block.title)}</h2>
-        <img src="${escapeHtml(safeUrl(block.imageUrl))}" alt="${escapeHtml(block.altText)}" class="mobile-full" style="display:block;width:100%;max-width:536px;height:auto;border:0;border-radius:18px;" />
-        <p style="margin:14px 0 0 0;font-size:14px;line-height:1.7;color:${theme.bodyColor};">${formatText(block.body)}</p>
-      </td></tr>
-    </table>`;
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;"><tr><td><h2 style="margin:0 0 14px 0;font-size:24px;line-height:1.3;font-weight:700;color:${theme.titleColor};">${formatText(block.title)}</h2><img src="${escapeHtml(safeUrl(block.imageUrl))}" alt="${escapeHtml(block.altText)}" class="mobile-full" style="display:block;width:100%;max-width:536px;height:auto;border:0;border-radius:18px;" /><p style="margin:14px 0 0 0;font-size:14px;line-height:1.7;color:${theme.bodyColor};">${formatText(block.body)}</p></td></tr></table>`;
   }
 
   if (block.type === 'cta') {
-    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px 0;background:${block.tone};border-radius:20px;">
-      <tr><td style="padding:28px;">
-        <h2 style="margin:0 0 12px 0;font-size:24px;line-height:1.3;font-weight:700;color:${theme.titleColor};text-align:${block.align};">${formatText(block.title)}</h2>
-        <p style="margin:0 0 20px 0;font-size:16px;line-height:1.8;color:${theme.bodyColor};text-align:${block.align};">${formatText(block.body)}</p>
-        ${renderButton(block.buttonLabel, block.buttonUrl, theme.accentColor, block.align)}
-      </td></tr>
-    </table>`;
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px 0;background:${block.tone};border-radius:20px;"><tr><td style="padding:28px;"><h2 style="margin:0 0 12px 0;font-size:24px;line-height:1.3;font-weight:700;color:${theme.titleColor};text-align:${block.align};">${formatText(block.title)}</h2><p style="margin:0 0 20px 0;font-size:16px;line-height:1.8;color:${theme.bodyColor};text-align:${block.align};">${formatText(block.body)}</p>${renderButton(block.buttonLabel, block.buttonUrl, theme.accentColor, block.align)}</td></tr></table>`;
   }
 
   if (block.type === 'divider') {
     return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;"><tr><td><hr style="border:none;border-top:1px solid #e2e8f0;margin:0;" /></td></tr></table>`;
   }
 
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;">
-    <tr><td style="padding-top:12px;">
-      <p style="margin:0 0 10px 0;font-size:14px;line-height:1.7;font-weight:700;color:${theme.titleColor};">${escapeHtml(block.title)}</p>
-      <p style="margin:0 0 8px 0;font-size:12px;line-height:1.8;color:${theme.bodyColor};">${formatText(block.body)}</p>
-      <p style="margin:0;font-size:12px;line-height:1.8;color:${theme.bodyColor};">${formatText(block.secondaryText)}</p>
-    </td></tr>
-  </table>`;
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;"><tr><td style="padding-top:12px;"><p style="margin:0 0 10px 0;font-size:14px;line-height:1.7;font-weight:700;color:${theme.titleColor};">${escapeHtml(block.title)}</p><p style="margin:0 0 8px 0;font-size:12px;line-height:1.8;color:${theme.bodyColor};">${formatText(block.body)}</p><p style="margin:0;font-size:12px;line-height:1.8;color:${theme.bodyColor};">${formatText(block.secondaryText)}</p></td></tr></table>`;
 }
 
 function renderButton(label: string, url: string, color: string, align: Align) {
   const target = align === 'center' ? 'center' : 'left';
-  return `<table role="presentation" cellpadding="0" cellspacing="0" style="${target === 'center' ? 'margin-left:auto;margin-right:auto;' : ''}">
-    <tr><td align="${target}">
-      <a href="${escapeHtml(safeUrl(url))}" style="display:inline-block;background:${color};color:#ffffff;text-decoration:none;padding:14px 22px;border-radius:999px;font-size:14px;font-weight:700;line-height:1.2;">${escapeHtml(label || 'Open')}</a>
-    </td></tr>
-  </table>`;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="${target === 'center' ? 'margin-left:auto;margin-right:auto;' : ''}"><tr><td align="${target}"><a href="${escapeHtml(safeUrl(url))}" style="display:inline-block;background:${color};color:#ffffff;text-decoration:none;padding:14px 22px;border-radius:999px;font-size:14px;font-weight:700;line-height:1.2;">${escapeHtml(label || 'Open')}</a></td></tr></table>`;
 }
 
 function safeUrl(value: string) {
@@ -890,12 +1155,7 @@ function safeUrl(value: string) {
 }
 
 function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 function formatText(value: string) {
@@ -905,4 +1165,3 @@ function formatText(value: string) {
 function slugify(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'email-template';
 }
-

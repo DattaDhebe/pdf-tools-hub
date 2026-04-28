@@ -37,11 +37,11 @@ export const emailTemplateEditorHighlightKeywords = [
 export const emailTemplateEditorSections = [
   {
     title: 'Create Responsive HTML Email Templates Online',
-    body: 'This email template editor helps marketers, founders, agencies, and creators design responsive HTML email templates without starting from scratch. Use it to create onboarding emails, newsletters, launch emails, and business email templates that stay readable across Gmail, Outlook, and mobile inboxes.',
+    body: 'This email template editor helps marketers, founders, internal communications teams, and agencies design responsive HTML email templates without starting from scratch. Use it to create onboarding emails, newsletters, launch campaigns, and business email templates that stay readable across Gmail, Outlook, and mobile inboxes.',
   },
   {
     title: 'Free Drag And Drop Email Template Builder',
-    body: 'Use drag-and-drop email builder controls to reorder sections, load a professional preset, and build layouts faster. The block-based canvas keeps the editing flow simple while still giving you control over brand colors, subject lines, preheaders, spacing, and CTA sections.',
+    body: 'Use drag-and-drop email builder controls to reorder sections, load a professional preset, and build layouts faster. The new app-style workspace uses one sidebar, a focused canvas, and built-in preview modes so the editing flow feels closer to professional email software.',
   },
   {
     title: 'Edit And Export HTML Email Templates',
@@ -50,9 +50,9 @@ export const emailTemplateEditorSections = [
 ];
 
 export const emailTemplateEditorBenefits = [
-  'Create email templates online with a visual block editor and HTML output.',
-  'Use responsive email templates for newsletters, welcome emails, and promotions.',
-  'Edit HTML email content, branding, CTA buttons, and inbox preheader text quickly.',
+  'Create email templates online with a polished visual editor and responsive HTML output.',
+  'Use one-sidebar workflow controls for templates, blocks, brand styling, and campaign setup.',
+  'Preview subject line, preheader, desktop layout, and mobile layout before exporting.',
   'Export clean HTML email templates for Gmail, Outlook, ESPs, or developer review.',
 ];
 
@@ -77,6 +77,17 @@ export const emailTemplateEditorKeywordGroups = [
       'free drag and drop email builder',
       'email template generator',
       'html email generator',
+    ],
+  },
+  {
+    title: 'Builder Keywords',
+    items: [
+      'drag and drop email builder',
+      'drag and drop email editor',
+      'wysiwyg email editor',
+      'visual email editor',
+      'no code email builder',
+      'responsive html email editor',
     ],
   },
   {
@@ -131,6 +142,11 @@ export const emailTemplateEditorFaqs = [
     question: 'How to edit HTML email templates online?',
     answer:
       'You can update section text, CTA buttons, brand colors, imagery, and email order directly in the browser while watching the live preview update.',
+  },
+  {
+    question: 'What is a drag and drop email builder?',
+    answer:
+      'A drag and drop email builder lets you add and reorder content blocks visually instead of manually coding each section. It makes layout work faster and easier for teams.',
   },
   {
     question: 'What is the best free email template builder?',

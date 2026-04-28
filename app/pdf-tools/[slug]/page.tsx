@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Script from 'next/script';
 import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
-import { getPdfToolPageBySlug, pdfToolPages } from '@/lib/pdf-tools-pages';
+import { buildPdfToolMetadata } from '@/lib/pdf-seo-pages';
+import { getPdfToolPageBySlug, getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
 
 interface PdfToolPageProps {
   params: Promise<{
@@ -24,40 +25,7 @@ export async function generateMetadata({ params }: PdfToolPageProps): Promise<Me
     return {};
   }
 
-  const title = `${tool.label} Online`;
-  const baseKeyword = tool.label.toLowerCase();
-  const normalized = baseKeyword.replace(/\s+/g, ' ').trim();
-  const onlineVariant = normalized.includes('online') ? normalized : `${normalized} online`;
-  const converterVariant = normalized.includes('to') ? `${normalized} converter` : `${normalized} tool`;
-
-  return {
-    title,
-    description: tool.description,
-    keywords: [
-      normalized,
-      onlineVariant,
-      converterVariant,
-      'online pdf converter',
-      'pdf tools',
-      'online pdf tools',
-      'free pdf tools',
-    ],
-    alternates: {
-      canonical: `https://dhebe.com/pdf-tools/${tool.slug}`,
-    },
-    openGraph: {
-      title: `${title} | PDF Studio`,
-      description: tool.description,
-      url: `https://dhebe.com/pdf-tools/${tool.slug}`,
-      type: 'website',
-      siteName: 'DHEBE Studios',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${title} | PDF Studio`,
-      description: tool.description,
-    },
-  };
+  return buildPdfToolMetadata(tool);
 }
 
 export default async function PdfToolPage({ params }: PdfToolPageProps) {
@@ -68,6 +36,11 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
     notFound();
   }
 
+  const targetPath = getPdfToolPath(tool);
+  if (targetPath !== `/pdf-tools/${tool.slug}`) {
+    permanentRedirect(targetPath);
+  }
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -76,7 +49,7 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
         name: `${tool.label} | PDF Studio`,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com/pdf-tools/${tool.slug}`,
+        url: `https://dhebe.com${targetPath}`,
         description: tool.description,
         offers: {
           '@type': 'Offer',
@@ -103,7 +76,7 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
             '@type': 'ListItem',
             position: 3,
             name: tool.label,
-            item: `https://dhebe.com/pdf-tools/${tool.slug}`,
+            item: `https://dhebe.com${targetPath}`,
           },
         ],
       },

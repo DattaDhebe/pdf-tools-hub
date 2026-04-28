@@ -2,23 +2,28 @@ import type { Metadata } from 'next';
 import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import Link from 'next/link';
 import Script from 'next/script';
-import { pdfToolPages } from '@/lib/pdf-tools-pages';
+import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
 import { pdfTools } from '@/lib/pdf-tools';
 
 export const metadata: Metadata = {
   title: 'PDF Studio - Free Online PDF Tools for Merge, Split, Compress, Convert & More',
   description:
-    'Free online PDF Studio with popular tools for merge, split, compress, PDF to Word, sign, protect, OCR, rotate, and page cleanup. 100% client-side and privacy-first.',
+    'Free online PDF Studio with top tools for PDF to Word, JPG to PDF, PDF to JPG, merge PDF, compress PDF, sign PDF, split PDF, and more. 100% client-side and privacy-first.',
   keywords: [
     'online pdf converter',
     'pdf converter online',
     'pdf tools',
+    'free online pdf tool',
+    'pdf tool online',
+    'pdf tools without watermark',
     'merge pdf',
-    'split pdf',
     'compress pdf',
     'pdf to jpg',
     'jpg to pdf',
     'pdf to word',
+    'word to pdf',
+    'sign pdf',
+    'split pdf',
     'edit pdf online',
     'rotate pdf',
     'remove pdf pages',
@@ -32,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'PDF Studio - Free Online PDF Tools | DHEBE',
     description:
-      'Use PDF Studio for merge, split, compress, rotation, page cleanup, and high-demand PDF workflows with browser-based processing.',
+      'Use PDF Studio for PDF to Word, JPG to PDF, PDF to JPG, merge PDF, compress PDF, sign PDF, and other high-demand browser-based workflows.',
     url: 'https://dhebe.com/pdf-studio',
     type: 'website',
     siteName: 'DHEBE Studios',
@@ -41,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'PDF Studio - Free Online PDF Tools',
     description:
-      'Popular online PDF workflows with privacy-first browser processing and dedicated pages for each tool.',
+      'Popular online PDF workflows with privacy-first browser processing and dedicated landing pages for each major tool.',
   },
 };
 
@@ -56,7 +61,7 @@ export default function PdfStudioPage() {
         operatingSystem: 'Web',
         url: 'https://dhebe.com/pdf-studio',
         description:
-          'Free online PDF studio covering merge, split, compress, conversion, protection, OCR, and page-management workflows.',
+          'Free online PDF studio covering PDF to Word, JPG to PDF, PDF to JPG, merge, compress, sign, split, OCR, and page-management workflows.',
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -145,16 +150,16 @@ export default function PdfStudioPage() {
 
             <div className="grid gap-8 lg:grid-cols-2">
               <PdfToolLinkGroup
-                title="Core Tools"
+              title="Core Tools"
                 tools={pdfToolPages.filter((tool) =>
-                  ['compress', 'merge', 'split', 'rotate', 'remove-pages', 'extract-pages', 'jpg-to-pdf', 'pdf-to-jpg', 'add-page-numbers'].includes(tool.id),
+                  ['pdf-to-word', 'jpg-to-pdf', 'pdf-to-jpg', 'merge', 'compress', 'word-to-pdf', 'split', 'sign'].includes(tool.id),
                 )}
                 accentClass="text-purple-600"
               />
               <PdfToolLinkGroup
                 title="More Tools"
                 tools={pdfToolPages.filter((tool) =>
-                  !['compress', 'merge', 'split', 'rotate', 'remove-pages', 'extract-pages', 'jpg-to-pdf', 'pdf-to-jpg', 'add-page-numbers'].includes(tool.id),
+                  !['pdf-to-word', 'jpg-to-pdf', 'pdf-to-jpg', 'merge', 'compress', 'word-to-pdf', 'split', 'sign'].includes(tool.id),
                 )}
                 accentClass="text-cyan-600"
               />
@@ -182,7 +187,7 @@ function PdfToolLinkGroup({ title, accentClass, tools }: PdfToolLinkGroupProps) 
         {tools.map((tool) => (
           <Link
             key={tool.slug}
-            href={`/pdf-tools/${tool.slug}`}
+            href={getPdfToolPath(tool)}
             className="theme-card-soft rounded-[1.5rem] border px-4 py-4 transition hover:border-[var(--app-card-border)] block"
           >
             <p className="text-sm font-semibold theme-title break-words">{tool.label}</p>

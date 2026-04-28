@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { toolPages } from '@/lib/tool-pages';
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
-import { pdfToolPages } from '@/lib/pdf-tools-pages';
+import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
 
 export const dynamic = 'force-static';
 
@@ -56,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     ...pdfToolPages.map((tool) => ({
-      url: `https://dhebe.com/pdf-tools/${tool.slug}`,
+      url: `https://dhebe.com${getPdfToolPath(tool)}`,
       lastModified: new Date('2026-04-21'),
       changeFrequency: 'weekly' as const,
       priority: 0.85,

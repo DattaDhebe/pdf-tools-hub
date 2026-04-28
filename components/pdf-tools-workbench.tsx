@@ -1,6 +1,6 @@
 'use client';
 
-import { type ComponentType, useMemo, useState } from 'react';
+import { type ComponentType, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { PdfCompressorTool } from '@/components/converters/pdf-compressor-tool';
@@ -26,16 +26,20 @@ import { PdfBuilderTool } from '@/components/converters/pdf-builder-tool';
 import { PdfExporterTool } from '@/components/converters/pdf-exporter-tool';
 import { PdfCropTool } from '@/components/converters/pdf-crop-tool';
 import { pdfTools } from '@/lib/pdf-tools';
-import { pdfToolPages } from '@/lib/pdf-tools-pages';
+import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
 
 interface PdfToolsWorkbenchProps {
   initialTool?: string;
 }
 
-export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenchProps) {
+export function PdfToolsWorkbench({ initialTool = 'pdf-to-word' }: PdfToolsWorkbenchProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [activeTool, setActiveTool] = useState<string>(initialTool);
+
+  useEffect(() => {
+    setActiveTool(initialTool);
+  }, [initialTool]);
 
   const activeOption = useMemo(
     () => pdfTools.find((tool) => tool.id === activeTool) ?? pdfTools[0],
@@ -44,7 +48,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
 
   const activeToolPage = pdfToolPages.find((tool) => tool.id === activeTool) ?? null;
   const isDedicatedToolPage = activeToolPage
-    ? pathname === `/pdf-tools/${activeToolPage.slug}`
+    ? pathname === getPdfToolPath(activeToolPage)
     : false;
 
   const readyIds = new Set(
@@ -91,7 +95,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
     const targetPage = pdfToolPages.find((tool) => tool.id === toolId);
 
     if (isDedicatedToolPage && targetPage) {
-      router.push(`/pdf-tools/${targetPage.slug}`);
+      router.push(getPdfToolPath(targetPage));
       return;
     }
 
@@ -105,7 +109,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
           title="Popular PDF Tools"
           badgeLabel={`${readyIds.size}/${pdfTools.length} ready`}
           sectionLabel="Tool List"
-          description="Most-used PDF workflows are pinned near the top based on recurring tool catalogs across Adobe Acrobat, Smallpdf, and iLovePDF."
+          description="High-demand PDF workflows like PDF to Word, JPG to PDF, PDF to JPG, merge PDF, and compress PDF are pinned near the top for faster access."
           options={pdfTools}
           activeId={activeTool}
           readyIds={readyIds}
@@ -114,7 +118,7 @@ export function PdfToolsWorkbench({ initialTool = 'compress' }: PdfToolsWorkbenc
             badge: 'bg-purple-100 text-purple-700',
             hover: 'hover:border-purple-300 hover:bg-purple-50',
           }}
-          footerText="Select a tool to work in the center panel, or open its dedicated page from the right rail."
+          footerText="Select a PDF tool to work in the center panel, or open its dedicated SEO page from the right rail."
           onSelect={(id) => handleToolSelect(id)}
           compactOnMobile
         />
@@ -368,7 +372,7 @@ function PdfPagesRail({
               return (
                 <Link
                   key={page.slug}
-                  href={`/pdf-tools/${page.slug}`}
+                  href={getPdfToolPath(page)}
                   className={`block rounded-2xl border px-4 py-3 transition ${
                     isActive
                       ? 'border-slate-950 bg-slate-950 text-white shadow-[0_18px_44px_rgba(15,23,42,0.18)]'

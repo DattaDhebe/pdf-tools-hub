@@ -55,6 +55,19 @@ const studios = [
     cta: 'Open Converter',
     initials: 'B6',
   },
+  {
+    id: 'image',
+    category: 'Creative Tools',
+    name: 'Image Studio',
+    description:
+      'Professional image tools for compression, resizing, background removal, and format conversion.',
+    href: '/image-studio',
+    accent: 'bg-rose-100 text-rose-700',
+    dot: 'bg-rose-500',
+    features: ['Compress and resize', 'Background removal', 'Format conversion'],
+    cta: 'Open Image Studio',
+    initials: 'IM',
+  },
 ] as const;
 
 export function StudiosHub() {
@@ -71,7 +84,7 @@ export function StudiosHub() {
               </p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
                 Access every studio from one
-                <span className="block bg-gradient-to-r from-slate-950 via-sky-700 to-violet-700 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-slate-950 via-sky-700 to-violet-700 bg-clip-text text-transparent dark:from-sky-300 dark:via-violet-300 dark:to-emerald-300">
                   cleaner workspace
                 </span>
               </h1>
@@ -153,7 +166,7 @@ export function StudiosHub() {
           </p>
         </div>
 
-        <div className="mb-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mb-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {studios.map((studio) => (
             <Link
               key={studio.id}

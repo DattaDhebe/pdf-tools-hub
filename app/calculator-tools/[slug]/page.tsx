@@ -1,5 +1,8 @@
-import { notFound, permanentRedirect } from 'next/navigation';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
 import {
+  buildCalculatorToolMetadata,
   calculatorToolPages,
   getCalculatorToolPageBySlug,
 } from '@/lib/calculator-tool-pages';
@@ -16,6 +19,29 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({
+  params,
+}: LegacyCalculatorToolPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const tool = getCalculatorToolPageBySlug(slug);
+
+  if (!tool) {
+    return {};
+  }
+
+  return {
+    ...buildCalculatorToolMetadata(tool),
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
+    },
+  };
+}
+
 export default async function LegacyCalculatorToolPage({
   params,
 }: LegacyCalculatorToolPageProps) {
@@ -26,5 +52,5 @@ export default async function LegacyCalculatorToolPage({
     notFound();
   }
 
-  permanentRedirect(tool.path);
+  return <LegacyRedirectPage href={tool.path} label={tool.label} />;
 }

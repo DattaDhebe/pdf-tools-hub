@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
+import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
 import { buildBase64ToolMetadata, getBase64ToolPageBySlug, getBase64ToolPath } from '@/lib/base64-tool-pages';
 import { toolPages } from '@/lib/tool-pages';
 
@@ -23,7 +24,17 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     return {};
   }
 
-  return buildBase64ToolMetadata(tool);
+  return {
+    ...buildBase64ToolMetadata(tool),
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
+    },
+  };
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
@@ -33,5 +44,6 @@ export default async function ToolPage({ params }: ToolPageProps) {
   if (!tool) {
     notFound();
   }
-  permanentRedirect(getBase64ToolPath(tool));
+
+  return <LegacyRedirectPage href={getBase64ToolPath(tool)} label={tool.label} />;
 }

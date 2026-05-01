@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Script from 'next/script';
+import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
 import { ImageToolsWorkbench } from '@/components/image-tools-workbench';
 import { getImageToolPageBySlug, getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
 import { SITE_NAME, siteRoute } from '@/lib/site';
@@ -25,6 +26,8 @@ export async function generateMetadata({ params }: ImageToolPageProps): Promise<
     return {};
   }
 
+  const isLegacyRoute = getImageToolPath(tool) !== `/image-tools/${tool.slug}`;
+
   return {
     title: `${tool.label} | Image Studio`,
     description: tool.description,
@@ -43,6 +46,18 @@ export async function generateMetadata({ params }: ImageToolPageProps): Promise<
       title: `${tool.label} | Image Studio`,
       description: tool.description,
     },
+    ...(isLegacyRoute
+      ? {
+          robots: {
+            index: false,
+            follow: true,
+            googleBot: {
+              index: false,
+              follow: true,
+            },
+          },
+        }
+      : {}),
   };
 }
 
@@ -56,7 +71,7 @@ export default async function ImageToolPage({ params }: ImageToolPageProps) {
 
   const targetPath = getImageToolPath(tool);
   if (targetPath !== `/image-tools/${tool.slug}`) {
-    permanentRedirect(targetPath);
+    return <LegacyRedirectPage href={targetPath} label={tool.label} />;
   }
 
   const structuredData = {

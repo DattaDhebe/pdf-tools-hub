@@ -14,7 +14,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'Image Compressor',
     description: 'Compress JPG, PNG, and WebP images online.',
     longDescription: 'Reduce image file size without losing quality.',
-    path: '/image-compressor',
+    path: '/image-tools/image-compressor',
   },
   {
     slug: 'image-resizer',
@@ -22,7 +22,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'Image Resizer',
     description: 'Resize images to any dimension.',
     longDescription: 'Change pixel dimensions or scale by percentage.',
-    path: '/image-resizer',
+    path: '/image-tools/image-resizer',
   },
   {
     slug: 'background-remover',
@@ -30,7 +30,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'Background Remover',
     description: 'Remove background from images automatically.',
     longDescription: 'Create transparent PNGs with AI-powered removal.',
-    path: '/background-remover',
+    path: '/image-tools/background-remover',
   },
   {
     slug: 'jpg-to-png',
@@ -38,7 +38,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'JPG to PNG',
     description: 'Convert JPG images to PNG format.',
     longDescription: 'High-quality conversion with transparency support.',
-    path: '/jpg-to-png',
+    path: '/image-tools/jpg-to-png',
   },
   {
     slug: 'png-to-jpg',
@@ -46,7 +46,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'PNG to JPG',
     description: 'Convert PNG images to JPG format.',
     longDescription: 'Efficient conversion for smaller file sizes.',
-    path: '/png-to-jpg',
+    path: '/image-tools/png-to-jpg',
   },
   {
     slug: 'webp-converter',
@@ -54,7 +54,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'WebP Converter',
     description: 'Convert images to or from WebP format.',
     longDescription: 'Modern web format conversion for better performance.',
-    path: '/webp-converter',
+    path: '/image-tools/webp-converter',
   },
   {
     slug: 'image-cropper',
@@ -62,7 +62,7 @@ export const imageToolPages: ImageToolPageEntry[] = [
     label: 'Image Cropper',
     description: 'Crop and trim your images online.',
     longDescription: 'Adjust aspect ratios and focus on your subjects.',
-    path: '/image-cropper',
+    path: '/image-tools/image-cropper',
   },
 ];
 

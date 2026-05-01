@@ -36,7 +36,7 @@ export function ImageToolsWorkbench({ initialTool = 'image-compressor' }: ImageT
     imageTools.filter((tool) => tool.status === 'ready').map((tool) => tool.id),
   );
 
-  const toolComponents: Record<string, ComponentType> = {
+  const toolComponents: Record<string, ComponentType<any>> = {
     'image-compressor': ImageCompressorTool,
     'image-resizer': () => (
       <ImageToolShell

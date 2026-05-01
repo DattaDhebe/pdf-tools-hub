@@ -3,18 +3,36 @@
 import { useRef, useState } from 'react';
 import { ImageDropZone } from './image-drop-zone';
 
+interface CompressedFile {
+  original: File;
+  compressed: Blob | null;
+  compressedSize: number | null;
+  status: 'pending' | 'compressing' | 'completed' | 'error';
+}
+
 export function ImageCompressorTool() {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<CompressedFile[]>([]);
+  const [quality, setQuality] = useState(80);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (selectedFiles: FileList | File | null) => {
     if (!selectedFiles) return;
     
+    let newFiles: File[] = [];
     if (selectedFiles instanceof FileList) {
-      setFiles(Array.from(selectedFiles));
+      newFiles = Array.from(selectedFiles);
     } else {
-      setFiles([selectedFiles]);
+      newFiles = [selectedFiles];
     }
+
+    const wrappedFiles: CompressedFile[] = newFiles.map(file => ({
+      original: file,
+      compressed: null,
+      compressedSize: null,
+      status: 'pending'
+    }));
+
+    setFiles(prev => [...prev, ...wrappedFiles]);
   };
 
   const handleReset = () => {
@@ -22,6 +40,81 @@ export function ImageCompressorTool() {
     if (inputRef.current) {
       inputRef.current.value = '';
     }
+  };
+
+  const compressImage = async (file: CompressedFile): Promise<CompressedFile> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = URL.createObjectURL(file.original);
+      
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        if (!ctx) {
+          resolve({ ...file, status: 'error' });
+          return;
+        }
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        // Determine output format based on input
+        let type = file.original.type;
+        if (type !== 'image/jpeg' && type !== 'image/webp' && type !== 'image/png') {
+          type = 'image/jpeg';
+        }
+
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              resolve({
+                ...file,
+                compressed: blob,
+                compressedSize: blob.size,
+                status: 'completed'
+              });
+            } else {
+              resolve({ ...file, status: 'error' });
+            }
+          },
+          type,
+          quality / 100
+        );
+      };
+
+      img.onerror = () => {
+        resolve({ ...file, status: 'error' });
+      };
+    });
+  };
+
+  const handleCompress = async () => {
+    setFiles(prev => prev.map(f => ({ ...f, status: 'compressing' })));
+    
+    const results = await Promise.all(files.map(f => compressImage(f)));
+    setFiles(results);
+  };
+
+  const downloadFile = (file: CompressedFile) => {
+    if (!file.compressed) return;
+    const url = URL.createObjectURL(file.compressed);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `compressed_${file.original.name}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const downloadAll = () => {
+    files.forEach(f => {
+      if (f.status === 'completed') {
+        downloadFile(f);
+      }
+    });
   };
 
   return (
@@ -51,21 +144,41 @@ export function ImageCompressorTool() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {files.map((file, index) => (
               <div
-                key={`${file.name}-${index}`}
+                key={`${file.original.name}-${index}`}
                 className="flex flex-col rounded-2xl border p-4 theme-card"
               >
-                <div className="mb-3 aspect-video w-full overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative mb-3 aspect-video w-full overflow-hidden rounded-xl bg-slate-100">
                   <img
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
+                    src={URL.createObjectURL(file.original)}
+                    alt={file.original.name}
                     className="h-full w-full object-contain"
                   />
+                  {file.status === 'compressing' && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-sm">
+                      <div className="h-6 w-6 animate-spin rounded-full border-2 border-rose-600 border-t-transparent"></div>
+                    </div>
+                  )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold theme-title">{file.name}</p>
-                  <p className="mt-1 text-xs theme-muted">
-                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
+                  <p className="truncate text-sm font-semibold theme-title">{file.original.name}</p>
+                  <div className="mt-1 flex items-center justify-between text-xs">
+                    <span className="theme-muted">
+                      {(file.original.size / 1024).toFixed(1)} KB
+                    </span>
+                    {file.compressedSize && (
+                      <span className="font-bold text-emerald-600">
+                        → {(file.compressedSize / 1024).toFixed(1)} KB
+                      </span>
+                    )}
+                  </div>
+                  {file.status === 'completed' && (
+                    <button
+                      onClick={() => downloadFile(file)}
+                      className="mt-3 w-full rounded-xl bg-rose-100 py-2 text-xs font-bold text-rose-700 transition hover:bg-rose-200"
+                    >
+                      Download
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -76,26 +189,39 @@ export function ImageCompressorTool() {
               <div>
                 <p className="font-semibold theme-title">Compression Settings</p>
                 <p className="mt-1 text-sm theme-muted">
-                  Adjust quality to balance file size and visual clarity.
+                  Lower quality results in smaller file sizes.
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-sm font-medium theme-title">Quality: 80%</span>
+                <span className="text-sm font-medium theme-title">Quality: {quality}%</span>
                 <input
                   type="range"
                   min="1"
                   max="100"
-                  defaultValue="80"
-                  className="h-2 w-32 cursor-pointer appearance-none rounded-lg bg-slate-200 dark:bg-slate-700"
+                  value={quality}
+                  onChange={(e) => setQuality(parseInt(e.target.value))}
+                  className="h-2 w-32 cursor-pointer appearance-none rounded-lg bg-slate-200 accent-rose-600 dark:bg-slate-700"
                 />
               </div>
             </div>
 
-            <button
-              className="mt-8 inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:opacity-90 dark:bg-rose-600 dark:hover:bg-rose-700"
-            >
-              Compress Images
-            </button>
+            <div className="mt-8 flex gap-3">
+              <button
+                onClick={handleCompress}
+                disabled={files.some(f => f.status === 'compressing')}
+                className="inline-flex flex-1 items-center justify-center rounded-2xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50 dark:bg-rose-600 dark:hover:bg-rose-700"
+              >
+                {files.some(f => f.status === 'compressing') ? 'Compressing...' : 'Compress Images'}
+              </button>
+              {files.some(f => f.status === 'completed') && (
+                <button
+                  onClick={downloadAll}
+                  className="inline-flex flex-1 items-center justify-center rounded-2xl border border-slate-950 px-5 py-4 text-sm font-semibold theme-title transition hover:bg-slate-100"
+                >
+                  Download All
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

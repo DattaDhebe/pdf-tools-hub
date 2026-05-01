@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ImageDropZone } from './converters/image-drop-zone';
 import { ImageCompressorTool } from './converters/image-compressor-tool';
+import { ImageResizerTool } from './converters/image-resizer-tool';
+import { ImageFormatConverterTool } from './converters/image-format-converter-tool';
+import { ImageCropperTool } from './converters/image-cropper-tool';
 import { ImageToolShell } from './converters/image-tool-shell';
 import { imageTools } from '@/lib/image-tools';
 import { getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
@@ -38,12 +41,7 @@ export function ImageToolsWorkbench({ initialTool = 'image-compressor' }: ImageT
 
   const toolComponents: Record<string, ComponentType<any>> = {
     'image-compressor': ImageCompressorTool,
-    'image-resizer': () => (
-      <ImageToolShell
-        title="Drop images to resize"
-        helperText="Change dimensions and scale images locally."
-      />
-    ),
+    'image-resizer': ImageResizerTool,
     'background-remover': () => (
       <ImageToolShell
         title="Drop images to remove background"
@@ -51,29 +49,24 @@ export function ImageToolsWorkbench({ initialTool = 'image-compressor' }: ImageT
       />
     ),
     'jpg-to-png': () => (
-      <ImageToolShell
-        title="Drop JPG images to convert to PNG"
-        helperText="Convert to lossless PNG format with transparency support."
+      <ImageFormatConverterTool
+        targetFormat="image/png"
+        label="PNG"
       />
     ),
     'png-to-jpg': () => (
-      <ImageToolShell
-        title="Drop PNG images to convert to JPG"
-        helperText="Convert to lightweight JPG format for better sharing."
+      <ImageFormatConverterTool
+        targetFormat="image/jpeg"
+        label="JPG"
       />
     ),
     'webp-converter': () => (
-      <ImageToolShell
-        title="Drop images to convert to/from WebP"
-        helperText="Optimize your images for the modern web."
+      <ImageFormatConverterTool
+        targetFormat="image/webp"
+        label="WebP"
       />
     ),
-    'image-cropper': () => (
-      <ImageToolShell
-        title="Drop images to crop"
-        helperText="Trim and focus your images with custom aspect ratios."
-      />
-    ),
+    'image-cropper': ImageCropperTool,
   };
 
   const ActiveComponent = toolComponents[activeTool];

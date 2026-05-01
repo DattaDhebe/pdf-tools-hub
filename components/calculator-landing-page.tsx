@@ -74,7 +74,7 @@ export function CalculatorLandingPage({ tool }: CalculatorLandingPageProps) {
         <div className="grid gap-8">
           <div className="theme-panel rounded-[2rem] border p-6 sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">
-              Calculator SEO Page
+              Tool Overview
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight theme-title sm:text-4xl">
               {tool.seoTitle}

@@ -118,7 +118,7 @@ export function PdfToolsWorkbench({ initialTool = 'pdf-to-word' }: PdfToolsWorkb
             badge: 'bg-purple-100 text-purple-700',
             hover: 'hover:border-purple-300 hover:bg-purple-50',
           }}
-          footerText="Select a PDF tool to work in the center panel, or open its dedicated SEO page from the right rail."
+          footerText="Select a PDF tool to work in the center panel, or open its dedicated page from the right rail."
           onSelect={(id) => handleToolSelect(id)}
           compactOnMobile
         />

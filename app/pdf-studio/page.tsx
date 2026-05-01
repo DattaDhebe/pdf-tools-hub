@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
 import { pdfTools } from '@/lib/pdf-tools';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'PDF Studio - Free Online PDF Tools for Merge, Split, Compress, Convert & More',
@@ -32,15 +33,15 @@ export const metadata: Metadata = {
     'ocr pdf online',
   ],
   alternates: {
-    canonical: 'https://dhebe.com/pdf-studio',
+    canonical: siteRoute('/pdf-studio'),
   },
   openGraph: {
     title: 'PDF Studio - Free Online PDF Tools | DHEBE',
     description:
       'Use PDF Studio for PDF to Word, JPG to PDF, PDF to JPG, merge PDF, compress PDF, sign PDF, and other high-demand browser-based workflows.',
-    url: 'https://dhebe.com/pdf-studio',
+    url: siteRoute('/pdf-studio'),
     type: 'website',
-    siteName: 'DHEBE Studios',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',
@@ -56,10 +57,10 @@ export default function PdfStudioPage() {
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: 'PDF Studio | DHEBE Studios',
+        name: `PDF Studio | ${SITE_NAME}`,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
-        url: 'https://dhebe.com/pdf-studio',
+        url: siteRoute('/pdf-studio'),
         description:
           'Free online PDF studio covering PDF to Word, JPG to PDF, PDF to JPG, merge, compress, sign, split, OCR, and page-management workflows.',
         offers: {
@@ -105,19 +106,19 @@ export default function PdfStudioPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Studios',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: 'PDF Studio',
-            item: 'https://dhebe.com/pdf-studio',
+            item: siteRoute('/pdf-studio'),
           },
         ],
       },

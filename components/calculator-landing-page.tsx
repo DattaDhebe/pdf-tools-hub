@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { CalculatorToolsWorkbench } from '@/components/calculator-tools-workbench';
 import type { CalculatorToolPageEntry } from '@/lib/calculator-tool-pages';
+import { siteRoute } from '@/lib/site';
 
 interface CalculatorLandingPageProps {
   tool: CalculatorToolPageEntry;
@@ -16,7 +17,7 @@ export function CalculatorLandingPage({ tool }: CalculatorLandingPageProps) {
         name: `${tool.seoTitle} | Calculator Studio`,
         applicationCategory: 'UtilitiesApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${tool.path}`,
+        url: siteRoute(tool.path),
         description: tool.metaDescription,
         offers: {
           '@type': 'Offer',
@@ -42,19 +43,19 @@ export function CalculatorLandingPage({ tool }: CalculatorLandingPageProps) {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Calculator Studio',
-            item: 'https://dhebe.com/calculator-studio',
+            item: siteRoute('/calculator-studio'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: tool.label,
-            item: `https://dhebe.com${tool.path}`,
+            item: siteRoute(tool.path),
           },
         ],
       },

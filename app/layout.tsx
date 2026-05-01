@@ -3,16 +3,17 @@ import Script from 'next/script';
 import './globals.css';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { SITE_NAME, SITE_URL, siteAsset, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dhebe.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'DHEBE Studios - Base64, PDF, Calculator & Email Tools',
-    template: '%s | DHEBE Studios',
+    default: `${SITE_NAME} - Base64, PDF, Calculator & Email Tools`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     'Professional tools suite featuring a Base64 Converter for encoding and decoding, PDF Studio for document workflows, Calculator Studio for high-demand web calculators, and a drag-and-drop Email Template Editor. 100% private, fast, and free.',
-  applicationName: 'DHEBE Studios',
+  applicationName: SITE_NAME,
   keywords: [
     'base64 converter',
     'base64 encoder',
@@ -35,26 +36,22 @@ export const metadata: Metadata = {
     ],
     apple: '/logo4.png',
   },
-  alternates: {
-    canonical: 'https://dhebe.com',
-  },
-  authors: [{ name: 'DHEBE Teams', url: 'https://dhebe.com' }],
+  authors: [{ name: 'DHEBE Teams', url: siteRoute('/') }],
   creator: 'DHEBE',
-  publisher: 'DHEBE Studios',
+  publisher: SITE_NAME,
   referrer: 'origin-when-cross-origin',
   category: 'technology',
   openGraph: {
     type: 'website',
-    url: 'https://dhebe.com',
-    siteName: 'DHEBE Studios',
-    title: 'DHEBE Studios - Professional Tools Suite',
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} - Professional Tools Suite`,
     description:
       'Free online tools for Base64 encoding/decoding, PDF manipulation, calculators, and email template design. 100% private, client-side processing.',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DHEBE Studios - Professional Tools Suite',
+    title: `${SITE_NAME} - Professional Tools Suite`,
     description:
       'Free online Base64, PDF, calculator, and email tools. No uploads, no tracking, 100% private processing.',
     creator: '@dhebestudios',
@@ -97,9 +94,9 @@ export default function RootLayout({
           {`{
             "@context":"https://schema.org",
             "@type":"Organization",
-            "name":"DHEBE Studios",
-            "url":"https://dhebe.com",
-            "logo":"https://dhebe.com/logo4.png",
+            "name":"${SITE_NAME}",
+            "url":"${siteRoute('/')}",
+            "logo":"${siteAsset('/logo4.png')}",
             "sameAs":["https://twitter.com/dhebestudios"]
           }`}
         </Script>

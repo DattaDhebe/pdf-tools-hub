@@ -6,6 +6,7 @@ import {
   getBase64ToolPageBySlug,
   getBase64ToolPath,
 } from '@/lib/base64-tool-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 interface Base64ToolLandingPageProps {
   tool: Base64ToolPageEntry;
@@ -21,10 +22,10 @@ export function Base64ToolLandingPage({ tool }: Base64ToolLandingPageProps) {
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: `${tool.seoTitle} | DHEBE Studios`,
+        name: `${tool.seoTitle} | ${SITE_NAME}`,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${tool.path}`,
+        url: siteRoute(tool.path),
         description: tool.metaDescription,
         offers: {
           '@type': 'Offer',
@@ -46,18 +47,18 @@ export function Base64ToolLandingPage({ tool }: Base64ToolLandingPageProps) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dhebe.com' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteRoute('/') },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Base64 Converter',
-            item: 'https://dhebe.com/base64-converter',
+            item: siteRoute('/base64-converter'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: tool.label,
-            item: `https://dhebe.com${tool.path}`,
+            item: siteRoute(tool.path),
           },
         ],
       },

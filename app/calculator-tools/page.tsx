@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Script from 'next/script';
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Calculator Tools Directory - Age, BMI, Percentage, EMI, SIP & GST Calculators',
@@ -17,15 +18,15 @@ export const metadata: Metadata = {
     'calculator tools',
   ],
   alternates: {
-    canonical: 'https://dhebe.com/calculator-tools',
+    canonical: siteRoute('/calculator-tools'),
   },
   openGraph: {
     title: 'Calculator Tools Directory | DHEBE',
     description:
       'Open dedicated pages for age, BMI, percentage, EMI, SIP, and GST calculators.',
-    url: 'https://dhebe.com/calculator-tools',
+    url: siteRoute('/calculator-tools'),
     type: 'website',
-    siteName: 'DHEBE Studios',
+    siteName: SITE_NAME,
   },
 };
 
@@ -36,9 +37,9 @@ export default function CalculatorToolsDirectoryPage() {
       {
         '@type': 'CollectionPage',
         name: 'Calculator Tools Directory',
-        url: 'https://dhebe.com/calculator-tools',
+        url: siteRoute('/calculator-tools'),
         description:
-          'Directory page for dedicated calculator tool pages on DHEBE Studios.',
+          `Directory page for dedicated calculator tool pages on ${SITE_NAME}.`,
       },
       {
         '@type': 'BreadcrumbList',
@@ -47,13 +48,13 @@ export default function CalculatorToolsDirectoryPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Calculator Tools',
-            item: 'https://dhebe.com/calculator-tools',
+            item: siteRoute('/calculator-tools'),
           },
         ],
       },

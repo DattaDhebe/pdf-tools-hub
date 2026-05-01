@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
 import { imageTools } from '@/lib/image-tools';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Image Studio - Free Online Image Tools for Compress, Resize, Crop & Convert',
@@ -22,15 +23,15 @@ export const metadata: Metadata = {
     'privacy first image editor',
   ],
   alternates: {
-    canonical: 'https://dhebe.com/image-studio',
+    canonical: siteRoute('/image-studio'),
   },
   openGraph: {
     title: 'Image Studio - Free Online Image Tools | DHEBE',
     description:
       'Use Image Studio for high-quality image compression, resizing, background removal, and format conversion directly in your browser.',
-    url: 'https://dhebe.com/image-studio',
+    url: siteRoute('/image-studio'),
     type: 'website',
-    siteName: 'DHEBE Studios',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',
@@ -46,10 +47,10 @@ export default function ImageStudioPage() {
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: 'Image Studio | DHEBE Studios',
+        name: `Image Studio | ${SITE_NAME}`,
         applicationCategory: 'MultimediaApplication',
         operatingSystem: 'Web',
-        url: 'https://dhebe.com/image-studio',
+        url: siteRoute('/image-studio'),
         description:
           'Free online image studio for compression, resizing, background removal, cropping, and format conversion.',
         offers: {
@@ -95,19 +96,19 @@ export default function ImageStudioPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Studios',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: 'Image Studio',
-            item: 'https://dhebe.com/image-studio',
+            item: siteRoute('/image-studio'),
           },
         ],
       },

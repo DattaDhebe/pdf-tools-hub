@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import { buildPdfToolMetadata } from '@/lib/pdf-seo-pages';
 import { getPdfToolPageBySlug, getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
+import { siteRoute } from '@/lib/site';
 
 interface PdfToolPageProps {
   params: Promise<{
@@ -49,7 +50,7 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
         name: `${tool.label} | PDF Studio`,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${targetPath}`,
+        url: siteRoute(targetPath),
         description: tool.description,
         offers: {
           '@type': 'Offer',
@@ -64,19 +65,19 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'PDF Studio',
-            item: 'https://dhebe.com/pdf-studio',
+            item: siteRoute('/pdf-studio'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: tool.label,
-            item: `https://dhebe.com${targetPath}`,
+            item: siteRoute(targetPath),
           },
         ],
       },

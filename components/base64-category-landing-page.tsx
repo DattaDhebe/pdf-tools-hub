@@ -10,6 +10,7 @@ import {
   getBase64ToolPath,
   type Base64ToolPageEntry,
 } from '@/lib/base64-tool-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 interface Base64CategoryLandingPageProps {
   view: Base64CategoryView;
@@ -26,10 +27,10 @@ export function Base64CategoryLandingPage({ view }: Base64CategoryLandingPagePro
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: `${page.seoTitle} | DHEBE Studios`,
+        name: `${page.seoTitle} | ${SITE_NAME}`,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${page.path}`,
+        url: siteRoute(page.path),
         description: page.metaDescription,
         offers: {
           '@type': 'Offer',
@@ -51,7 +52,7 @@ export function Base64CategoryLandingPage({ view }: Base64CategoryLandingPagePro
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dhebe.com' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteRoute('/') },
           {
             '@type': 'ListItem',
             position: 2,
@@ -61,7 +62,7 @@ export function Base64CategoryLandingPage({ view }: Base64CategoryLandingPagePro
                 : view === 'converter'
                   ? 'Base64 Encoder'
                   : 'Base64 Decoder',
-            item: `https://dhebe.com${page.path}`,
+            item: siteRoute(page.path),
           },
         ],
       },

@@ -12,6 +12,7 @@ import {
   emailTemplateEditorSeoTitle,
   emailTemplateTypes,
 } from '@/lib/email-template-page';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export function EmailTemplateLandingPage() {
   const structuredData = {
@@ -19,10 +20,10 @@ export function EmailTemplateLandingPage() {
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: `${emailTemplateEditorSeoTitle} | DHEBE Studios`,
+        name: `${emailTemplateEditorSeoTitle} | ${SITE_NAME}`,
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${emailTemplateEditorPath}`,
+        url: siteRoute(emailTemplateEditorPath),
         description: emailTemplateEditorMetaDescription,
         offers: {
           '@type': 'Offer',
@@ -44,12 +45,12 @@ export function EmailTemplateLandingPage() {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dhebe.com' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteRoute('/') },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Email Template Editor',
-            item: `https://dhebe.com${emailTemplateEditorPath}`,
+            item: siteRoute(emailTemplateEditorPath),
           },
         ],
       },

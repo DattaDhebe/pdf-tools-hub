@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { SITE_HOSTNAME, siteAsset } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
@@ -8,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://dhebe.com/sitemap.xml',
-    host: 'https://dhebe.com',
+    sitemap: siteAsset('/sitemap.xml'),
+    host: SITE_HOSTNAME,
   };
 }

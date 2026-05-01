@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import { SITE_URL } from '@/lib/site';
 
 type Align = 'left' | 'center';
 type BlockType = 'hero' | 'text' | 'image' | 'cta' | 'divider' | 'footer';
@@ -94,7 +95,7 @@ const PRESETS: PresetDefinition[] = [
         title: 'Build a professional newsletter that feels modern and on brand',
         body: 'Share launches, stories, and internal updates with a responsive HTML email that stays readable on mobile and desktop.',
         buttonLabel: 'Read the issue',
-        buttonUrl: 'https://dhebe.com',
+        buttonUrl: SITE_URL,
         imageUrl: '',
         altText: '',
         secondaryText: '',
@@ -120,7 +121,7 @@ const PRESETS: PresetDefinition[] = [
         title: 'Close with a primary action',
         body: 'Use one final CTA to guide readers into the campaign page, article, signup flow, or resource hub.',
         buttonLabel: 'Open the campaign',
-        buttonUrl: 'https://dhebe.com',
+        buttonUrl: SITE_URL,
         imageUrl: '',
         altText: '',
         secondaryText: '',
@@ -168,7 +169,7 @@ const PRESETS: PresetDefinition[] = [
         title: 'Help new subscribers feel confident right away',
         body: 'Use a warm, professional welcome email to explain what happens next and point readers to the fastest path to value.',
         buttonLabel: 'Complete setup',
-        buttonUrl: 'https://dhebe.com',
+        buttonUrl: SITE_URL,
         imageUrl: '',
         altText: '',
         secondaryText: '',
@@ -229,7 +230,7 @@ const PRESETS: PresetDefinition[] = [
         title: 'Design a launch email that feels premium and conversion-ready',
         body: 'Use a bold headline, a focused value proposition, and one main CTA to move readers from attention to action.',
         buttonLabel: 'Claim the offer',
-        buttonUrl: 'https://dhebe.com',
+        buttonUrl: SITE_URL,
         imageUrl: '',
         altText: '',
         secondaryText: '',
@@ -255,7 +256,7 @@ const PRESETS: PresetDefinition[] = [
         title: 'Close with one strong action',
         body: 'Repeat the benefit and give high-intent readers one final place to click before the footer.',
         buttonLabel: 'Shop now',
-        buttonUrl: 'https://dhebe.com',
+        buttonUrl: SITE_URL,
         imageUrl: '',
         altText: '',
         secondaryText: '',
@@ -1164,7 +1165,7 @@ function createBlock(type: BlockType): EmailBlock {
           ? 'You are receiving this email because you signed up for updates or purchased from our brand.'
           : 'Use this section to explain the value, share an update, or guide the reader toward the next step.',
     buttonLabel: type === 'hero' || type === 'cta' ? 'Take action' : '',
-    buttonUrl: type === 'hero' || type === 'cta' ? 'https://dhebe.com' : '',
+    buttonUrl: type === 'hero' || type === 'cta' ? SITE_URL : '',
     imageUrl: type === 'image' ? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80' : '',
     altText: type === 'image' ? 'Email campaign visual' : '',
     secondaryText: type === 'footer' ? 'Add support details, preferences, or unsubscribe instructions here.' : '',

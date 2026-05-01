@@ -4,6 +4,7 @@ import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import type { PdfSeoPage } from '@/lib/pdf-seo-pages';
 import type { PdfToolPageEntry } from '@/lib/pdf-tools-pages';
 import { getPdfToolPageById, getPdfToolPath } from '@/lib/pdf-tools-pages';
+import { siteRoute } from '@/lib/site';
 
 interface PdfToolLandingPageProps {
   tool: PdfToolPageEntry;
@@ -24,7 +25,7 @@ export function PdfToolLandingPage({ tool, seoPage }: PdfToolLandingPageProps) {
         name: `${seoPage.seoTitle} | PDF Studio`,
         applicationCategory: 'UtilitiesApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${getPdfToolPath(tool)}`,
+        url: siteRoute(getPdfToolPath(tool)),
         description: seoPage.metaDescription,
         offers: {
           '@type': 'Offer',
@@ -50,19 +51,19 @@ export function PdfToolLandingPage({ tool, seoPage }: PdfToolLandingPageProps) {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'PDF Tools',
-            item: 'https://dhebe.com/pdf-tools',
+            item: siteRoute('/pdf-tools'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: tool.label,
-            item: `https://dhebe.com${getPdfToolPath(tool)}`,
+            item: siteRoute(getPdfToolPath(tool)),
           },
         ],
       },

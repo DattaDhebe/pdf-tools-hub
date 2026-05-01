@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { PdfToolPageEntry } from '@/lib/pdf-tools-pages';
 import { getPdfToolPath } from '@/lib/pdf-tools-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export interface PdfFaqEntry {
   question: string;
@@ -611,14 +612,14 @@ export function buildPdfToolMetadata(tool: PdfToolPageEntry): Metadata {
       description: seoPage.metaDescription,
       keywords: seoPage.keywords,
       alternates: {
-        canonical: `https://dhebe.com${getPdfToolPath(tool)}`,
+        canonical: siteRoute(getPdfToolPath(tool)),
       },
       openGraph: {
         title: `${seoPage.seoTitle} | PDF Studio`,
         description: seoPage.metaDescription,
-        url: `https://dhebe.com${getPdfToolPath(tool)}`,
+        url: siteRoute(getPdfToolPath(tool)),
         type: 'website',
-        siteName: 'DHEBE Studios',
+        siteName: SITE_NAME,
       },
       twitter: {
         card: 'summary_large_image',
@@ -647,14 +648,14 @@ export function buildPdfToolMetadata(tool: PdfToolPageEntry): Metadata {
       'free pdf tools',
     ],
     alternates: {
-      canonical: `https://dhebe.com${getPdfToolPath(tool)}`,
+      canonical: siteRoute(getPdfToolPath(tool)),
     },
     openGraph: {
       title: `${title} | PDF Studio`,
       description: tool.description,
-      url: `https://dhebe.com${getPdfToolPath(tool)}`,
+      url: siteRoute(getPdfToolPath(tool)),
       type: 'website',
-      siteName: 'DHEBE Studios',
+      siteName: SITE_NAME,
     },
     twitter: {
       card: 'summary_large_image',

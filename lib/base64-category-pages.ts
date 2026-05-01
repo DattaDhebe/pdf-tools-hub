@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export type Base64CategoryView = 'all' | 'converter' | 'decoder';
 
@@ -91,14 +92,14 @@ export function buildBase64CategoryMetadata(view: Base64CategoryView): Metadata 
     description: page.metaDescription,
     keywords: page.keywords,
     alternates: {
-      canonical: `https://dhebe.com${page.path}`,
+      canonical: siteRoute(page.path),
     },
     openGraph: {
       title: page.seoTitle,
       description: page.metaDescription,
-      url: `https://dhebe.com${page.path}`,
+      url: siteRoute(page.path),
       type: 'website',
-      siteName: 'DHEBE Studios',
+      siteName: SITE_NAME,
     },
     twitter: {
       card: 'summary_large_image',

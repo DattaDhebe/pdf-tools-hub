@@ -3,6 +3,7 @@ import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
 import Link from 'next/link';
 import Script from 'next/script';
 import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Free Online PDF Tools - Merge, Compress & Convert PDF',
@@ -29,14 +30,15 @@ export const metadata: Metadata = {
     'sign pdf',
   ],
   alternates: {
-    canonical: 'https://dhebe.com/pdf-tools',
+    canonical: siteRoute('/pdf-tools'),
   },
   openGraph: {
     title: 'Free Online PDF Tools - Merge, Compress & Convert PDF | DHEBE',
     description:
       'Use free online PDF tools to merge, compress, split, sign, and convert PDF files with browser-based workflows.',
-    url: 'https://dhebe.com/pdf-tools',
+    url: siteRoute('/pdf-tools'),
     type: 'website',
+    siteName: SITE_NAME,
   },
   twitter: {
     title: 'Free Online PDF Tools - Merge, Compress & Convert PDF',
@@ -54,7 +56,7 @@ export default function PdfToolsPage() {
         name: 'PDF Tools Suite | DHEBE',
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'Web',
-        url: 'https://dhebe.com/pdf-tools',
+        url: siteRoute('/pdf-tools'),
         description:
           'Free online PDF tools for merge, compress, split, sign, and convert workflows with browser-based processing.',
         offers: {
@@ -89,13 +91,13 @@ export default function PdfToolsPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'PDF Tools',
-            item: 'https://dhebe.com/pdf-tools',
+            item: siteRoute('/pdf-tools'),
           },
         ],
       },

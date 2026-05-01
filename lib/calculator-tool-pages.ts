@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export interface CalculatorFaqEntry {
   question: string;
@@ -733,14 +734,14 @@ export function buildCalculatorToolMetadata(tool: CalculatorToolPageEntry): Meta
     description: tool.metaDescription,
     keywords: tool.keywords,
     alternates: {
-      canonical: `https://dhebe.com${tool.path}`,
+      canonical: siteRoute(tool.path),
     },
     openGraph: {
       title: `${tool.seoTitle} | Calculator Studio`,
       description: tool.metaDescription,
-      url: `https://dhebe.com${tool.path}`,
+      url: siteRoute(tool.path),
       type: 'website',
-      siteName: 'DHEBE Studios',
+      siteName: SITE_NAME,
     },
     twitter: {
       card: 'summary_large_image',

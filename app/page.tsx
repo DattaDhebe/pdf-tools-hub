@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { StudiosHub } from '@/components/studios-hub';
 import Script from 'next/script';
+import { SITE_NAME, SUPPORT_EMAIL, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'DHEBE Studios - Free Online Tools for Base64, PDF, Calculators & Email',
+  title: `${SITE_NAME} - Free Online Tools for Base64, PDF, Calculators & Email`,
   description:
     'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, and a professional Email Template Editor. Encode, decode, compress, merge, calculate, and design with privacy-first browser tools.',
   keywords: [
@@ -17,19 +18,19 @@ export const metadata: Metadata = {
     'online utilities',
   ],
   alternates: {
-    canonical: 'https://dhebe.com',
+    canonical: siteRoute('/'),
   },
   openGraph: {
-    title: 'DHEBE Studios - Professional Tools Suite',
+    title: `${SITE_NAME} - Professional Tools Suite`,
     description:
       'Free online tools for Base64 encoding/decoding, PDF manipulation, calculators, and email design. 100% private processing.',
-    url: 'https://dhebe.com',
+    url: siteRoute('/'),
     type: 'website',
-    siteName: 'DHEBE Studios',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DHEBE Studios - Professional Tools Suite',
+    title: `${SITE_NAME} - Professional Tools Suite`,
     description: 'Free online Base64, PDF, calculator, and email tools. No uploads, no tracking.',
   },
 };
@@ -40,27 +41,27 @@ export default function Home() {
     '@graph': [
       {
         '@type': 'WebSite',
-        name: 'DHEBE Studios',
-        url: 'https://dhebe.com',
+        name: SITE_NAME,
+        url: siteRoute('/'),
         description:
           'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, and a professional Email Template Editor.',
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://dhebe.com/?q={search_term_string}',
+          target: siteRoute('/?q={search_term_string}'),
           'query-input': 'required name=search_term_string',
         },
       },
       {
         '@type': 'Organization',
-        name: 'DHEBE Studios',
-        url: 'https://dhebe.com',
-        email: 'support@dhebe.com',
+        name: SITE_NAME,
+        url: siteRoute('/'),
+        email: SUPPORT_EMAIL,
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'customer support',
-          email: 'support@dhebe.com',
+          email: SUPPORT_EMAIL,
           availableLanguage: ['English'],
-          url: 'https://dhebe.com',
+          url: siteRoute('/'),
         },
       },
     ],

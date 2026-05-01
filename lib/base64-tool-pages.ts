@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { toolPages, type ToolPageEntry } from '@/lib/tool-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export interface ToolFaq {
   question: string;
@@ -273,14 +274,14 @@ export function buildBase64ToolMetadata(tool: Base64ToolPageEntry): Metadata {
     description: tool.metaDescription,
     keywords: tool.keywords,
     alternates: {
-      canonical: `https://dhebe.com${tool.path}`,
+      canonical: siteRoute(tool.path),
     },
     openGraph: {
       title: tool.seoTitle,
       description: tool.metaDescription,
-      url: `https://dhebe.com${tool.path}`,
+      url: siteRoute(tool.path),
       type: 'website',
-      siteName: 'DHEBE Studios',
+      siteName: SITE_NAME,
     },
     twitter: {
       card: 'summary_large_image',

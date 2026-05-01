@@ -6,20 +6,21 @@ import {
   emailTemplateEditorPath,
   emailTemplateEditorSeoTitle,
 } from '@/lib/email-template-page';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: emailTemplateEditorSeoTitle,
   description: emailTemplateEditorMetaDescription,
   keywords: emailTemplateEditorKeywords,
   alternates: {
-    canonical: `https://dhebe.com${emailTemplateEditorPath}`,
+    canonical: siteRoute(emailTemplateEditorPath),
   },
   openGraph: {
     title: emailTemplateEditorSeoTitle,
     description: emailTemplateEditorMetaDescription,
-    url: `https://dhebe.com${emailTemplateEditorPath}`,
+    url: siteRoute(emailTemplateEditorPath),
     type: 'website',
-    siteName: 'DHEBE Studios',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',

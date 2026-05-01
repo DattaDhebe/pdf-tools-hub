@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { CalculatorToolsWorkbench } from '@/components/calculator-tools-workbench';
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
 import { calculatorTools } from '@/lib/calculator-tools';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Calculator Studio - Free Online Age, BMI, EMI, SIP, GST & Percentage Calculators',
@@ -20,15 +21,15 @@ export const metadata: Metadata = {
     'free online calculator',
   ],
   alternates: {
-    canonical: 'https://dhebe.com/calculator-studio',
+    canonical: siteRoute('/calculator-studio'),
   },
   openGraph: {
     title: 'Calculator Studio - Free Online Calculators | DHEBE',
     description:
       'Use DHEBE Calculator Studio for popular health, finance, tax, and percentage calculations with instant browser-based results.',
-    url: 'https://dhebe.com/calculator-studio',
+    url: siteRoute('/calculator-studio'),
     type: 'website',
-    siteName: 'DHEBE Studios',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',
@@ -44,10 +45,10 @@ export default function CalculatorStudioPage() {
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: 'Calculator Studio | DHEBE Studios',
+        name: `Calculator Studio | ${SITE_NAME}`,
         applicationCategory: 'UtilitiesApplication',
         operatingSystem: 'Web',
-        url: 'https://dhebe.com/calculator-studio',
+        url: siteRoute('/calculator-studio'),
         description:
           'Free online calculator studio covering age, BMI, percentage, EMI, SIP, and GST calculations.',
         offers: {
@@ -93,13 +94,13 @@ export default function CalculatorStudioPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Calculator Studio',
-            item: 'https://dhebe.com/calculator-studio',
+            item: siteRoute('/calculator-studio'),
           },
         ],
       },

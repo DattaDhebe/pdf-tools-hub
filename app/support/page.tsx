@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import { SupportClient } from '@/components/support-client';
+import { SITE_NAME, SUPPORT_EMAIL, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Support',
   description:
-    'Get help for the Base64 Converter, PDF Studio, Calculator Studio, and the Email Template Editor. Learn tool usage, privacy-first processing, and common workflows across all DHEBE Studios tools.',
+    `Get help for the Base64 Converter, PDF Studio, Calculator Studio, and the Email Template Editor. Learn tool usage, privacy-first processing, and common workflows across all ${SITE_NAME} tools.`,
   alternates: {
-    canonical: '/support',
+    canonical: siteRoute('/support'),
   },
   openGraph: {
-    title: 'Support | DHEBE Studios',
+    title: `Support | ${SITE_NAME}`,
     description:
       'Support and help page for Base64, PDF, calculator, and email tools, including usage guides, privacy, and contact information.',
-    url: 'https://dhebe.com/support',
+    url: siteRoute('/support'),
     type: 'website',
   },
 };
@@ -23,20 +24,20 @@ export default function SupportPage() {
     '@graph': [
       {
         '@type': 'ContactPage',
-        name: 'DHEBE Studios Support',
-        url: 'https://dhebe.com/support',
+        name: `${SITE_NAME} Support`,
+        url: siteRoute('/support'),
         description:
-          'Support page for DHEBE Studios covering Base64, PDF, and Email tools with privacy and usage guidance.',
+          `Support page for ${SITE_NAME} covering Base64, PDF, and Email tools with privacy and usage guidance.`,
         mainEntity: {
           '@type': 'Organization',
-          name: 'DHEBE Studios',
-          email: 'support@dhebe.com',
-          url: 'https://dhebe.com',
+          name: SITE_NAME,
+          email: SUPPORT_EMAIL,
+          url: siteRoute('/'),
           contactPoint: {
             '@type': 'ContactPoint',
             contactType: 'customer support',
-            email: 'support@dhebe.com',
-            url: 'https://dhebe.com/support',
+            email: SUPPORT_EMAIL,
+            url: siteRoute('/support'),
             availableLanguage: ['English'],
           },
         },

@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import Script from 'next/script';
 import { ImageToolsWorkbench } from '@/components/image-tools-workbench';
 import { getImageToolPageBySlug, getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
+import { SITE_NAME, siteRoute } from '@/lib/site';
 
 interface ImageToolPageProps {
   params: Promise<{
@@ -28,7 +29,19 @@ export async function generateMetadata({ params }: ImageToolPageProps): Promise<
     title: `${tool.label} | Image Studio`,
     description: tool.description,
     alternates: {
-      canonical: `https://dhebe.com${getImageToolPath(tool)}`,
+      canonical: siteRoute(getImageToolPath(tool)),
+    },
+    openGraph: {
+      title: `${tool.label} | Image Studio`,
+      description: tool.description,
+      url: siteRoute(getImageToolPath(tool)),
+      type: 'website',
+      siteName: SITE_NAME,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${tool.label} | Image Studio`,
+      description: tool.description,
     },
   };
 }
@@ -54,7 +67,7 @@ export default async function ImageToolPage({ params }: ImageToolPageProps) {
         name: `${tool.label} | Image Studio`,
         applicationCategory: 'MultimediaApplication',
         operatingSystem: 'Web',
-        url: `https://dhebe.com${targetPath}`,
+        url: siteRoute(targetPath),
         description: tool.description,
         offers: {
           '@type': 'Offer',
@@ -69,19 +82,19 @@ export default async function ImageToolPage({ params }: ImageToolPageProps) {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://dhebe.com',
+            item: siteRoute('/'),
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Image Studio',
-            item: 'https://dhebe.com/image-studio',
+            item: siteRoute('/image-studio'),
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: tool.label,
-            item: `https://dhebe.com${targetPath}`,
+            item: siteRoute(targetPath),
           },
         ],
       },

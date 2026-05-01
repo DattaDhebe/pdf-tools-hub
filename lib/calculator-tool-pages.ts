@@ -628,6 +628,103 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
       },
     ],
   },
+  {
+    slug: 'loan-calculator',
+    path: '/loan-calculator',
+    id: 'loan',
+    label: 'Loan Calculator',
+    description: 'Calculate loan interest, total cost, and payoff schedule.',
+    longDescription:
+      'Go beyond EMI to understand total interest costs and amortization for home or car loans.',
+    seoTitle: 'Loan Calculator - Calculate Total Interest and Payoff',
+    metaDescription:
+      'Free online loan calculator to estimate total interest, monthly payments, and full repayment schedules.',
+    keywords: [
+      'loan calculator',
+      'loan interest calculator',
+      'total loan cost calculator',
+      'loan payoff calculator',
+      'amortization calculator',
+      'home loan interest calculator',
+      'car loan calculator',
+    ],
+    sections: [
+      {
+        title: 'Calculate total loan cost',
+        body:
+          'Understand the full cost of your loan by calculating interest and principal breakdown.',
+      },
+    ],
+    keywordGroups: [],
+    faqs: [
+      {
+        question: 'What is a loan calculator?',
+        answer: 'It helps you understand the total cost of borrowing money.',
+      },
+    ],
+  },
+  {
+    slug: 'salary-calculator',
+    path: '/salary-calculator',
+    id: 'salary',
+    label: 'Salary Calculator',
+    description: 'Calculate net take-home pay after tax and deductions.',
+    longDescription: 'Estimate your monthly or annual disposable income after standard deductions.',
+    seoTitle: 'Salary Calculator - Net Pay and Take-Home Pay Estimator',
+    metaDescription:
+      'Calculate your take-home pay after tax and other common deductions with this free tool.',
+    keywords: ['salary calculator', 'take home pay calculator', 'net salary calculator'],
+    sections: [
+      {
+        title: 'Estimate your net pay',
+        body: 'Enter your gross salary to see a breakdown of tax and net pay.',
+      },
+    ],
+    keywordGroups: [],
+    faqs: [],
+  },
+  {
+    slug: 'date-difference-calculator',
+    path: '/date-difference-calculator',
+    id: 'date-diff',
+    label: 'Date Difference',
+    description: 'Find the number of days between any two dates.',
+    longDescription: 'Calculate the exact duration between dates in years, months, and days.',
+    seoTitle: 'Date Difference Calculator - Days Between Dates',
+    metaDescription: 'Calculate the exact time difference between two dates online.',
+    keywords: ['date difference', 'days between dates', 'duration calculator'],
+    sections: [],
+    keywordGroups: [],
+    faqs: [],
+  },
+  {
+    slug: 'pregnancy-due-date-calculator',
+    path: '/pregnancy-due-date-calculator',
+    id: 'pregnancy',
+    label: 'Pregnancy Due Date',
+    description: 'Calculate your estimated baby delivery date.',
+    longDescription: 'Estimate your EDD using your last period or conception date.',
+    seoTitle: 'Pregnancy Due Date Calculator - EDD Estimator',
+    metaDescription: 'Calculate your estimated pregnancy due date with this free tool.',
+    keywords: ['pregnancy calculator', 'due date calculator', 'edd calculator'],
+    sections: [],
+    keywordGroups: [],
+    faqs: [],
+  },
+  {
+    slug: 'calories-calculator',
+    path: '/calories-calculator',
+    id: 'calories',
+    label: 'Calories Calculator',
+    description: 'Estimate daily calorie needs based on activity.',
+    longDescription: 'Calculate your BMR and TDEE to understand your energy needs.',
+    seoTitle: 'Calories Calculator - Daily Calorie Needs Estimator',
+    metaDescription: 'Estimate how many calories you need daily to maintain or lose weight.',
+    keywords: ['calorie calculator', 'bmr calculator', 'daily calorie needs'],
+    sections: [],
+    keywordGroups: [],
+    faqs: [],
+  },
 ];
 
 export function buildCalculatorToolMetadata(tool: CalculatorToolPageEntry): Metadata {

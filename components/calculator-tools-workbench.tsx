@@ -9,6 +9,11 @@ import { EmiCalculatorTool } from '@/components/calculators/emi-calculator-tool'
 import { GstCalculatorTool } from '@/components/calculators/gst-calculator-tool';
 import { PercentageCalculatorTool } from '@/components/calculators/percentage-calculator-tool';
 import { SipCalculatorTool } from '@/components/calculators/sip-calculator-tool';
+import { LoanCalculatorTool } from '@/components/calculators/loan-calculator-tool';
+import { SalaryCalculatorTool } from '@/components/calculators/salary-calculator-tool';
+import { DateDifferenceCalculatorTool } from '@/components/calculators/date-difference-calculator-tool';
+import { PregnancyCalculatorTool } from '@/components/calculators/pregnancy-calculator-tool';
+import { CaloriesCalculatorTool } from '@/components/calculators/calories-calculator-tool';
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
 import { calculatorTools } from '@/lib/calculator-tools';
 
@@ -48,6 +53,11 @@ export function CalculatorToolsWorkbench({
     emi: EmiCalculatorTool,
     sip: SipCalculatorTool,
     gst: GstCalculatorTool,
+    loan: LoanCalculatorTool,
+    salary: SalaryCalculatorTool,
+    'date-diff': DateDifferenceCalculatorTool,
+    pregnancy: PregnancyCalculatorTool,
+    calories: CaloriesCalculatorTool,
   };
 
   const ActiveComponent = toolComponents[activeTool];

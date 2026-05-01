@@ -62,6 +62,51 @@ export const calculatorTools: CalculatorTool[] = [
     category: 'tax',
     status: 'ready',
   },
+  {
+    id: 'loan',
+    label: 'Loan Calculator',
+    description: 'Calculate loan interest and payoff.',
+    longDescription:
+      'Go beyond EMI to see full loan schedules, total interest costs, and how extra payments affect your payoff date.',
+    category: 'finance',
+    status: 'ready',
+  },
+  {
+    id: 'salary',
+    label: 'Salary Calculator',
+    description: 'Calculate net take-home pay.',
+    longDescription:
+      'Estimate monthly and annual take-home salary after deductions like tax, insurance, and retirement contributions.',
+    category: 'finance',
+    status: 'ready',
+  },
+  {
+    id: 'date-diff',
+    label: 'Date Difference',
+    description: 'Calculate days between two dates.',
+    longDescription:
+      'Find the exact number of years, months, weeks, and days between any two dates on the calendar.',
+    category: 'everyday',
+    status: 'ready',
+  },
+  {
+    id: 'pregnancy',
+    label: 'Pregnancy Due Date',
+    description: 'Estimate baby delivery date.',
+    longDescription:
+      'Calculate your estimated due date (EDD) based on the first day of your last period or conception date.',
+    category: 'health',
+    status: 'ready',
+  },
+  {
+    id: 'calories',
+    label: 'Calories Calculator',
+    description: 'Estimate daily calorie needs.',
+    longDescription:
+      'Calculate your basal metabolic rate (BMR) and recommended daily calories based on your activity level.',
+    category: 'health',
+    status: 'ready',
+  },
 ];
 
 export function getCalculatorToolById(id: string) {

@@ -79,7 +79,7 @@ export function StudiosHub() {
         <div className="mb-10 rounded-[2.25rem] border p-6 theme-panel sm:p-8">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1.05fr)_minmax(19rem,0.95fr)] xl:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
                 Studio Directory
               </p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
@@ -95,12 +95,14 @@ export function StudiosHub() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href={featuredStudio.href}
+                  prefetch={false}
                   className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                 >
                   Open Email Editor
                 </Link>
                 <Link
                   href="#all-studios"
+                  prefetch={false}
                   className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-5 py-3 text-sm font-semibold theme-title transition hover:bg-white/70"
                 >
                   Browse all studios
@@ -126,7 +128,7 @@ export function StudiosHub() {
             <div className="rounded-[1.9rem] border bg-[var(--app-card)] p-6 shadow-sm">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-700">
                     Featured Workspace
                   </p>
                   <h2 className="mt-3 text-2xl font-bold theme-title">{featuredStudio.name}</h2>
@@ -148,6 +150,7 @@ export function StudiosHub() {
 
               <Link
                 href={featuredStudio.href}
+                prefetch={false}
                 className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Open the live editor
@@ -171,6 +174,7 @@ export function StudiosHub() {
             <Link
               key={studio.id}
               href={studio.href}
+              prefetch={false}
               className="group flex h-full min-h-[25rem] flex-col rounded-[1.9rem] border p-6 theme-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="flex items-start justify-between gap-4">

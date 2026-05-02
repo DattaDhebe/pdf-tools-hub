@@ -20,6 +20,14 @@ export const metadata: Metadata = {
     'gst calculator',
     'free online calculator',
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   alternates: {
     canonical: siteRoute('/calculator-studio'),
   },

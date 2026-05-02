@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Base64ToolLandingPage } from '@/components/base64-tool-landing-page';
+import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
 import {
   buildBase64ToolMetadata,
   getBase64ToolPageBySlug,
+  getBase64ToolPath,
   base64ToolPages,
 } from '@/lib/base64-tool-pages';
 
@@ -29,7 +30,15 @@ export async function generateMetadata({
     return {};
   }
 
-  return buildBase64ToolMetadata(tool);
+  // Use base metadata but set noindex for the redirect source
+  const baseMetadata = buildBase64ToolMetadata(tool);
+  return {
+    ...baseMetadata,
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
 }
 
 export default async function Base64ToolPage({
@@ -42,5 +51,5 @@ export default async function Base64ToolPage({
     notFound();
   }
 
-  return <Base64ToolLandingPage tool={tool} />;
+  return <LegacyRedirectPage href={getBase64ToolPath(tool)} label={tool.label} />;
 }

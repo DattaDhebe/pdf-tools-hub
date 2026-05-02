@@ -160,8 +160,8 @@ const seoConfigBySlug: Record<string, Base64ToolSeoConfig> = {
     relatedSlugs: ['image-to-base64', 'base64-to-file', 'file-to-base64', 'base64-to-html'],
   },
   'base64-to-url': {
-    seoTitle: 'Base64 to URL Converter - Decode Base64 URL Online',
-    metaDescription: 'Decode Base64 to URL online for free. Convert Base64 strings back into readable links and URL-safe text instantly.',
+    seoTitle: 'Base64 to URL Decoder - Decode Base64 URL Online',
+    metaDescription: 'Decode Base64 to URL format online for free. Fast, private and browser-based Base64 URL converter.',
     intro: 'Use this Base64 to URL converter to recover links, route segments, and URL-based payloads from Base64 strings. It is useful for developer debugging and transport checks.',
     keywords: ['base64 to url', 'url to base64', 'decode base64 url', 'base64 url converter', 'base64url decoder', 'base64 to link', 'url safe base64'],
     faqs: [
@@ -250,7 +250,7 @@ export const base64ToolPages: Base64ToolPageEntry[] = toolPages.map((tool) => {
 
   return {
     ...tool,
-    path: `/${tool.slug}`,
+    path: `/tools/${tool.slug}`,
     seoTitle: config.seoTitle,
     metaDescription: config.metaDescription,
     intro: config.intro,

@@ -726,6 +726,43 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
     keywordGroups: [],
     faqs: [],
   },
+  {
+    slug: 'circle',
+    path: '/tools/circle',
+    id: 'circle',
+    label: 'Circle Calculator',
+    description: 'Calculate circle area, circumference, diameter, and radius online.',
+    longDescription:
+      'Free circle calculator to calculate area, circumference, diameter, and radius online with instant results.',
+    seoTitle: 'Circle Calculator - Calculate Area, Circumference & Diameter',
+    metaDescription:
+      'Free circle calculator to calculate area, circumference, diameter, and radius online with instant results.',
+    keywords: [
+      'circle calculator',
+      'calculate circle area',
+      'circle circumference calculator',
+      'diameter of circle calculator',
+      'radius of circle calculator',
+    ],
+    sections: [
+      {
+        title: 'Calculate circle properties instantly',
+        body:
+          'Use this free circle calculator to find the area, circumference, diameter, and radius of any circle. Simply enter one known value and the tool will calculate the rest using standard geometric formulas.',
+      },
+    ],
+    keywordGroups: [],
+    faqs: [
+      {
+        question: 'How to calculate circle area?',
+        answer: 'The area of a circle is calculated using the formula πr², where r is the radius.',
+      },
+      {
+        question: 'How to find circle circumference?',
+        answer: 'The circumference is found using 2πr or πd, where r is radius and d is diameter.',
+      },
+    ],
+  },
 ];
 
 export function buildCalculatorToolMetadata(tool: CalculatorToolPageEntry): Metadata {

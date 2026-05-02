@@ -91,6 +91,14 @@ export function buildBase64CategoryMetadata(view: Base64CategoryView): Metadata 
     title: page.seoTitle,
     description: page.metaDescription,
     keywords: page.keywords,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
     alternates: {
       canonical: siteRoute(page.path),
     },

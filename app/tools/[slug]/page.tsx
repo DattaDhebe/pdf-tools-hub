@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
-import { buildBase64ToolMetadata, getBase64ToolPageBySlug, getBase64ToolPath } from '@/lib/base64-tool-pages';
-import { toolPages } from '@/lib/tool-pages';
+import { Base64ToolLandingPage } from '@/components/base64-tool-landing-page';
+import {
+  buildBase64ToolMetadata,
+  getBase64ToolPageBySlug,
+  base64ToolPages,
+} from '@/lib/base64-tool-pages';
 
 interface ToolPageProps {
   params: Promise<{
@@ -11,7 +14,7 @@ interface ToolPageProps {
 }
 
 export async function generateStaticParams() {
-  return toolPages.map((tool) => ({
+  return base64ToolPages.map((tool) => ({
     slug: tool.slug,
   }));
 }
@@ -24,13 +27,17 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     return {};
   }
 
+  // Base metadata from helper
+  const baseMetadata = buildBase64ToolMetadata(tool);
+
+  // Apply explicit robots config to resolve GSC indexing issues
   return {
-    ...buildBase64ToolMetadata(tool),
+    ...baseMetadata,
     robots: {
-      index: false,
+      index: true,
       follow: true,
       googleBot: {
-        index: false,
+        index: true,
         follow: true,
       },
     },
@@ -45,5 +52,5 @@ export default async function ToolPage({ params }: ToolPageProps) {
     notFound();
   }
 
-  return <LegacyRedirectPage href={getBase64ToolPath(tool)} label={tool.label} />;
+  return <Base64ToolLandingPage tool={tool} />;
 }

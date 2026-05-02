@@ -32,6 +32,14 @@ export const metadata: Metadata = {
     'extract pdf pages',
     'ocr pdf online',
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   alternates: {
     canonical: siteRoute('/pdf-studio'),
   },

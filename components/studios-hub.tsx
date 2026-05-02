@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 
 const studios = [
@@ -93,14 +95,12 @@ export function StudiosHub() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href={featuredStudio.href}
-                  prefetch={false}
                   className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                 >
                   Open Email Editor
                 </Link>
                 <Link
                   href="#all-studios"
-                  prefetch={false}
                   className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-5 py-3 text-sm font-semibold theme-title transition hover:bg-white/70"
                 >
                   Browse all studios
@@ -148,7 +148,6 @@ export function StudiosHub() {
 
               <Link
                 href={featuredStudio.href}
-                prefetch={false}
                 className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Open the live editor
@@ -172,7 +171,6 @@ export function StudiosHub() {
             <Link
               key={studio.id}
               href={studio.href}
-              prefetch={false}
               className="group flex h-full min-h-[25rem] flex-col rounded-[1.9rem] border p-6 theme-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="flex items-start justify-between gap-4">

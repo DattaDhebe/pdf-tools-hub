@@ -65,7 +65,7 @@ const studios = [
     accent: 'bg-rose-100 text-rose-700',
     dot: 'bg-rose-500',
     features: ['Compress and resize', 'Background removal', 'Format conversion'],
-    cta: 'Open Image Studio',
+    cta: 'Open Img Studio',
     initials: 'IM',
   },
 ] as const;

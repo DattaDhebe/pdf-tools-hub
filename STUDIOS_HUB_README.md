@@ -7,7 +7,7 @@ DHEBE Studios is a unified platform hosting multiple professional web applicatio
 ## Studio Structure
 
 ### 🏠 Studios Hub
-**Route:** `http://dhebe.com/` (home page)
+**Route:** `https://www.dhebe.com/` (home page)
 
 The main landing page featuring all available studios with:
 - Studio cards with descriptions and features
@@ -23,7 +23,7 @@ The main landing page featuring all available studios with:
 ## Available Studios
 
 ### 1. 🔤 Base64 Studio
-**Route:** `http://dhebe.com/base64-studio`
+**Route:** `https://www.dhebe.com/base64-studio`
 
 Full-featured Base64 encoding and decoding platform with:
 - Text, image, PDF, audio, file conversions
@@ -47,7 +47,7 @@ Full-featured Base64 encoding and decoding platform with:
 ---
 
 ### 2. 📄 PDF Studio
-**Route:** `http://dhebe.com/pdf-studio`
+**Route:** `https://www.dhebe.com/pdf-studio`
 
 Powerful PDF manipulation tools with:
 - PDF Compression (3 levels)
@@ -67,7 +67,7 @@ Powerful PDF manipulation tools with:
 ---
 
 ### 3. ✉️ Email Template Studio
-**Route:** `http://dhebe.com/email-studio`
+**Route:** `https://www.dhebe.com/email-studio`
 
 Professional email template builder (Coming Soon)
 
@@ -343,7 +343,7 @@ All studios have the same privacy guarantee:
 
 - **Documentation:** See individual studio docs
 - **Email:** support@dhebe.com
-- **Hub Page:** `http://dhebe.com/`
+- **Hub Page:** `https://www.dhebe.com/`
 - **Source:** GitHub repo (separate)
 
 ---

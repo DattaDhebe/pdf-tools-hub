@@ -4,7 +4,7 @@ export const SITE_NAME = 'DHEBE Studios';
 export const SUPPORT_EMAIL = 'support@dhebe.com';
 
 function normalizePath(path: string) {
-  if (!path) {
+  if (!path || path === '/') {
     return '/';
   }
 
@@ -22,6 +22,8 @@ function normalizeRoutePath(path: string) {
 
   const [beforeHash, hashFragment] = path.split('#', 2);
   const [pathname, search] = beforeHash.split('?', 2);
+  
+  // Ensure trailing slash for pathname
   const pathnameWithSlash = pathname.endsWith('/') ? pathname : `${pathname}/`;
   const route = `${pathnameWithSlash}${search ? `?${search}` : ''}`;
 
@@ -35,7 +37,9 @@ export function siteRoute(path = '/') {
     return normalizedPath;
   }
 
-  return new URL(normalizeRoutePath(normalizedPath), `${SITE_URL}/`).toString();
+  // Use URL constructor with SITE_URL to ensure absolute URL with www
+  const url = new URL(normalizeRoutePath(normalizedPath), SITE_URL);
+  return url.toString();
 }
 
 export function siteAsset(path: string) {
@@ -45,5 +49,6 @@ export function siteAsset(path: string) {
     return normalizedPath;
   }
 
-  return new URL(normalizedPath, `${SITE_URL}/`).toString();
+  const url = new URL(normalizedPath, SITE_URL);
+  return url.toString();
 }

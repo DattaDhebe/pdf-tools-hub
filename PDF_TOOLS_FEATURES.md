@@ -163,7 +163,7 @@ Process your PDFs directly in your browser with 100% privacy and no file uploads
 OpenGraph:
 - og:title: PDF Tools - Compress, Merge & Split PDFs Online | DHEBE
 - og:type: website
-- og:url: https://dhebe.com/pdf-tools
+- og:url: https://www.dhebe.com/pdf-tools
 
 Schema.org:
 - WebApplication
@@ -174,7 +174,7 @@ Schema.org:
 ### Sitemap Entry
 ```xml
 <url>
-  <loc>https://dhebe.com/pdf-tools</loc>
+  <loc>https://www.dhebe.com/pdf-tools</loc>
   <priority>0.9</priority>
   <changefreq>monthly</changefreq>
 </url>

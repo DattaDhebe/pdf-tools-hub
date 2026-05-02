@@ -10,13 +10,13 @@ export function Header() {
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-3 px-3 sm:gap-6 sm:px-4">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 transition hover:opacity-80">
-            <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
+            <div className="relative h-12 w-[12rem] overflow-visible sm:h-14 sm:w-[14rem]">
               <Image
                 src="/logo-optimized.svg"
                 alt="DHEBE Studios"
-                width={800}
-                height={200}
-                className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
+                width={280}
+                height={70}
+                className="absolute left-0 top-1/2 h-16 w-auto -translate-y-1/2 object-contain object-left sm:h-20"
                 priority
               />
             </div>

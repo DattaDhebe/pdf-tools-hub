@@ -10,7 +10,7 @@ const studios = [
     description:
       'Create professional responsive HTML emails with drag-and-drop editing, live preview, and export-ready code.',
     href: '/email-template-editor',
-    accent: 'bg-sky-100 text-sky-700',
+    accent: 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-400',
     dot: 'bg-sky-500',
     features: ['Drag and drop builder', 'Responsive preview', 'HTML export'],
     cta: 'Open Email Editor',
@@ -23,7 +23,7 @@ const studios = [
     description:
       'Powerful PDF tools for compression, merging, splitting, conversion, and document cleanup.',
     href: '/pdf-studio',
-    accent: 'bg-purple-100 text-purple-700',
+    accent: 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-400',
     dot: 'bg-purple-500',
     features: ['Merge and split', 'Compress and convert', 'Page extraction'],
     cta: 'Open PDF Studio',
@@ -36,7 +36,7 @@ const studios = [
     description:
       'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentage workflows.',
     href: '/calculator-studio',
-    accent: 'bg-emerald-100 text-emerald-700',
+    accent: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-400',
     dot: 'bg-emerald-500',
     features: ['Health and age', 'Finance math', 'Percentage tools'],
     cta: 'Open Calculators',
@@ -49,7 +49,7 @@ const studios = [
     description:
       'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64.',
     href: '/base64-converter',
-    accent: 'bg-orange-100 text-orange-700',
+    accent: 'bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-400',
     dot: 'bg-orange-500',
     features: ['Text encoding', 'Image conversion', 'File utilities'],
     cta: 'Open Converter',
@@ -62,7 +62,7 @@ const studios = [
     description:
       'Professional image tools for compression, resizing, background removal, and format conversion.',
     href: '/image-studio',
-    accent: 'bg-rose-100 text-rose-700',
+    accent: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-400',
     dot: 'bg-rose-500',
     features: ['Compress and resize', 'Background removal', 'Format conversion'],
     cta: 'Open Img Studio',
@@ -79,7 +79,7 @@ export function StudiosHub() {
         <div className="mb-10 rounded-[2.25rem] border p-6 theme-panel sm:p-8">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1.05fr)_minmax(19rem,0.95fr)] xl:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-800 dark:text-sky-400">
                 Studio Directory
               </p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
@@ -95,7 +95,7 @@ export function StudiosHub() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href={featuredStudio.href}
-                  className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                  className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 dark:bg-sky-500 dark:text-slate-950"
                 >
                   Open Email Editor
                 </Link>
@@ -126,12 +126,12 @@ export function StudiosHub() {
             <div className="rounded-[1.9rem] border bg-[var(--app-card)] p-6 shadow-sm">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-700">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-800 dark:text-sky-400">
                     Featured Workspace
                   </p>
                   <h2 className="mt-3 text-2xl font-bold theme-title">{featuredStudio.name}</h2>
                 </div>
-                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
                   Live
                 </span>
               </div>

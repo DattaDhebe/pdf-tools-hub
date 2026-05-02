@@ -19,7 +19,7 @@ export function SupportClient({ structuredData }: SupportClientProps) {
         <div className="mx-auto max-w-6xl space-y-6">
           <section className="rounded-[2rem] border p-6 backdrop-blur theme-panel sm:p-8">
             <div className="mb-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-600">Support</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-800 dark:text-cyan-400">Support</p>
               <h1 className="mt-3 text-4xl font-semibold tracking-tight theme-title">
                 Help and usage guidance for all DHEBE tools
               </h1>
@@ -33,7 +33,7 @@ export function SupportClient({ structuredData }: SupportClientProps) {
               <p className="mt-2 text-lg font-semibold theme-title">Support email</p>
               <a
                 href="mailto:support@dhebe.com"
-                className="mt-2 inline-flex text-base font-medium text-cyan-700 transition hover:text-cyan-800"
+                className="mt-2 inline-flex text-base font-medium text-cyan-800 transition hover:text-cyan-950 dark:text-cyan-400 dark:hover:text-cyan-300"
               >
                 support@dhebe.com
               </a>
@@ -130,19 +130,19 @@ export function SupportClient({ structuredData }: SupportClientProps) {
             <h2 className="text-2xl font-semibold tracking-tight theme-title">Common support notes</h2>
             <div className="mt-5 grid gap-4 md:grid-cols-3">
               <div className="rounded-[1.5rem] border p-5 theme-card-soft">
-                <p className="text-sm font-semibold text-cyan-700">Preview limitations</p>
+                <p className="text-sm font-semibold text-cyan-800 dark:text-cyan-400">Preview limitations</p>
                 <p className="mt-2 text-sm leading-6 theme-muted">
                   If preview fails for a format/browser combination, download and open in a dedicated app.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border p-5 theme-card-soft">
-                <p className="text-sm font-semibold text-cyan-700">Large files</p>
+                <p className="text-sm font-semibold text-cyan-800 dark:text-cyan-400">Large files</p>
                 <p className="mt-2 text-sm leading-6 theme-muted">
                   Very large PDFs and media may need more memory; close other tabs for better performance.
                 </p>
               </div>
               <div className="rounded-[1.5rem] border p-5 theme-card-soft">
-                <p className="text-sm font-semibold text-cyan-700">Direct tool pages</p>
+                <p className="text-sm font-semibold text-cyan-800 dark:text-cyan-400">Direct tool pages</p>
                 <p className="mt-2 text-sm leading-6 theme-muted">
                   Use dedicated tool routes for focused workflows and easier sharing/bookmarking.
                 </p>

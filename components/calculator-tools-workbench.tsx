@@ -1,19 +1,21 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { type ComponentType, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { AgeCalculatorTool } from '@/components/calculators/age-calculator-tool';
-import { BmiCalculatorTool } from '@/components/calculators/bmi-calculator-tool';
-import { EmiCalculatorTool } from '@/components/calculators/emi-calculator-tool';
-import { GstCalculatorTool } from '@/components/calculators/gst-calculator-tool';
-import { PercentageCalculatorTool } from '@/components/calculators/percentage-calculator-tool';
-import { SipCalculatorTool } from '@/components/calculators/sip-calculator-tool';
-import { LoanCalculatorTool } from '@/components/calculators/loan-calculator-tool';
-import { SalaryCalculatorTool } from '@/components/calculators/salary-calculator-tool';
-import { DateDifferenceCalculatorTool } from '@/components/calculators/date-difference-calculator-tool';
-import { PregnancyCalculatorTool } from '@/components/calculators/pregnancy-calculator-tool';
-import { CaloriesCalculatorTool } from '@/components/calculators/calories-calculator-tool';
+
+const AgeCalculatorTool = dynamic(() => import('@/components/calculators/age-calculator-tool').then(mod => mod.AgeCalculatorTool));
+const BmiCalculatorTool = dynamic(() => import('@/components/calculators/bmi-calculator-tool').then(mod => mod.BmiCalculatorTool));
+const EmiCalculatorTool = dynamic(() => import('@/components/calculators/emi-calculator-tool').then(mod => mod.EmiCalculatorTool));
+const GstCalculatorTool = dynamic(() => import('@/components/calculators/gst-calculator-tool').then(mod => mod.GstCalculatorTool));
+const PercentageCalculatorTool = dynamic(() => import('@/components/calculators/percentage-calculator-tool').then(mod => mod.PercentageCalculatorTool));
+const SipCalculatorTool = dynamic(() => import('@/components/calculators/sip-calculator-tool').then(mod => mod.SipCalculatorTool));
+const LoanCalculatorTool = dynamic(() => import('@/components/calculators/loan-calculator-tool').then(mod => mod.LoanCalculatorTool));
+const SalaryCalculatorTool = dynamic(() => import('@/components/calculators/salary-calculator-tool').then(mod => mod.SalaryCalculatorTool));
+const DateDifferenceCalculatorTool = dynamic(() => import('@/components/calculators/date-difference-calculator-tool').then(mod => mod.DateDifferenceCalculatorTool));
+const PregnancyCalculatorTool = dynamic(() => import('@/components/calculators/pregnancy-calculator-tool').then(mod => mod.PregnancyCalculatorTool));
+const CaloriesCalculatorTool = dynamic(() => import('@/components/calculators/calories-calculator-tool').then(mod => mod.CaloriesCalculatorTool));
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
 import { calculatorTools } from '@/lib/calculator-tools';
 

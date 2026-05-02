@@ -1,14 +1,15 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { type ComponentType, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ImageDropZone } from './converters/image-drop-zone';
-import { ImageCompressorTool } from './converters/image-compressor-tool';
-import { ImageResizerTool } from './converters/image-resizer-tool';
-import { ImageFormatConverterTool } from './converters/image-format-converter-tool';
-import { ImageCropperTool } from './converters/image-cropper-tool';
-import { ImageToolShell } from './converters/image-tool-shell';
+
+const ImageCompressorTool = dynamic(() => import('./converters/image-compressor-tool').then(mod => mod.ImageCompressorTool));
+const ImageResizerTool = dynamic(() => import('./converters/image-resizer-tool').then(mod => mod.ImageResizerTool));
+const ImageFormatConverterTool = dynamic(() => import('./converters/image-format-converter-tool').then(mod => mod.ImageFormatConverterTool));
+const ImageCropperTool = dynamic(() => import('./converters/image-cropper-tool').then(mod => mod.ImageCropperTool));
+const ImageToolShell = dynamic(() => import('./converters/image-tool-shell').then(mod => mod.ImageToolShell));
 import { imageTools } from '@/lib/image-tools';
 import { getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
 

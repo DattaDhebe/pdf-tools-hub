@@ -116,7 +116,7 @@ export default function PdfToolsPage() {
       <section className="mx-auto max-w-[1600px] px-4 pb-16 pt-8 xl:px-6">
         <div className="grid gap-8">
           <div className="theme-panel rounded-[2rem] border p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-800 dark:text-purple-400">
               Online PDF Tools
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight theme-title sm:text-4xl">
@@ -191,7 +191,7 @@ export default function PdfToolsPage() {
           </div>
 
           <section className="theme-panel rounded-[2rem] border p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-800 dark:text-cyan-400">
               FAQ
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight theme-title">

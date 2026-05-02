@@ -10,15 +10,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div>
             <Link href="/" prefetch={false} className="block transition hover:opacity-80">
-              <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
-                <Image
-                  src="/logo-optimized.svg"
-                  alt="DHEBE Studios"
-                  width={800}
-                  height={200}
-                  className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
-                />
-              </div>
+              <Image
+                src="/logo-optimized.svg"
+                alt="DHEBE Studios"
+                width={200}
+                height={50}
+                className="h-10 w-auto"
+              />
               <span className="sr-only">DHEBE Studios</span>
             </Link>
             <p className="mt-3 text-sm theme-muted">

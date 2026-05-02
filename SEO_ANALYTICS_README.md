@@ -75,7 +75,7 @@ DHEBE Studios implements comprehensive SEO and analytics strategies across all s
 ```typescript
 openGraph: {
   type: 'website',
-  url: 'https://dhebe.com/base64-studio',
+  url: 'https://www.dhebe.com/base64-studio',
   siteName: 'DHEBE Studios',
   title: 'Base64 Studio - Free Online Encoder & Decoder',
   description: '...',
@@ -112,7 +112,7 @@ openGraph: {
 - WebSite (with SearchAction)
 - Organization (with ContactPoint)
 
-**Canonical:** https://dhebe.com
+**Canonical:** https://www.dhebe.com
 
 ---
 
@@ -136,7 +136,7 @@ openGraph: {
 - FAQPage (3 common questions)
 - BreadcrumbList
 
-**Canonical:** https://dhebe.com/base64-studio
+**Canonical:** https://www.dhebe.com/base64-studio
 
 ---
 
@@ -160,7 +160,7 @@ openGraph: {
 - SoftwareApplication (3 features)
 - BreadcrumbList
 
-**Canonical:** https://dhebe.com/pdf-studio
+**Canonical:** https://www.dhebe.com/pdf-studio
 
 ---
 
@@ -180,7 +180,7 @@ openGraph: {
 - WebApplication
 - BreadcrumbList
 
-**Canonical:** https://dhebe.com/email-studio
+**Canonical:** https://www.dhebe.com/email-studio
 
 ---
 
@@ -191,10 +191,10 @@ openGraph: {
 {
   "@type": "WebSite",
   "name": "DHEBE Studios",
-  "url": "https://dhebe.com",
+  "url": "https://www.dhebe.com",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://dhebe.com/?q={search_term_string}",
+    "target": "https://www.dhebe.com/?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }
@@ -221,7 +221,7 @@ openGraph: {
 {
   "@type": "Organization",
   "name": "DHEBE Studios",
-  "url": "https://dhebe.com",
+  "url": "https://www.dhebe.com",
   "email": "support@dhebe.com",
   "contactPoint": {
     "@type": "ContactPoint",
@@ -257,13 +257,13 @@ openGraph: {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://dhebe.com"
+      "item": "https://www.dhebe.com"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Base64 Studio",
-      "item": "https://dhebe.com/base64-studio"
+      "item": "https://www.dhebe.com/base64-studio"
     }
   ]
 }
@@ -279,7 +279,7 @@ Allow: /
 Disallow: /api/
 Disallow: /.next/
 
-Sitemap: https://dhebe.com/sitemap.xml
+Sitemap: https://www.dhebe.com/sitemap.xml
 ```
 
 ---
@@ -376,11 +376,11 @@ headers: [
 
 | Page | Canonical |
 |------|-----------|
-| Home | https://dhebe.com |
-| Base64 Studio | https://dhebe.com/base64-studio |
-| PDF Studio | https://dhebe.com/pdf-studio |
-| Email Studio | https://dhebe.com/email-studio |
-| Base64 Tools | https://dhebe.com/tools/[slug] |
+| Home | https://www.dhebe.com |
+| Base64 Studio | https://www.dhebe.com/base64-studio |
+| PDF Studio | https://www.dhebe.com/pdf-studio |
+| Email Studio | https://www.dhebe.com/email-studio |
+| Base64 Tools | https://www.dhebe.com/tools/[slug] |
 
 ---
 
@@ -399,9 +399,9 @@ headers: [
 ## 🔍 Search Console Integration
 
 **Setup Steps:**
-1. Add property: https://dhebe.com
+1. Add property: https://www.dhebe.com
 2. Verify ownership via DNS TXT record
-3. Submit sitemap: https://dhebe.com/sitemap.xml
+3. Submit sitemap: https://www.dhebe.com/sitemap.xml
 4. Monitor crawl errors
 5. Check mobile usability
 

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from 'next/link';
 
@@ -65,7 +65,7 @@ const studios = [
     accent: 'bg-rose-100 text-rose-700',
     dot: 'bg-rose-500',
     features: ['Compress and resize', 'Background removal', 'Format conversion'],
-    cta: 'Open Image Studio',
+    cta: 'Open Img Studio',
     initials: 'IM',
   },
 ] as const;
@@ -79,7 +79,7 @@ export function StudiosHub() {
         <div className="mb-10 rounded-[2.25rem] border p-6 theme-panel sm:p-8">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1.05fr)_minmax(19rem,0.95fr)] xl:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
                 Studio Directory
               </p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight theme-title sm:text-5xl">
@@ -126,7 +126,7 @@ export function StudiosHub() {
             <div className="rounded-[1.9rem] border bg-[var(--app-card)] p-6 shadow-sm">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-700">
                     Featured Workspace
                   </p>
                   <h2 className="mt-3 text-2xl font-bold theme-title">{featuredStudio.name}</h2>

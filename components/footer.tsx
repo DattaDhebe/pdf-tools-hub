@@ -12,10 +12,10 @@ export function Footer() {
             <Link href="/" className="block transition hover:opacity-80">
               <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
                 <Image
-                  src="/logo4.png"
+                  src="/logo-optimized.svg"
                   alt="DHEBE Studios"
-                  width={640}
-                  height={180}
+                  width={800}
+                  height={200}
                   className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
                 />
               </div>

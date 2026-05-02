@@ -27,14 +27,17 @@ export const metadata: Metadata = {
     'free tools',
     'dhebe studios',
   ],
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       {
-        url: '/logo4.png',
-        type: 'image/png',
+        url: '/logo.svg',
+        type: 'image/svg+xml',
       },
     ],
-    apple: '/logo4.png',
+    apple: '/logo.svg',
   },
   authors: [{ name: 'DHEBE Teams', url: siteRoute('/') }],
   creator: 'DHEBE',
@@ -96,7 +99,7 @@ export default function RootLayout({
             "@type":"Organization",
             "name":"${SITE_NAME}",
             "url":"${siteRoute('/')}",
-            "logo":"${siteAsset('/logo4.png')}",
+            "logo":"${siteAsset('/logo-optimized.svg')}",
             "sameAs":["https://twitter.com/dhebestudios"]
           }`}
         </Script>

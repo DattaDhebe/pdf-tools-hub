@@ -104,6 +104,8 @@ export default function RootLayout({
           }`}
         </Script>
 
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1">{children}</main>

@@ -5,25 +5,25 @@ import { SITE_NAME, siteRoute } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Circle Calculator - Calculate Area, Circumference & Diameter',
   description:
-    'Free circle calculator to calculate area, circumference, diameter, and radius online with instant results.',
+    'Free circle calculator to calculate area, circumference, diameter, and radius online.',
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: siteRoute('/tools/circle/'),
+    canonical: 'https://www.dhebe.com/tools/circle/',
   },
   openGraph: {
     title: 'Circle Calculator - Area, Circumference & Diameter | DHEBE',
-    description: 'Calculate circle area, circumference, diameter, and radius online with instant results.',
-    url: siteRoute('/tools/circle/'),
+    description: 'Free circle calculator to calculate area, circumference, diameter, and radius online.',
+    url: 'https://www.dhebe.com/tools/circle/',
     type: 'website',
     siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Circle Calculator - Area, Circumference & Diameter',
-    description: 'Calculate circle area, circumference, diameter, and radius online with instant results.',
+    description: 'Free circle calculator to calculate area, circumference, diameter, and radius online.',
   },
 };
 

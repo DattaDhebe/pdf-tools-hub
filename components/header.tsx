@@ -10,13 +10,13 @@ export function Header() {
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-3 px-3 sm:gap-6 sm:px-4">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 transition hover:opacity-80">
-            <div className="relative h-12 w-[12rem] overflow-visible sm:h-14 sm:w-[14rem]">
+            <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
               <Image
-                src="/logo-optimized.svg"
+                src="/logo4-optimized.webp"
                 alt="DHEBE Studios"
-                width={280}
-                height={70}
-                className="absolute left-0 top-1/2 h-16 w-auto -translate-y-1/2 object-contain object-left sm:h-20"
+                width={800}
+                height={200}
+                className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
                 priority
               />
             </div>
@@ -27,22 +27,22 @@ export function Header() {
         <nav aria-label="Primary" className="hidden flex-1 sm:block">
           <ul className="flex items-center justify-center gap-4 text-sm">
             <li>
-              <Link href="/base64-converter" className="hover:underline">Base64 Converter</Link>
+              <Link href="/base64-converter" className="hover:underline" prefetch={false}>Base64 Converter</Link>
             </li>
             <li>
-              <Link href="/pdf-studio" className="hover:underline">PDF Studio</Link>
+              <Link href="/pdf-studio" className="hover:underline" prefetch={false}>PDF Studio</Link>
             </li>
             <li>
-              <Link href="/image-studio" className="hover:underline">Image Studio</Link>
+              <Link href="/image-studio" className="hover:underline" prefetch={false}>Image Studio</Link>
             </li>
             <li>
-              <Link href="/calculator-studio" className="hover:underline">Calculator Studio</Link>
+              <Link href="/calculator-studio" className="hover:underline" prefetch={false}>Calculator Studio</Link>
             </li>
             <li>
-              <Link href="/email-template-editor" className="hover:underline">Email Editor</Link>
+              <Link href="/email-template-editor" className="hover:underline" prefetch={false}>Email Editor</Link>
             </li>
             <li>
-              <Link href="/support" className="hover:underline">Support</Link>
+              <Link href="/support" className="hover:underline" prefetch={false}>Support</Link>
             </li>
           </ul>
         </nav>
@@ -55,32 +55,32 @@ export function Header() {
       <nav aria-label="Mobile Primary" className="border-t border-[var(--app-panel-border)] px-3 py-2 sm:hidden">
         <ul className="flex gap-2 overflow-x-auto pb-1 text-xs whitespace-nowrap">
           <li>
-            <Link href="/base64-converter" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/base64-converter" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Base64
             </Link>
           </li>
           <li>
-            <Link href="/pdf-studio" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/pdf-studio" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               PDF
             </Link>
           </li>
           <li>
-            <Link href="/image-studio" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/image-studio" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Images
             </Link>
           </li>
           <li>
-            <Link href="/calculator-studio" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/calculator-studio" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Calculators
             </Link>
           </li>
           <li>
-            <Link href="/email-template-editor" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/email-template-editor" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Email
             </Link>
           </li>
           <li>
-            <Link href="/support" className="theme-card block rounded-full border px-3 py-1.5">
+            <Link href="/support" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Support
             </Link>
           </li>

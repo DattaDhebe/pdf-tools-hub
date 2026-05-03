@@ -179,7 +179,7 @@ export function StudiosHub() {
                 >
                   {studio.initials}
                 </div>
-                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
                   Live
                 </span>
               </div>
@@ -217,7 +217,7 @@ export function StudiosHub() {
           <h3 className="mb-8 text-center text-2xl font-bold theme-title">Why Choose DHEBE Studios?</h3>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="text-center">
-              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
                 <span className="text-lg">S</span>
               </div>
               <h4 className="mb-2 font-semibold theme-title">100% Private</h4>
@@ -226,14 +226,14 @@ export function StudiosHub() {
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 text-cyan-700">
+              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400">
                 <span className="text-lg">Z</span>
               </div>
               <h4 className="mb-2 font-semibold theme-title">Lightning Fast</h4>
               <p className="text-sm theme-muted">No server delays. Process files instantly on your own device.</p>
             </div>
             <div className="text-center">
-              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+              <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
                 <span className="text-lg">*</span>
               </div>
               <h4 className="mb-2 font-semibold theme-title">Always Free</h4>

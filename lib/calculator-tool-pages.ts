@@ -728,15 +728,15 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'circle',
-    path: '/tools/circle',
+    path: '/tools/circle/',
     id: 'circle',
     label: 'Circle Calculator',
     description: 'Calculate circle area, circumference, diameter, and radius online.',
     longDescription:
-      'Free circle calculator to calculate area, circumference, diameter, and radius online with instant results.',
+      'Free circle calculator to calculate area, circumference, diameter, and radius online.',
     seoTitle: 'Circle Calculator - Calculate Area, Circumference & Diameter',
     metaDescription:
-      'Free circle calculator to calculate area, circumference, diameter, and radius online with instant results.',
+      'Free circle calculator to calculate area, circumference, diameter, and radius online.',
     keywords: [
       'circle calculator',
       'calculate circle area',

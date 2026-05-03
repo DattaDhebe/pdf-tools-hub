@@ -10,13 +10,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div>
             <Link href="/" className="block transition hover:opacity-80">
-              <div className="relative h-12 w-[12rem] overflow-visible sm:h-14 sm:w-[14rem]">
+              <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
                 <Image
-                  src="/logo-optimized.svg"
+                  src="/logo4-optimized.webp"
                   alt="DHEBE Studios"
-                  width={280}
-                  height={70}
-                  className="absolute left-0 top-1/2 h-16 w-auto -translate-y-1/2 object-contain object-left sm:h-20"
+                  width={800}
+                  height={200}
+                  className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
                 />
               </div>
               <span className="sr-only">DHEBE Studios</span>

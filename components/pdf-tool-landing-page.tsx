@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import type { PdfSeoPage } from '@/lib/pdf-seo-pages';
 import type { PdfToolPageEntry } from '@/lib/pdf-tools-pages';
 import { getPdfToolPageById, getPdfToolPath } from '@/lib/pdf-tools-pages';
@@ -44,34 +45,18 @@ export function PdfToolLandingPage({ tool, seoPage }: PdfToolLandingPageProps) {
           },
         })),
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'PDF Tools',
-            item: siteRoute('/pdf-tools'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: tool.label,
-            item: siteRoute(getPdfToolPath(tool)),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'PDF Studio', item: '/pdf-studio' },
+          { name: tool.label, item: getPdfToolPath(tool) },
+        ]}
+      />
       <Script
         id={`pdf-tool-structured-data-${tool.id}`}
         type="application/ld+json"

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { Base64Workbench } from '@/components/base64-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import {
   type Base64ToolPageEntry,
   getBase64ToolPageBySlug,
@@ -44,24 +45,6 @@ export function Base64ToolLandingPage({ tool }: Base64ToolLandingPageProps) {
           },
         })),
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: siteRoute('/') },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Base64 Converter',
-            item: siteRoute('/base64-converter'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: tool.label,
-            item: siteRoute(tool.path),
-          },
-        ],
-      },
     ],
   };
 
@@ -71,6 +54,13 @@ export function Base64ToolLandingPage({ tool }: Base64ToolLandingPageProps) {
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Base64 Converter', item: '/base64-converter' },
+          { name: tool.label, item: tool.path },
+        ]}
+      />
       <Script
         id={`base64-tool-structured-data-${tool.slug}`}
         type="application/ld+json"

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { CircleCalculatorTool } from '@/components/calculators/circle-calculator-tool';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -29,7 +30,15 @@ export const metadata: Metadata = {
 
 export default function CirclePage() {
   return (
-    <main className="theme-page-home min-h-screen px-4 py-16 text-[var(--app-text)] transition-colors duration-200">
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Calculator Studio', item: '/calculator-studio' },
+          { name: 'Circle Calculator', item: '/tools/circle/' },
+        ]}
+      />
+      <main className="theme-page-home min-h-screen px-4 py-16 text-[var(--app-text)] transition-colors duration-200">
       <div className="mx-auto max-w-4xl">
         <section className="mb-12 rounded-[2rem] border p-8 theme-panel text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">

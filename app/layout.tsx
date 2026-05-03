@@ -99,7 +99,7 @@ export default function RootLayout({
             "@type":"Organization",
             "name":"${SITE_NAME}",
             "url":"${siteRoute('/')}",
-            "logo":"${siteAsset('/logo-optimized.svg')}",
+            "logo":"${siteAsset('/logo4-optimized.webp')}",
             "sameAs":["https://twitter.com/dhebestudios"]
           }`}
         </Script>

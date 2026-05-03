@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SupportClient } from '@/components/support-client';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { SITE_NAME, SUPPORT_EMAIL, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -74,5 +75,15 @@ export default function SupportPage() {
     ],
   };
 
-  return <SupportClient structuredData={structuredData} />;
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Support', item: '/support' },
+        ]}
+      />
+      <SupportClient structuredData={structuredData} />
+    </>
+  );
 }

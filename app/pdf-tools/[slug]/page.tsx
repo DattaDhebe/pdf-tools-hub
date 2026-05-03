@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
 import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { buildPdfToolMetadata } from '@/lib/pdf-seo-pages';
 import { getPdfToolPageBySlug, getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
 import { siteRoute } from '@/lib/site';
@@ -75,34 +76,18 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
           priceCurrency: 'USD',
         },
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'PDF Studio',
-            item: siteRoute('/pdf-studio'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: tool.label,
-            item: siteRoute(targetPath),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'PDF Studio', item: '/pdf-studio' },
+          { name: tool.label, item: targetPath },
+        ]}
+      />
       <Script
         id={`pdf-tool-structured-data-${tool.slug}`}
         type="application/ld+json"

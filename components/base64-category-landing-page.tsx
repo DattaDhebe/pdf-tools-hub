@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { Base64Workbench } from '@/components/base64-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import {
   type Base64CategoryView,
   getBase64CategoryPage,
@@ -49,23 +50,6 @@ export function Base64CategoryLandingPage({ view }: Base64CategoryLandingPagePro
           },
         })),
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: siteRoute('/') },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name:
-              view === 'all'
-                ? 'Base64 Converter'
-                : view === 'converter'
-                  ? 'Base64 Encoder'
-                  : 'Base64 Decoder',
-            item: siteRoute(page.path),
-          },
-        ],
-      },
     ],
   };
 
@@ -76,6 +60,20 @@ export function Base64CategoryLandingPage({ view }: Base64CategoryLandingPagePro
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          {
+            name:
+              view === 'all'
+                ? 'Base64 Converter'
+                : view === 'converter'
+                  ? 'Base64 Encoder'
+                  : 'Base64 Decoder',
+            item: page.path,
+          },
+        ]}
+      />
       <Script
         id={`base64-category-structured-data-${view}`}
         type="application/ld+json"

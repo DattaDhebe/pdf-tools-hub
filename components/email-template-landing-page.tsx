@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { EmailStudioClient } from '@/components/email-studio-client';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import {
   emailTemplateEditorBenefits,
   emailTemplateEditorFaqs,
@@ -42,23 +43,17 @@ export function EmailTemplateLandingPage() {
           },
         })),
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: siteRoute('/') },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Email Template Editor',
-            item: siteRoute(emailTemplateEditorPath),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Email Template Editor', item: emailTemplateEditorPath },
+        ]}
+      />
       <Script
         id="email-template-editor-structured-data"
         type="application/ld+json"

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { LegacyRedirectPage } from '@/components/legacy-redirect-page';
 import { ImageToolsWorkbench } from '@/components/image-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { getImageToolPageBySlug, getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
 import { SITE_NAME, siteRoute } from '@/lib/site';
 
@@ -90,34 +91,18 @@ export default async function ImageToolPage({ params }: ImageToolPageProps) {
           priceCurrency: 'USD',
         },
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Image Studio',
-            item: siteRoute('/image-studio'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: tool.label,
-            item: siteRoute(targetPath),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Image Studio', item: '/image-studio' },
+          { name: tool.label, item: targetPath },
+        ]}
+      />
       <Script
         id={`image-tool-structured-data-${tool.slug}`}
         type="application/ld+json"

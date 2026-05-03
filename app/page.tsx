@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { StudiosHub } from '@/components/studios-hub';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import Script from 'next/script';
 import { SITE_NAME, SUPPORT_EMAIL, siteRoute } from '@/lib/site';
 
@@ -69,6 +70,11 @@ export default function Home() {
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+        ]}
+      />
       <Script
         id="home-structured-data"
         type="application/ld+json"

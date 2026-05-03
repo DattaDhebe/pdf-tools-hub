@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PdfToolsWorkbench } from '@/components/pdf-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import Link from 'next/link';
 import Script from 'next/script';
 import { getPdfToolPath, pdfToolPages } from '@/lib/pdf-tools-pages';
@@ -107,34 +108,17 @@ export default function PdfStudioPage() {
           },
         ],
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Studios',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: 'PDF Studio',
-            item: siteRoute('/pdf-studio'),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'PDF Studio', item: '/pdf-studio' },
+        ]}
+      />
       <Script
         id="pdf-studio-structured-data"
         type="application/ld+json"

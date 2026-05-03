@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { CalculatorToolsWorkbench } from '@/components/calculator-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import type { CalculatorToolPageEntry } from '@/lib/calculator-tool-pages';
 import { siteRoute } from '@/lib/site';
 
@@ -36,34 +37,18 @@ export function CalculatorLandingPage({ tool }: CalculatorLandingPageProps) {
           },
         })),
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Calculator Studio',
-            item: siteRoute('/calculator-studio'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: tool.label,
-            item: siteRoute(tool.path),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Calculator Studio', item: '/calculator-studio' },
+          { name: tool.label, item: tool.path },
+        ]}
+      />
       <Script
         id={`calculator-tool-structured-data-${tool.slug}`}
         type="application/ld+json"

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Script from 'next/script';
 import { CalculatorToolsWorkbench } from '@/components/calculator-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { calculatorToolPages } from '@/lib/calculator-tool-pages';
 import { calculatorTools } from '@/lib/calculator-tools';
 import { SITE_NAME, siteRoute } from '@/lib/site';
@@ -95,28 +96,17 @@ export default function CalculatorStudioPage() {
           },
         ],
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Calculator Studio',
-            item: siteRoute('/calculator-studio'),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Calculator Studio', item: '/calculator-studio' },
+        ]}
+      />
       <Script
         id="calculator-studio-structured-data"
         type="application/ld+json"

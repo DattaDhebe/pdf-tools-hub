@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ImageToolsWorkbench } from '@/components/image-tools-workbench';
+import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import Link from 'next/link';
 import Script from 'next/script';
 import { getImageToolPath, imageToolPages } from '@/lib/image-tools-pages';
@@ -89,34 +90,17 @@ export default function ImageStudioPage() {
           },
         ],
       },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Studios',
-            item: siteRoute('/'),
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: 'Image Studio',
-            item: siteRoute('/image-studio'),
-          },
-        ],
-      },
     ],
   };
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Image Studio', item: '/image-studio' },
+        ]}
+      />
       <Script
         id="image-studio-structured-data"
         type="application/ld+json"

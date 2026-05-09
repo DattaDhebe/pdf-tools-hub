@@ -79,6 +79,40 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <style dangerouslySetInnerHTML={{ __html: `
+          :root {
+            --app-bg: #fffaf5;
+            --app-text: #020617;
+          }
+          [data-theme='dark'] {
+            --app-bg: #020617;
+            --app-text: #e2e8f0;
+          }
+          body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--app-bg);
+            color: var(--app-text);
+            font-family: "Segoe UI", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+          }
+          .theme-page-home {
+            background: radial-gradient(circle at top left, rgba(249,115,22,0.18), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),
+                        linear-gradient(180deg, #fffaf5 0%, #fff7ed 38%, #fffdf8 100%);
+          }
+          [data-theme='dark'] .theme-page-home {
+            background: radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(249,115,22,0.12), transparent 30%),
+                        linear-gradient(180deg, #020617 0%, #0f172a 52%, #020617 100%);
+          }
+        `}} />
+      </head>
       <body>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-D9BJ344ZDV"
@@ -106,10 +140,6 @@ export default function RootLayout({
           }`}
         </Script>
 
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1">{children}</main>

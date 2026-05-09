@@ -17,7 +17,6 @@ export function Header() {
                 className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <span className="sr-only">DHEBE Studios</span>

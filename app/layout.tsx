@@ -88,38 +88,26 @@ export default function RootLayout({
           :root {
             --app-bg: #fffaf5;
             --app-text: #020617;
+            --app-title: #020617;
           }
           [data-theme='dark'] {
             --app-bg: #020617;
             --app-text: #e2e8f0;
+            --app-title: #f8fafc;
           }
           body {
             margin: 0;
             padding: 0;
             background-color: var(--app-bg);
             color: var(--app-text);
-            font-family: "Segoe UI", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+            font-family: system-ui, -apple-system, sans-serif;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
           }
-          .theme-page-home {
-            background: radial-gradient(circle at top left, rgba(249,115,22,0.18), transparent 28%),
-                        radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),
-                        linear-gradient(180deg, #fffaf5 0%, #fff7ed 38%, #fffdf8 100%);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-          }
-          [data-theme='dark'] .theme-page-home {
-            background: radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 28%),
-                        radial-gradient(circle at bottom right, rgba(249,115,22,0.12), transparent 30%),
-                        linear-gradient(180deg, #020617 0%, #0f172a 52%, #020617 100%);
-          }
+          .theme-title { color: var(--app-title); }
           h1 {
             font-weight: 700;
             letter-spacing: -0.025em;
+            margin: 0;
           }
         `}} />
       </head>

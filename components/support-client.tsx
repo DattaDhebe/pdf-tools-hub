@@ -46,18 +46,21 @@ export function SupportClient({ structuredData }: SupportClientProps) {
               <Link
                 href="/base64-converter"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
+                prefetch={false}
               >
                 Open Base64 Converter
               </Link>
               <Link
                 href="/pdf-studio"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
+                prefetch={false}
               >
                 Open PDF Studio
               </Link>
               <Link
                 href="/email-template-editor"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
+                prefetch={false}
               >
                 Open Email Template Editor
               </Link>

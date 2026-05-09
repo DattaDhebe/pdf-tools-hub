@@ -1,4 +1,4 @@
-export const emailTemplateEditorPath = '/email-template-editor';
+export const emailTemplateEditorPath = '/email-template-editor/';
 
 export const emailTemplateEditorSeoTitle =
   'Email Template Editor - Create HTML Email Templates Online';

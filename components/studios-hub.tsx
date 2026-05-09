@@ -7,7 +7,7 @@ const studios = [
     name: 'Email Template Editor',
     description:
       'Create professional responsive HTML emails with drag-and-drop editing, live preview, and export-ready code.',
-    href: '/email-template-editor',
+    href: '/email-template-editor/',
     accent: 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-400',
     dot: 'bg-sky-500',
     features: ['Drag and drop builder', 'Responsive preview', 'HTML export'],

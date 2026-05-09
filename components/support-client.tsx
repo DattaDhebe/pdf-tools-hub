@@ -58,7 +58,7 @@ export function SupportClient({ structuredData }: SupportClientProps) {
                 Open PDF Studio
               </Link>
               <Link
-                href="/email-template-editor"
+                href="/email-template-editor/"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
                 prefetch={false}
               >

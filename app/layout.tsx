@@ -100,25 +100,35 @@ export default function RootLayout({
             color: var(--app-text);
             font-family: "Segoe UI", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
           }
           .theme-page-home {
             background: radial-gradient(circle at top left, rgba(249,115,22,0.18), transparent 28%),
                         radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),
                         linear-gradient(180deg, #fffaf5 0%, #fff7ed 38%, #fffdf8 100%);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
           }
           [data-theme='dark'] .theme-page-home {
             background: radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 28%),
                         radial-gradient(circle at bottom right, rgba(249,115,22,0.12), transparent 30%),
                         linear-gradient(180deg, #020617 0%, #0f172a 52%, #020617 100%);
           }
+          h1 {
+            font-weight: 700;
+            letter-spacing: -0.025em;
+          }
         `}} />
       </head>
       <body>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-D9BJ344ZDV"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

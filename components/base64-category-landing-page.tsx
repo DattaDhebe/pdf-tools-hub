@@ -190,6 +190,7 @@ function ToolCard({ tool }: { tool: Base64ToolPageEntry }) {
     <Link
       href={getBase64ToolPath(tool)}
       className="rounded-[1.5rem] border p-5 theme-card-soft transition hover:-translate-y-1 hover:border-orange-300"
+      prefetch={false}
     >
       <p className="text-sm font-semibold theme-title">{tool.label}</p>
       <p className="mt-2 text-sm leading-6 theme-muted">{tool.description}</p>

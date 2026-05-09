@@ -164,6 +164,7 @@ function ImageToolLinkGroup({ title, accentClass, tools }: ImageToolLinkGroupPro
             key={tool.slug}
             href={getImageToolPath(tool)}
             className="theme-card-soft rounded-[1.5rem] border px-4 py-4 transition hover:border-[var(--app-card-border)] block"
+            prefetch={false}
           >
             <p className="text-sm font-semibold theme-title break-words">{tool.label}</p>
             <p className="mt-1 text-xs sm:text-sm leading-6 theme-muted break-words">{tool.description}</p>

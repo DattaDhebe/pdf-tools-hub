@@ -94,12 +94,14 @@ export function StudiosHub() {
                 <Link
                   href={featuredStudio.href}
                   className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 dark:bg-sky-500 dark:text-slate-950"
+                  prefetch={false}
                 >
                   Open Email Editor
                 </Link>
                 <Link
                   href="#all-studios"
                   className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-5 py-3 text-sm font-semibold theme-title transition hover:bg-white/70"
+                  prefetch={false}
                 >
                   Browse all studios
                 </Link>
@@ -170,6 +172,7 @@ export function StudiosHub() {
               key={studio.id}
               href={studio.href}
               className="group flex h-full min-h-[25rem] flex-col rounded-[1.9rem] border p-6 theme-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              prefetch={false}
             >
               <div className="flex items-start justify-between gap-4">
                 <div

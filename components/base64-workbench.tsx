@@ -1,28 +1,31 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Base64ToAudioDecoder } from '@/components/converters/base64-to-audio-decoder';
-import { Base64ToCssDecoder } from '@/components/converters/base64-to-css-decoder';
-import { Base64ToFileDecoder } from '@/components/converters/base64-to-file-decoder';
-import { Base64ToHexDecoder } from '@/components/converters/base64-to-hex-decoder';
-import { Base64ToHtmlDecoder } from '@/components/converters/base64-to-html-decoder';
-import { Base64ToImageDecoder } from '@/components/converters/base64-to-image-decoder';
-import { Base64ToPdfDecoder } from '@/components/converters/base64-to-pdf-decoder';
-import { Base64ToTextDecoder } from '@/components/converters/base64-to-text-decoder';
-import { Base64ToUrlDecoder } from '@/components/converters/base64-to-url-decoder';
-import { AudioToBase64Converter } from '@/components/converters/audio-to-base64-converter';
-import { ComingSoonConverter } from '@/components/converters/coming-soon-converter';
-import { CssToBase64Converter } from '@/components/converters/css-to-base64-converter';
-import { FileToBase64Converter } from '@/components/converters/file-to-base64-converter';
-import { HexToBase64Converter } from '@/components/converters/hex-to-base64-converter';
-import { HtmlToBase64Converter } from '@/components/converters/html-to-base64-converter';
-import { ImageToBase64Converter } from '@/components/converters/image-to-base64-converter';
-import { PdfToBase64Converter } from '@/components/converters/pdf-to-base64-converter';
-import { TextToBase64Converter } from '@/components/converters/text-to-base64-converter';
-import { UrlToBase64Converter } from '@/components/converters/url-to-base64-converter';
+import dynamic from 'next/dynamic';
 import { converterOptions } from '@/lib/converters';
 import { decoderOptions } from '@/lib/decoders';
 import Link from 'next/link';
+
+const AudioToBase64Converter = dynamic(() => import('@/components/converters/audio-to-base64-converter').then(mod => mod.AudioToBase64Converter), { loading: () => <div className="p-12 text-center theme-muted">Loading converter...</div> });
+const CssToBase64Converter = dynamic(() => import('@/components/converters/css-to-base64-converter').then(mod => mod.CssToBase64Converter));
+const FileToBase64Converter = dynamic(() => import('@/components/converters/file-to-base64-converter').then(mod => mod.FileToBase64Converter));
+const HexToBase64Converter = dynamic(() => import('@/components/converters/hex-to-base64-converter').then(mod => mod.HexToBase64Converter));
+const HtmlToBase64Converter = dynamic(() => import('@/components/converters/html-to-base64-converter').then(mod => mod.HtmlToBase64Converter));
+const ImageToBase64Converter = dynamic(() => import('@/components/converters/image-to-base64-converter').then(mod => mod.ImageToBase64Converter));
+const PdfToBase64Converter = dynamic(() => import('@/components/converters/pdf-to-base64-converter').then(mod => mod.PdfToBase64Converter));
+const TextToBase64Converter = dynamic(() => import('@/components/converters/text-to-base64-converter').then(mod => mod.TextToBase64Converter));
+const UrlToBase64Converter = dynamic(() => import('@/components/converters/url-to-base64-converter').then(mod => mod.UrlToBase64Converter));
+
+const Base64ToAudioDecoder = dynamic(() => import('@/components/converters/base64-to-audio-decoder').then(mod => mod.Base64ToAudioDecoder), { loading: () => <div className="p-12 text-center theme-muted">Loading decoder...</div> });
+const Base64ToCssDecoder = dynamic(() => import('@/components/converters/base64-to-css-decoder').then(mod => mod.Base64ToCssDecoder));
+const Base64ToFileDecoder = dynamic(() => import('@/components/converters/base64-to-file-decoder').then(mod => mod.Base64ToFileDecoder));
+const Base64ToHexDecoder = dynamic(() => import('@/components/converters/base64-to-hex-decoder').then(mod => mod.Base64ToHexDecoder));
+const Base64ToHtmlDecoder = dynamic(() => import('@/components/converters/base64-to-html-decoder').then(mod => mod.Base64ToHtmlDecoder));
+const Base64ToImageDecoder = dynamic(() => import('@/components/converters/base64-to-image-decoder').then(mod => mod.Base64ToImageDecoder));
+const Base64ToPdfDecoder = dynamic(() => import('@/components/converters/base64-to-pdf-decoder').then(mod => mod.Base64ToPdfDecoder));
+const Base64ToTextDecoder = dynamic(() => import('@/components/converters/base64-to-text-decoder').then(mod => mod.Base64ToTextDecoder));
+const Base64ToUrlDecoder = dynamic(() => import('@/components/converters/base64-to-url-decoder').then(mod => mod.Base64ToUrlDecoder));
+const ComingSoonConverter = dynamic(() => import('@/components/converters/coming-soon-converter').then(mod => mod.ComingSoonConverter));
 
 const implementedConverters = {
   audio: AudioToBase64Converter,

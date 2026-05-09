@@ -82,14 +82,16 @@ export default function RootLayout({
       <body>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-D9BJ344ZDV"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="lazyOnload">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-D9BJ344ZDV');
+            gtag('config', 'G-D9BJ344ZDV', {
+              page_path: window.location.pathname,
+            });
           `}
         </Script>
 
@@ -106,6 +108,8 @@ export default function RootLayout({
 
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1">{children}</main>

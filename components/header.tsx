@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { BrandLogo } from '@/components/brand-logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 export function Header() {
@@ -8,18 +8,7 @@ export function Header() {
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-3 px-3 sm:gap-6 sm:px-4">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 transition hover:opacity-80">
-            <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
-              <Image
-                src="/logo4-optimized.webp"
-                alt="DHEBE Studios"
-                width={800}
-                height={200}
-                className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
-                priority
-                fetchPriority="high"
-              />
-            </div>
-            <span className="sr-only">DHEBE Studios</span>
+            <BrandLogo eager />
           </Link>
         </div>
 

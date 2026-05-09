@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import './globals.css';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -74,13 +73,104 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: siteRoute('/'),
+    logo: siteAsset('/logo4-optimized.webp'),
+    sameAs: ['https://twitter.com/dhebestudios'],
+  };
+
+  const analyticsLoader = `
+    (function () {
+      if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true) {
+        return;
+      }
+
+      var analyticsId = 'G-D9BJ344ZDV';
+      var hasLoaded = false;
+
+      function trackPageView() {
+        if (!window.gtag) {
+          return;
+        }
+
+        window.gtag('config', analyticsId, {
+          page_path: window.location.pathname + window.location.search,
+        });
+      }
+
+      function hookNavigationTracking() {
+        if (window.__dhebeHistoryHooked) {
+          return;
+        }
+
+        window.__dhebeHistoryHooked = true;
+
+        var originalPushState = history.pushState;
+        var originalReplaceState = history.replaceState;
+
+        history.pushState = function () {
+          var result = originalPushState.apply(this, arguments);
+          trackPageView();
+          return result;
+        };
+
+        history.replaceState = function () {
+          var result = originalReplaceState.apply(this, arguments);
+          trackPageView();
+          return result;
+        };
+
+        window.addEventListener('popstate', trackPageView);
+      }
+
+      function loadAnalytics() {
+        if (hasLoaded) {
+          return;
+        }
+
+        hasLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + analyticsId;
+        document.head.appendChild(script);
+
+        window.gtag('js', new Date());
+        hookNavigationTracking();
+        trackPageView();
+      }
+
+      function scheduleAnalytics() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 5000 });
+          return;
+        }
+
+        window.setTimeout(loadAnalytics, 4000);
+      }
+
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (eventName) {
+        window.addEventListener(eventName, loadAnalytics, { once: true, passive: true });
+      });
+
+      if (document.readyState === 'complete') {
+        scheduleAnalytics();
+      } else {
+        window.addEventListener('load', scheduleAnalytics, { once: true });
+      }
+    })();
+  `;
+
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
             --app-bg: #fffaf5;
@@ -107,33 +197,19 @@ export default function RootLayout({
             margin: 0;
           }
         `}} />
+        {process.env.NODE_ENV === 'production' ? (
+          <script
+            id="analytics-loader"
+            dangerouslySetInnerHTML={{ __html: analyticsLoader }}
+          />
+        ) : null}
       </head>
       <body>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-D9BJ344ZDV"
-          strategy="lazyOnload"
+        <script
+          id="site-structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-D9BJ344ZDV', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
-
-        <Script id="site-structured-data" type="application/ld+json">
-          {`{
-            "@context":"https://schema.org",
-            "@type":"Organization",
-            "name":"${SITE_NAME}",
-            "url":"${siteRoute('/')}",
-            "logo":"${siteAsset('/logo4-optimized.webp')}",
-            "sameAs":["https://twitter.com/dhebestudios"]
-          }`}
-        </Script>
 
         <div className="min-h-screen flex flex-col">
           <Header />

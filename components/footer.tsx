@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { BrandLogo } from '@/components/brand-logo';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -10,17 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div>
             <Link href="/" className="block transition hover:opacity-80">
-              <div className="relative h-20 w-[18rem] overflow-visible sm:w-[22rem]">
-                <Image
-                  src="/logo4-optimized.webp"
-                  alt="DHEBE Studios"
-                  width={800}
-                  height={200}
-                  className="absolute left-0 top-1/2 h-40 w-auto max-w-none -translate-y-1/2 object-contain object-left sm:h-48"
-                  loading="lazy"
-                />
-              </div>
-              <span className="sr-only">DHEBE Studios</span>
+              <BrandLogo />
             </Link>
             <p className="mt-3 text-sm theme-muted">
               Free online tools for Base64, PDF, calculators, and email. 100% client-side and privacy-first.

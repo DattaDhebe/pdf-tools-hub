@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import { siteRoute } from '@/lib/site';
 
 export interface BreadcrumbItem {
@@ -23,7 +22,7 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
   };
 
   return (
-    <Script
+    <script
       id={`breadcrumb-schema-${items[items.length - 1].name.toLowerCase().replace(/\s+/g, '-')}`}
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

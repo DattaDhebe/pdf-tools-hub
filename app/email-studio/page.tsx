@@ -9,16 +9,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteRoute(emailTemplateEditorPath),
   },
-  robots: {
-    index: false,
-    follow: true,
-    googleBot: {
-      index: false,
-      follow: true,
-    },
-  },
 };
 
 export default function LegacyEmailStudioPage() {
-  return <LegacyRedirectPage href={emailTemplateEditorPath} label="Email Template Editor" />;
+  const targetPath = emailTemplateEditorPath.endsWith('/') ? emailTemplateEditorPath : `${emailTemplateEditorPath}/`;
+  return <LegacyRedirectPage href={targetPath} label="Email Template Editor" />;
 }

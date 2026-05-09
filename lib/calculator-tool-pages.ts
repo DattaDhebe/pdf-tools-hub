@@ -35,7 +35,7 @@ export interface CalculatorToolPageEntry {
 export const calculatorToolPages: CalculatorToolPageEntry[] = [
   {
     slug: 'age-calculator',
-    path: '/age-calculator',
+    path: '/age-calculator/',
     id: 'age',
     label: 'Age Calculator',
     description: 'Calculate exact age in years, months, weeks, and days online.',
@@ -131,7 +131,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'bmi-calculator',
-    path: '/bmi-calculator',
+    path: '/bmi-calculator/',
     id: 'bmi',
     label: 'BMI Calculator',
     description: 'Calculate BMI online with metric or imperial units.',
@@ -223,7 +223,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'percentage-calculator',
-    path: '/percentage-calculator',
+    path: '/percentage-calculator/',
     id: 'percentage',
     label: 'Percentage Calculator',
     description: 'Calculate percentages, percent change, and ratios online.',
@@ -319,7 +319,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'emi-calculator',
-    path: '/emi-calculator',
+    path: '/emi-calculator/',
     id: 'emi',
     label: 'EMI Calculator',
     description: 'Calculate monthly EMI, interest, and total loan repayment online.',
@@ -422,7 +422,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'sip-calculator',
-    path: '/sip-calculator',
+    path: '/sip-calculator/',
     id: 'sip',
     label: 'SIP Calculator',
     description: 'Calculate SIP returns and maturity value online.',
@@ -527,7 +527,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'gst-calculator',
-    path: '/gst-calculator',
+    path: '/gst-calculator/',
     id: 'gst',
     label: 'GST Calculator',
     description: 'Add or remove GST online with CGST and SGST breakup.',
@@ -631,7 +631,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'loan-calculator',
-    path: '/loan-calculator',
+    path: '/loan-calculator/',
     id: 'loan',
     label: 'Loan Calculator',
     description: 'Calculate loan interest, total cost, and payoff schedule.',
@@ -666,7 +666,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'salary-calculator',
-    path: '/salary-calculator',
+    path: '/salary-calculator/',
     id: 'salary',
     label: 'Salary Calculator',
     description: 'Calculate net take-home pay after tax and deductions.',
@@ -686,7 +686,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'date-difference-calculator',
-    path: '/date-difference-calculator',
+    path: '/date-difference-calculator/',
     id: 'date-diff',
     label: 'Date Difference',
     description: 'Find the number of days between any two dates.',
@@ -700,7 +700,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'pregnancy-due-date-calculator',
-    path: '/pregnancy-due-date-calculator',
+    path: '/pregnancy-due-date-calculator/',
     id: 'pregnancy',
     label: 'Pregnancy Due Date',
     description: 'Calculate your estimated baby delivery date.',
@@ -714,7 +714,7 @@ export const calculatorToolPages: CalculatorToolPageEntry[] = [
   },
   {
     slug: 'calories-calculator',
-    path: '/calories-calculator',
+    path: '/calories-calculator/',
     id: 'calories',
     label: 'Calories Calculator',
     description: 'Estimate daily calorie needs based on activity.',

@@ -26,22 +26,22 @@ export function Header() {
         <nav aria-label="Primary" className="hidden flex-1 sm:block">
           <ul className="flex items-center justify-center gap-4 text-sm">
             <li>
-              <Link href="/base64-converter" className="hover:underline" prefetch={false}>Base64 Converter</Link>
+              <Link href="/base64-converter/" className="hover:underline" prefetch={false}>Base64 Converter</Link>
             </li>
             <li>
-              <Link href="/pdf-studio" className="hover:underline" prefetch={false}>PDF Studio</Link>
+              <Link href="/pdf-studio/" className="hover:underline" prefetch={false}>PDF Studio</Link>
             </li>
             <li>
-              <Link href="/image-studio" className="hover:underline" prefetch={false}>Image Studio</Link>
+              <Link href="/image-studio/" className="hover:underline" prefetch={false}>Image Studio</Link>
             </li>
             <li>
-              <Link href="/calculator-studio" className="hover:underline" prefetch={false}>Calculator Studio</Link>
+              <Link href="/calculator-studio/" className="hover:underline" prefetch={false}>Calculator Studio</Link>
             </li>
             <li>
-              <Link href="/email-template-editor" className="hover:underline" prefetch={false}>Email Editor</Link>
+              <Link href="/email-template-editor/" className="hover:underline" prefetch={false}>Email Editor</Link>
             </li>
             <li>
-              <Link href="/support" className="hover:underline" prefetch={false}>Support</Link>
+              <Link href="/support/" className="hover:underline" prefetch={false}>Support</Link>
             </li>
           </ul>
         </nav>
@@ -54,32 +54,32 @@ export function Header() {
       <nav aria-label="Mobile Primary" className="border-t border-[var(--app-panel-border)] px-3 py-2 sm:hidden">
         <ul className="flex gap-2 overflow-x-auto pb-1 text-xs whitespace-nowrap">
           <li>
-            <Link href="/base64-converter" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
+            <Link href="/base64-converter/" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Base64
             </Link>
           </li>
           <li>
-            <Link href="/pdf-studio" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
+            <Link href="/pdf-studio/" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               PDF
             </Link>
           </li>
           <li>
-            <Link href="/image-studio" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
+            <Link href="/image-studio/" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Images
             </Link>
           </li>
           <li>
-            <Link href="/calculator-studio" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
+            <Link href="/calculator-studio/" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Calculators
             </Link>
           </li>
           <li>
-            <Link href="/email-template-editor" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
+            <Link href="/email-template-editor/" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Email
             </Link>
           </li>
           <li>
-            <Link href="/support" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
+            <Link href="/support/" className="theme-card block rounded-full border px-3 py-1.5" prefetch={false}>
               Support
             </Link>
           </li>

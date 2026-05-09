@@ -30,17 +30,17 @@ export function Footer() {
           <div>
             <h2 className="mb-2 text-base font-semibold">Tools</h2>
             <ul className="space-y-1 text-sm">
-              <li><Link href="/pdf-tools" className="hover:underline" prefetch={false}>PDF Tools</Link></li>
-              <li><Link href="/base64-converter" className="hover:underline" prefetch={false}>Base64 Converter</Link></li>
-              <li><Link href="/calculator-studio" className="hover:underline" prefetch={false}>Calculator Studio</Link></li>
-              <li><Link href="/email-template-editor" className="hover:underline" prefetch={false}>Email Template Editor</Link></li>
+              <li><Link href="/pdf-tools/" className="hover:underline" prefetch={false}>PDF Tools</Link></li>
+              <li><Link href="/base64-converter/" className="hover:underline" prefetch={false}>Base64 Converter</Link></li>
+              <li><Link href="/calculator-studio/" className="hover:underline" prefetch={false}>Calculator Studio</Link></li>
+              <li><Link href="/email-template-editor/" className="hover:underline" prefetch={false}>Email Template Editor</Link></li>
             </ul>
           </div>
 
           <div>
             <h2 className="mb-2 text-base font-semibold">Support</h2>
             <ul className="space-y-1 text-sm">
-              <li><Link href="/support" className="hover:underline" prefetch={false}>Help Center</Link></li>
+              <li><Link href="/support/" className="hover:underline" prefetch={false}>Help Center</Link></li>
               <li><a href="mailto:support@dhebe.com" className="hover:underline">support@dhebe.com</a></li>
               <li><Link href="/sitemap.xml" className="hover:underline" prefetch={false}>Sitemap</Link></li>
             </ul>

@@ -27,8 +27,6 @@ export async function generateMetadata({ params }: ImageToolPageProps): Promise<
     return {};
   }
 
-  const isLegacyRoute = getImageToolPath(tool) !== `/image-tools/${tool.slug}`;
-
   return {
     title: `${tool.label} | Image Studio`,
     description: tool.description,
@@ -47,18 +45,6 @@ export async function generateMetadata({ params }: ImageToolPageProps): Promise<
       title: `${tool.label} | Image Studio`,
       description: tool.description,
     },
-    ...(isLegacyRoute
-      ? {
-          robots: {
-            index: false,
-            follow: true,
-            googleBot: {
-              index: false,
-              follow: true,
-            },
-          },
-        }
-      : {}),
   };
 }
 
@@ -71,8 +57,10 @@ export default async function ImageToolPage({ params }: ImageToolPageProps) {
   }
 
   const targetPath = getImageToolPath(tool);
+  const normalizedTargetPath = targetPath.endsWith('/') ? targetPath : `${targetPath}/`;
+
   if (targetPath !== `/image-tools/${tool.slug}`) {
-    return <LegacyRedirectPage href={targetPath} label={tool.label} />;
+    return <LegacyRedirectPage href={normalizedTargetPath} label={tool.label} />;
   }
 
   const structuredData = {

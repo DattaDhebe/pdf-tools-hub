@@ -14,7 +14,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'PDF to WORD',
     description: 'Convert PDF to editable Word online.',
     longDescription: 'Extract text and generate Word-readable output.',
-    path: '/pdf-to-word',
+    path: '/pdf-to-word/',
   },
   {
     slug: 'jpg-to-pdf',
@@ -22,7 +22,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'JPG to PDF',
     description: 'Convert JPG images into PDF.',
     longDescription: 'Combine one or more JPG files into a PDF.',
-    path: '/jpg-to-pdf',
+    path: '/jpg-to-pdf/',
   },
   {
     slug: 'pdf-to-jpg',
@@ -30,7 +30,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'PDF to JPG',
     description: 'Convert PDF pages to JPG.',
     longDescription: 'Export each page as an image file.',
-    path: '/pdf-to-jpg',
+    path: '/pdf-to-jpg/',
   },
   {
     slug: 'merge-pdf',
@@ -38,7 +38,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'Merge PDF',
     description: 'Combine multiple PDFs into one.',
     longDescription: 'Merge files in order and export a single document.',
-    path: '/merge-pdf',
+    path: '/merge-pdf/',
   },
   {
     slug: 'compress-pdf',
@@ -46,7 +46,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'Compress PDF',
     description: 'Reduce PDF file size online.',
     longDescription: 'Compress documents using browser-side processing.',
-    path: '/compress-pdf',
+    path: '/compress-pdf/',
   },
   {
     slug: 'word-to-pdf',
@@ -54,7 +54,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'WORD to PDF',
     description: 'Convert Word-style text to PDF.',
     longDescription: 'Paste text content and generate a PDF document.',
-    path: '/word-to-pdf',
+    path: '/word-to-pdf/',
   },
   {
     slug: 'split-pdf',
@@ -62,7 +62,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'Split PDF',
     description: 'Split by page range and export.',
     longDescription: 'Create smaller PDFs from larger source files.',
-    path: '/split-pdf',
+    path: '/split-pdf/',
   },
   {
     slug: 'sign-pdf',
@@ -70,7 +70,7 @@ export const pdfToolPages: PdfToolPageEntry[] = [
     label: 'Sign PDF',
     description: 'Add signature to PDF online.',
     longDescription: 'Place a drawn or typed signature and export a signed PDF.',
-    path: '/sign-pdf',
+    path: '/sign-pdf/',
   },
   {
     slug: 'organize-pdf',

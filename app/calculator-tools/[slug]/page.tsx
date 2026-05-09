@@ -29,17 +29,7 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    ...buildCalculatorToolMetadata(tool),
-    robots: {
-      index: false,
-      follow: true,
-      googleBot: {
-        index: false,
-        follow: true,
-      },
-    },
-  };
+  return buildCalculatorToolMetadata(tool);
 }
 
 export default async function LegacyCalculatorToolPage({
@@ -52,5 +42,7 @@ export default async function LegacyCalculatorToolPage({
     notFound();
   }
 
-  return <LegacyRedirectPage href={tool.path} label={tool.label} />;
+  // Ensure trailing slash for the redirect target
+  const targetPath = tool.path.endsWith('/') ? tool.path : `${tool.path}/`;
+  return <LegacyRedirectPage href={targetPath} label={tool.label} />;
 }

@@ -24,7 +24,7 @@ interface Base64CategoryPage {
 export const base64CategoryPages: Record<Base64CategoryView, Base64CategoryPage> = {
   all: {
     view: 'all',
-    path: '/base64-converter',
+    path: '/base64-converter/',
     seoTitle: 'Base64 Converter - Encode and Decode Base64 Online',
     metaDescription: 'Use this free Base64 converter to encode and decode text, images, URLs, HTML, CSS, PDF, audio, hex, and files online.',
     intro: 'Use our free Base64 converter to encode and decode text, images, URLs, hex, PDF, HTML, CSS, audio, and files online. Fast, simple, and browser-based.',
@@ -44,7 +44,7 @@ export const base64CategoryPages: Record<Base64CategoryView, Base64CategoryPage>
   },
   converter: {
     view: 'converter',
-    path: '/base64-encoder',
+    path: '/base64-encoder/',
     seoTitle: 'Base64 Encoder - Convert Text, Files, Images and PDF to Base64',
     metaDescription: 'Use this free Base64 encoder to convert text, images, URLs, HTML, CSS, PDF, audio, hex, and files to Base64 online.',
     intro: 'Use this Base64 encoder to convert text, files, images, PDF, HTML, CSS, URLs, audio, and hex into Base64 online with fast browser-based processing.',
@@ -62,7 +62,7 @@ export const base64CategoryPages: Record<Base64CategoryView, Base64CategoryPage>
   },
   decoder: {
     view: 'decoder',
-    path: '/base64-decoder',
+    path: '/base64-decoder/',
     seoTitle: 'Base64 Decoder - Convert Base64 to Text, Image, PDF and File',
     metaDescription: 'Use this free Base64 decoder to convert Base64 to text, images, URLs, HTML, CSS, PDF, audio, hex, and files online.',
     intro: 'Use this Base64 decoder to recover text, images, URLs, HTML, CSS, PDF, audio, hex, and files from Base64 online with browser-based tools.',

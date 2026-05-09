@@ -103,7 +103,7 @@ export default function CalculatorToolsDirectoryPage() {
               Open Calculator Studio to switch between all six live calculators from a single workbench.
             </p>
             <Link
-              href="/calculator-studio"
+              href="/calculator-studio/"
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-amber-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-600"
             >
               Open Calculator Studio

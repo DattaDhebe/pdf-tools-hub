@@ -27,9 +27,6 @@ export const metadata: Metadata = {
     'free tools',
     'dhebe studios',
   ],
-  alternates: {
-    canonical: '/',
-  },
   icons: {
     icon: [
       {

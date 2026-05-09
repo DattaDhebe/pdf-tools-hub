@@ -28,23 +28,7 @@ export async function generateMetadata({ params }: PdfToolPageProps): Promise<Me
     return {};
   }
 
-  const isLegacyRoute = getPdfToolPath(tool) !== `/pdf-tools/${tool.slug}`;
-
-  return {
-    ...buildPdfToolMetadata(tool),
-    ...(isLegacyRoute
-      ? {
-          robots: {
-            index: false,
-            follow: true,
-            googleBot: {
-              index: false,
-              follow: true,
-            },
-          },
-        }
-      : {}),
-  };
+  return buildPdfToolMetadata(tool);
 }
 
 export default async function PdfToolPage({ params }: PdfToolPageProps) {
@@ -56,8 +40,10 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
   }
 
   const targetPath = getPdfToolPath(tool);
+  const normalizedTargetPath = targetPath.endsWith('/') ? targetPath : `${targetPath}/`;
+
   if (targetPath !== `/pdf-tools/${tool.slug}`) {
-    return <LegacyRedirectPage href={targetPath} label={tool.label} />;
+    return <LegacyRedirectPage href={normalizedTargetPath} label={tool.label} />;
   }
 
   const structuredData = {

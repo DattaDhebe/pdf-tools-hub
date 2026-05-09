@@ -250,7 +250,7 @@ export const base64ToolPages: Base64ToolPageEntry[] = toolPages.map((tool) => {
 
   return {
     ...tool,
-    path: `/tools/${tool.slug}`,
+    path: `/tools/${tool.slug}/`,
     seoTitle: config.seoTitle,
     metaDescription: config.metaDescription,
     intro: config.intro,

@@ -30,15 +30,8 @@ export async function generateMetadata({
     return {};
   }
 
-  // Use base metadata but set noindex for the redirect source
-  const baseMetadata = buildBase64ToolMetadata(tool);
-  return {
-    ...baseMetadata,
-    robots: {
-      index: false,
-      follow: true,
-    },
-  };
+  // Use base metadata from helper which includes the canonical URL
+  return buildBase64ToolMetadata(tool);
 }
 
 export default async function Base64ToolPage({

@@ -4,9 +4,9 @@ import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { SITE_NAME, SUPPORT_EMAIL, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} - Free Online Tools for Base64, PDF, Calculators & Email`,
+  title: `${SITE_NAME} - Free Online Tools, Studios & Mobile Apps`,
   description:
-    'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, and a professional Email Template Editor. Encode, decode, compress, merge, calculate, and design with privacy-first browser tools.',
+    'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, Email Template Editor, and DhebeVoice app pages. Encode, decode, compress, merge, calculate, design, and access privacy-first product information.',
   keywords: [
     'dhebe studios',
     'free online tools',
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     'pdf tools',
     'calculator tools',
     'email templates',
+    'text reader app',
+    'dhebevoice privacy policy',
     'encoding tools',
     'online utilities',
   ],
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${SITE_NAME} - Professional Tools Suite`,
     description:
-      'Free online tools for Base64 encoding/decoding, PDF manipulation, calculators, and email design. 100% private processing.',
+      'Free online tools for Base64 encoding, PDF workflows, calculators, email design, and DhebeVoice app information with public privacy-policy access.',
     url: siteRoute('/'),
     type: 'website',
     siteName: SITE_NAME,
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${SITE_NAME} - Professional Tools Suite`,
-    description: 'Free online Base64, PDF, calculator, and email tools. No uploads, no tracking.',
+    description: 'Free online tools plus DhebeVoice app information. No uploads, no tracking.',
   },
 };
 
@@ -44,7 +46,7 @@ export default function Home() {
         name: SITE_NAME,
         url: siteRoute('/'),
         description:
-          'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, and a professional Email Template Editor.',
+          'Professional tools suite featuring a Base64 Converter, PDF Studio, Calculator Studio, Email Template Editor, and DhebeVoice app information.',
         potentialAction: {
           '@type': 'SearchAction',
           target: siteRoute('/?q={search_term_string}'),

@@ -23,6 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: siteRoute('/dhebevoice'),
+      lastModified: new Date('2026-05-13'),
+      changeFrequency: 'monthly',
+      priority: 0.78,
+    },
+    {
+      url: siteRoute('/dhebevoice/privacy-policy'),
+      lastModified: new Date('2026-05-13'),
+      changeFrequency: 'monthly',
+      priority: 0.72,
+    },
+    {
       url: siteRoute('/image-studio'),
       lastModified: new Date('2026-05-03'),
       changeFrequency: 'weekly',

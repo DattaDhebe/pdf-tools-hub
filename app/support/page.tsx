@@ -6,14 +6,14 @@ import { SITE_NAME, SUPPORT_EMAIL, siteRoute } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Support',
   description:
-    `Get help for the Base64 Converter, PDF Studio, Calculator Studio, and the Email Template Editor. Learn tool usage, privacy-first processing, and common workflows across all ${SITE_NAME} tools.`,
+    `Get help for the Base64 Converter, PDF Studio, Calculator Studio, Email Template Editor, and DhebeVoice. Learn tool usage, privacy-first processing, and common workflows across all ${SITE_NAME} products.`,
   alternates: {
     canonical: siteRoute('/support'),
   },
   openGraph: {
     title: `Support | ${SITE_NAME}`,
     description:
-      'Support and help page for Base64, PDF, calculator, and email tools, including usage guides, privacy, and contact information.',
+      'Support and help page for Base64, PDF, calculator, email, and DhebeVoice products, including usage guides, privacy, and contact information.',
     url: siteRoute('/support'),
     type: 'website',
   },
@@ -28,7 +28,7 @@ export default function SupportPage() {
         name: `${SITE_NAME} Support`,
         url: siteRoute('/support'),
         description:
-          `Support page for ${SITE_NAME} covering Base64, PDF, and Email tools with privacy and usage guidance.`,
+          `Support page for ${SITE_NAME} covering Base64, PDF, calculator, email, and DhebeVoice products with privacy and usage guidance.`,
         mainEntity: {
           '@type': 'Organization',
           name: SITE_NAME,
@@ -59,7 +59,7 @@ export default function SupportPage() {
             name: 'Which tools are available in DHEBE Studios?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'DHEBE Studios includes a Base64 Converter for encode and decode workflows, PDF tools for compression and editing, calculator tools for high-demand utility pages, and an Email Template Editor for responsive campaign layouts.',
+              text: 'DHEBE Studios includes a Base64 Converter for encode and decode workflows, PDF tools for compression and editing, calculator tools for high-demand utility pages, an Email Template Editor for responsive campaign layouts, and DhebeVoice app pages for Play policy and product information.',
             },
           },
           {

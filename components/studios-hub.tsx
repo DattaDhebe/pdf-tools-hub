@@ -66,6 +66,19 @@ const studios = [
     cta: 'Open Img Studio',
     initials: 'IM',
   },
+  {
+    id: 'dhebevoice',
+    category: 'Mobile Apps',
+    name: 'DhebeVoice',
+    description:
+      'Android text reader app for listening to typed, pasted, shared, and imported text with a public privacy policy ready for Google Play.',
+    href: '/dhebevoice',
+    accent: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-400',
+    dot: 'bg-cyan-500',
+    features: ['Text to speech reading', 'Local text and file import', 'Play policy ready'],
+    cta: 'View App Details',
+    initials: 'DV',
+  },
 ] as const;
 
 export function StudiosHub() {

@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: siteAsset('/logo4-optimized.webp'),
-        alt: 'DHEBE Studios logo',
+        url: siteAsset('/dhebevoice-logo.png'),
+        alt: 'DhebeVoice app logo',
       },
     ],
   },
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: `DhebeVoice Text Reader App | ${SITE_NAME}`,
     description:
       'Android text reader app details and public privacy policy for Google Play submission.',
-    images: [siteAsset('/logo4-optimized.webp')],
+    images: [siteAsset('/dhebevoice-logo.png')],
   },
 };
 
@@ -57,7 +57,7 @@ export default function DhebeVoicePage() {
           url: siteRoute('/'),
         },
         url: siteRoute('/dhebevoice'),
-        image: siteAsset('/logo4-optimized.webp'),
+        image: siteAsset('/dhebevoice-logo.png'),
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -143,10 +143,10 @@ export default function DhebeVoicePage() {
               <div className="rounded-[1.75rem] border bg-[var(--app-card)] p-6 shadow-sm">
                 <div className="rounded-[1.4rem] border p-5 theme-card-soft">
                   <img
-                    src="/logo4-optimized-480.webp"
-                    alt="DHEBE Studios logo"
+                    src="/dhebevoice-logo.png"
+                    alt="DhebeVoice app logo"
                     width={240}
-                    height={160}
+                    height={240}
                     className="h-auto w-full object-contain"
                   />
                 </div>

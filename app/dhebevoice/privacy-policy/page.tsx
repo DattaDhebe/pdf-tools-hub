@@ -4,6 +4,7 @@ import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { SITE_NAME, siteRoute } from '@/lib/site';
 
 const effectiveDate = 'May 13, 2026';
+const DHEBEVOICE_PRIVACY_POLICY_URL = 'https://dhebe.com/dhebevoice/privacy-policy';
 
 export const metadata: Metadata = {
   title: 'DhebeVoice Privacy Policy',
@@ -16,13 +17,13 @@ export const metadata: Metadata = {
     'Google Play privacy policy',
   ],
   alternates: {
-    canonical: siteRoute('/dhebevoice/privacy-policy'),
+    canonical: DHEBEVOICE_PRIVACY_POLICY_URL,
   },
   openGraph: {
     title: `DhebeVoice Privacy Policy | ${SITE_NAME}`,
     description:
       'Public privacy policy page for the DhebeVoice Android app hosted on DHEBE Studios.',
-    url: siteRoute('/dhebevoice/privacy-policy'),
+    url: DHEBEVOICE_PRIVACY_POLICY_URL,
     type: 'article',
   },
   twitter: {
@@ -39,7 +40,7 @@ export default function DhebeVoicePrivacyPolicyPage() {
       {
         '@type': 'WebPage',
         name: 'DhebeVoice Privacy Policy',
-        url: siteRoute('/dhebevoice/privacy-policy'),
+        url: DHEBEVOICE_PRIVACY_POLICY_URL,
         description: 'Public privacy policy for the DhebeVoice Android app.',
       },
       {
@@ -47,7 +48,7 @@ export default function DhebeVoicePrivacyPolicyPage() {
         name: 'DhebeVoice',
         operatingSystem: 'Android',
         applicationCategory: 'UtilitiesApplication',
-        privacyPolicy: siteRoute('/dhebevoice/privacy-policy'),
+        privacyPolicy: DHEBEVOICE_PRIVACY_POLICY_URL,
       },
     ],
   };
@@ -58,7 +59,7 @@ export default function DhebeVoicePrivacyPolicyPage() {
         items={[
           { name: 'Home', item: '/' },
           { name: 'DhebeVoice', item: '/dhebevoice' },
-          { name: 'Privacy Policy', item: '/dhebevoice/privacy-policy' },
+          { name: 'Privacy Policy', item: DHEBEVOICE_PRIVACY_POLICY_URL },
         ]}
       />
       <script

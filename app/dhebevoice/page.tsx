@@ -109,7 +109,7 @@ export default function DhebeVoicePage() {
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
-                    href="/dhebevoice/privacy-policy/"
+                    href="/dhebevoice/privacy-policy"
                     className="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 dark:bg-cyan-500 dark:text-slate-950"
                     prefetch={false}
                   >

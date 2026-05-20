@@ -116,7 +116,7 @@ export default function PdfStudioPage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'PDF Studio', item: '/pdf-studio' },
+          { name: 'PDF Studio', item: '/pdf-studio/' },
         ]}
       />
       <Script

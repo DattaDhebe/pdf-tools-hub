@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.78,
     },
     {
-      url: 'https://dhebe.com/dhebevoice/privacy-policy',
+      url: siteRoute('/dhebevoice/privacy-policy/'),
       lastModified: new Date('2026-05-13'),
       changeFrequency: 'monthly',
       priority: 0.72,

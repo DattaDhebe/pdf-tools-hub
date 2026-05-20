@@ -4,10 +4,30 @@ import { emailTemplateEditorPath } from '@/lib/email-template-page';
 import { SITE_NAME, siteRoute } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: `Email Studio Redirect | ${SITE_NAME}`,
+  title: 'Email Studio Redirect',
   description: 'This legacy email editor route now redirects to the current Email Template Editor page.',
   alternates: {
     canonical: siteRoute(emailTemplateEditorPath),
+  },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
+  openGraph: {
+    title: `Email Studio Redirect | ${SITE_NAME}`,
+    description: 'This legacy email editor route now redirects to the current Email Template Editor page.',
+    url: siteRoute(emailTemplateEditorPath),
+    type: 'website',
+    siteName: SITE_NAME,
+  },
+  twitter: {
+    card: 'summary',
+    title: `Email Studio Redirect | ${SITE_NAME}`,
+    description: 'This legacy email editor route now redirects to the current Email Template Editor page.',
   },
 };
 

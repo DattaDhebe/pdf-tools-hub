@@ -92,7 +92,7 @@ export function EmailTemplateLandingPage() {
                   Jump to live editor
                 </a>
                 <Link
-                  href="/support"
+                  href="/support/"
                   className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-sky-50"
                 >
                   View support

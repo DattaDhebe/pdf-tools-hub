@@ -20,7 +20,7 @@ const studios = [
     name: 'PDF Studio',
     description:
       'Powerful PDF tools for compression, merging, splitting, conversion, and document cleanup.',
-    href: '/pdf-studio',
+    href: '/pdf-studio/',
     accent: 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-400',
     dot: 'bg-purple-500',
     features: ['Merge and split', 'Compress and convert', 'Page extraction'],
@@ -33,7 +33,7 @@ const studios = [
     name: 'Calculator Studio',
     description:
       'Popular everyday and finance calculators for age, BMI, EMI, SIP, GST, and percentage workflows.',
-    href: '/calculator-studio',
+    href: '/calculator-studio/',
     accent: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-400',
     dot: 'bg-emerald-500',
     features: ['Health and age', 'Finance math', 'Percentage tools'],
@@ -46,7 +46,7 @@ const studios = [
     name: 'Base64 Converter',
     description:
       'Encode and decode text, images, URLs, PDF, files, HTML, CSS, audio, and more using Base64.',
-    href: '/base64-converter',
+    href: '/base64-converter/',
     accent: 'bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-400',
     dot: 'bg-orange-500',
     features: ['Text encoding', 'Image conversion', 'File utilities'],
@@ -59,7 +59,7 @@ const studios = [
     name: 'Image Studio',
     description:
       'Professional image tools for compression, resizing, background removal, and format conversion.',
-    href: '/image-studio',
+    href: '/image-studio/',
     accent: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-400',
     dot: 'bg-rose-500',
     features: ['Compress and resize', 'Background removal', 'Format conversion'],
@@ -72,13 +72,28 @@ const studios = [
     name: 'DhebeVoice',
     description:
       'Android text reader app for listening to typed, pasted, shared, and imported text with a public privacy policy ready for Google Play.',
-    href: '/dhebevoice',
+    href: '/dhebevoice/',
     accent: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-400',
     dot: 'bg-cyan-500',
     features: ['Text to speech reading', 'Local text and file import', 'Play policy ready'],
     cta: 'View App Details',
     initials: 'DV',
   },
+] as const;
+
+const featuredPages = [
+  { href: '/tools/text-to-base64/', label: 'Text to Base64' },
+  { href: '/tools/base64-to-url/', label: 'Base64 to URL' },
+  { href: '/pdf-to-word/', label: 'PDF to Word' },
+  { href: '/compress-pdf/', label: 'Compress PDF' },
+  { href: '/age-calculator/', label: 'Age Calculator' },
+  { href: '/emi-calculator/', label: 'EMI Calculator' },
+  { href: '/tools/circle/', label: 'Circle Calculator' },
+  { href: '/image-tools/image-compressor/', label: 'Image Compressor' },
+  { href: '/image-tools/background-remover/', label: 'Background Remover' },
+  { href: '/email-template-editor/', label: 'Email Template Editor' },
+  { href: '/dhebevoice/privacy-policy/', label: 'DhebeVoice Privacy Policy' },
+  { href: '/support/', label: 'Support Center' },
 ] as const;
 
 export function StudiosHub() {
@@ -226,6 +241,33 @@ export function StudiosHub() {
             </Link>
           ))}
         </div>
+
+        <section className="mb-16 rounded-[2rem] border p-6 theme-panel sm:p-8">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-600">
+                Popular Pages
+              </p>
+              <h3 className="mt-2 text-2xl font-bold theme-title">Direct links to real tool pages</h3>
+            </div>
+            <p className="max-w-2xl text-sm leading-6 theme-muted">
+              These links point straight to canonical tool pages, which makes the homepage more useful for visitors and gives search engines cleaner crawl paths into your most important URLs.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {featuredPages.map((page) => (
+              <Link
+                key={page.href}
+                href={page.href}
+                className="theme-card-soft rounded-[1.4rem] border px-4 py-4 text-sm font-semibold theme-title transition hover:-translate-y-1 hover:border-cyan-300"
+                prefetch={false}
+              >
+                {page.label}
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <div className="mb-16 rounded-2xl border p-12 theme-panel">
           <h3 className="mb-8 text-center text-2xl font-bold theme-title">Why Choose DHEBE Studios?</h3>

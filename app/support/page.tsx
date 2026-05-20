@@ -80,7 +80,7 @@ export default function SupportPage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Support', item: '/support' },
+          { name: 'Support', item: '/support/' },
         ]}
       />
       <SupportClient structuredData={structuredData} />

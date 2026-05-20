@@ -306,7 +306,7 @@ function WorkbenchRail({
 
         <p className="mt-3 text-xs leading-5 theme-muted-2">{footerText}</p>
         <Link
-          href="/support"
+          href="/support/"
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
         >
           Support and help center

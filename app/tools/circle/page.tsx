@@ -34,7 +34,7 @@ export default function CirclePage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Calculator Studio', item: '/calculator-studio' },
+          { name: 'Calculator Studio', item: '/calculator-studio/' },
           { name: 'Circle Calculator', item: '/tools/circle/' },
         ]}
       />

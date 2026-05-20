@@ -45,7 +45,7 @@ export function CalculatorLandingPage({ tool }: CalculatorLandingPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Calculator Studio', item: '/calculator-studio' },
+          { name: 'Calculator Studio', item: '/calculator-studio/' },
           { name: tool.label, item: tool.path },
         ]}
       />
@@ -71,13 +71,13 @@ export function CalculatorLandingPage({ tool }: CalculatorLandingPageProps) {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/calculator-studio"
+                href="/calculator-studio/"
                 className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Open Calculator Studio
               </Link>
               <Link
-                href="/calculator-tools"
+                href="/calculator-tools/"
                 className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-emerald-50"
               >
                 Browse all calculator pages

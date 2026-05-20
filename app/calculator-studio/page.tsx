@@ -104,7 +104,7 @@ export default function CalculatorStudioPage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Calculator Studio', item: '/calculator-studio' },
+          { name: 'Calculator Studio', item: '/calculator-studio/' },
         ]}
       />
       <Script

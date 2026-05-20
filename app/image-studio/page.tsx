@@ -98,7 +98,7 @@ export default function ImageStudioPage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Image Studio', item: '/image-studio' },
+          { name: 'Image Studio', item: '/image-studio/' },
         ]}
       />
       <Script

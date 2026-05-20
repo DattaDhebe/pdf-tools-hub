@@ -285,7 +285,7 @@ function CalculatorRail({
           {footerText}
         </p>
         <Link
-          href="/calculator-tools"
+          href="/calculator-tools/"
           className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80 ${compactOnMobile ? 'hidden sm:inline-flex' : ''}`}
         >
           Browse all calculator pages
@@ -382,7 +382,7 @@ function CalculatorPagesRail({
           Dedicated calculator pages help users open the exact tool they searched for in one click.
         </p>
         <Link
-          href="/support"
+          href="/support/"
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
         >
           Support and help center

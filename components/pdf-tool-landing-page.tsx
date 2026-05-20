@@ -53,7 +53,7 @@ export function PdfToolLandingPage({ tool, seoPage }: PdfToolLandingPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'PDF Studio', item: '/pdf-studio' },
+          { name: 'PDF Studio', item: '/pdf-studio/' },
           { name: tool.label, item: getPdfToolPath(tool) },
         ]}
       />
@@ -132,7 +132,7 @@ export function PdfToolLandingPage({ tool, seoPage }: PdfToolLandingPageProps) {
                 </h2>
               </div>
               <Link
-                href="/pdf-tools"
+                href="/pdf-tools/"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
               >
                 Browse all PDF tools

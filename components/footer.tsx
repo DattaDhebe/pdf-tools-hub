@@ -32,7 +32,7 @@ export function Footer() {
             <h2 className="mb-2 text-base font-semibold">Support</h2>
             <ul className="space-y-1 text-sm">
               <li><Link href="/support/" className="hover:underline" prefetch={false}>Help Center</Link></li>
-              <li><Link href="/dhebevoice/privacy-policy" className="hover:underline" prefetch={false}>DhebeVoice Privacy Policy</Link></li>
+              <li><Link href="/dhebevoice/privacy-policy/" className="hover:underline" prefetch={false}>DhebeVoice Privacy Policy</Link></li>
               <li><a href="mailto:support@dhebe.com" className="hover:underline">support@dhebe.com</a></li>
               <li><Link href="/sitemap.xml" className="hover:underline" prefetch={false}>Sitemap</Link></li>
             </ul>

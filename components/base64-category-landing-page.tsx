@@ -103,13 +103,13 @@ export function Base64CategoryLandingPage({ view }: Base64CategoryLandingPagePro
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/base64-converter"
+                href="/base64-converter/"
                 className="inline-flex items-center rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Browse all Base64 tools
               </Link>
               <Link
-                href="/support"
+                href="/support/"
                 className="inline-flex items-center rounded-full border border-[var(--app-card-border)] px-4 py-2 text-sm font-semibold theme-title transition hover:bg-orange-50"
               >
                 View support

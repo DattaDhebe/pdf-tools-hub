@@ -57,7 +57,7 @@ export function Base64ToolLandingPage({ tool }: Base64ToolLandingPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Base64 Converter', item: '/base64-converter' },
+          { name: 'Base64 Converter', item: '/base64-converter/' },
           { name: tool.label, item: tool.path },
         ]}
       />
@@ -139,7 +139,7 @@ export function Base64ToolLandingPage({ tool }: Base64ToolLandingPageProps) {
                 </h2>
               </div>
               <Link
-                href="/base64-converter"
+                href="/base64-converter/"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
               >
                 Browse all Base64 tools

@@ -27,16 +27,29 @@ export async function generateMetadata({ params }: ImageToolPageProps): Promise<
     return {};
   }
 
+  const targetPath = getImageToolPath(tool);
+  const isLegacyPath = targetPath !== `/image-tools/${tool.slug}`;
+
   return {
     title: `${tool.label} | Image Studio`,
     description: tool.description,
+    robots: isLegacyPath
+      ? {
+          index: false,
+          follow: true,
+          googleBot: {
+            index: false,
+            follow: true,
+          },
+        }
+      : undefined,
     alternates: {
-      canonical: siteRoute(getImageToolPath(tool)),
+      canonical: siteRoute(targetPath),
     },
     openGraph: {
       title: `${tool.label} | Image Studio`,
       description: tool.description,
-      url: siteRoute(getImageToolPath(tool)),
+      url: siteRoute(targetPath),
       type: 'website',
       siteName: SITE_NAME,
     },
@@ -87,7 +100,7 @@ export default async function ImageToolPage({ params }: ImageToolPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'Image Studio', item: '/image-studio' },
+          { name: 'Image Studio', item: '/image-studio/' },
           { name: tool.label, item: targetPath },
         ]}
       />

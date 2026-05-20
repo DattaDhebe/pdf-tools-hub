@@ -29,7 +29,17 @@ export async function generateMetadata({
     return {};
   }
 
-  return buildCalculatorToolMetadata(tool);
+  return {
+    ...buildCalculatorToolMetadata(tool),
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
+    },
+  };
 }
 
 export default async function LegacyCalculatorToolPage({

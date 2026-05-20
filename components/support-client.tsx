@@ -44,14 +44,14 @@ export function SupportClient({ structuredData }: SupportClientProps) {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/base64-converter"
+                href="/base64-converter/"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
                 prefetch={false}
               >
                 Open Base64 Converter
               </Link>
               <Link
-                href="/pdf-studio"
+                href="/pdf-studio/"
                 className="theme-card inline-flex items-center rounded-2xl border px-4 py-3 text-sm font-semibold text-[var(--app-title)] transition hover:scale-[1.01]"
                 prefetch={false}
               >

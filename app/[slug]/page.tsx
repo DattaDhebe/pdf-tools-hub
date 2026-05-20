@@ -30,8 +30,17 @@ export async function generateMetadata({
     return {};
   }
 
-  // Use base metadata from helper which includes the canonical URL
-  return buildBase64ToolMetadata(tool);
+  return {
+    ...buildBase64ToolMetadata(tool),
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
+    },
+  };
 }
 
 export default async function Base64ToolPage({

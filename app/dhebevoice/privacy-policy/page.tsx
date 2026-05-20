@@ -4,7 +4,7 @@ import { BreadcrumbSchema } from '@/components/breadcrumb-schema';
 import { SITE_NAME, siteRoute } from '@/lib/site';
 
 const effectiveDate = 'May 13, 2026';
-const DHEBEVOICE_PRIVACY_POLICY_URL = 'https://dhebe.com/dhebevoice/privacy-policy';
+const DHEBEVOICE_PRIVACY_POLICY_URL = siteRoute('/dhebevoice/privacy-policy/');
 
 export const metadata: Metadata = {
   title: 'DhebeVoice Privacy Policy',
@@ -58,7 +58,7 @@ export default function DhebeVoicePrivacyPolicyPage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'DhebeVoice', item: '/dhebevoice' },
+          { name: 'DhebeVoice', item: '/dhebevoice/' },
           { name: 'Privacy Policy', item: DHEBEVOICE_PRIVACY_POLICY_URL },
         ]}
       />

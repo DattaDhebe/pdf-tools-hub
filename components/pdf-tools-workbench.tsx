@@ -315,7 +315,7 @@ function PdfRail({
 
         <p className={`mt-3 text-xs leading-5 theme-muted-2 ${compactOnMobile ? 'hidden sm:block' : ''}`}>{footerText}</p>
         <Link
-          href="/pdf-tools"
+          href="/pdf-tools/"
           className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80 ${compactOnMobile ? 'sm:inline-flex hidden' : ''}`}
         >
           Browse all PDF pages
@@ -416,7 +416,7 @@ function PdfPagesRail({
           These dedicated pages make it easy to open specific PDF workflows directly from the studio.
         </p>
         <Link
-          href="/support"
+          href="/support/"
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--app-title)] transition hover:opacity-80"
         >
           Support and help center

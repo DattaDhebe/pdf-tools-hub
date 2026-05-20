@@ -28,7 +28,22 @@ export async function generateMetadata({ params }: PdfToolPageProps): Promise<Me
     return {};
   }
 
-  return buildPdfToolMetadata(tool);
+  const targetPath = getPdfToolPath(tool);
+  const isLegacyPath = targetPath !== `/pdf-tools/${tool.slug}`;
+
+  return {
+    ...buildPdfToolMetadata(tool),
+    robots: isLegacyPath
+      ? {
+          index: false,
+          follow: true,
+          googleBot: {
+            index: false,
+            follow: true,
+          },
+        }
+      : undefined,
+  };
 }
 
 export default async function PdfToolPage({ params }: PdfToolPageProps) {
@@ -70,7 +85,7 @@ export default async function PdfToolPage({ params }: PdfToolPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', item: '/' },
-          { name: 'PDF Studio', item: '/pdf-studio' },
+          { name: 'PDF Studio', item: '/pdf-studio/' },
           { name: tool.label, item: targetPath },
         ]}
       />
